@@ -1,0 +1,3571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRMJEEE Practice Portal – SRM Institute of Science & Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN TOKENS & RESET
+   ============================================================ */
+:root {
+  --primary: #1a4fa0;
+  --primary-dark: #0f3272;
+  --primary-light: #2563c5;
+  --accent: #e8a020;
+  --accent-dark: #c07010;
+  --success: #15803d;
+  --success-bg: #dcfce7;
+  --danger: #b91c1c;
+  --danger-bg: #fee2e2;
+  --warning: #854d0e;
+  --warning-bg: #fef9c3;
+  --purple: #7c3aed;
+  --purple-bg: #ede9fe;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --white: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.10), 0 2px 6px rgba(0,0,0,.06);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,.12), 0 4px 16px rgba(0,0,0,.08);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,.15);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --font: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+  --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+
+  /* Palette status colors */
+  --q-not-visited: #cbd5e1;
+  --q-answered: #15803d;
+  --q-not-answered: #b91c1c;
+  --q-marked: #7c3aed;
+  --q-marked-answered: #0369a1;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--gray-100);
+  color: var(--gray-800);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font); cursor: pointer; border: none; outline: none; }
+input, select, textarea { font-family: var(--font); }
+
+/* ============================================================
+   PAGES SYSTEM
+   ============================================================ */
+.page { display: none; min-height: 100vh; animation: fadeIn 0.3s ease; }
+.page.active { display: flex; flex-direction: column; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ============================================================
+   GLOBAL HEADER / NAV
+   ============================================================ */
+.site-header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.header-logo .logo-badge {
+  background: var(--accent);
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: .75rem;
+  padding: .2rem .5rem;
+  border-radius: var(--radius-sm);
+  letter-spacing: .05em;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: .82rem;
+}
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: rgba(255,255,255,.85);
+}
+.header-avatar {
+  width: 32px; height: 32px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: .8rem;
+}
+.btn-logout {
+  background: rgba(255,255,255,.1);
+  color: white;
+  padding: .35rem .85rem;
+  border-radius: var(--radius-sm);
+  font-size: .8rem;
+  transition: background var(--transition);
+}
+.btn-logout:hover { background: rgba(255,255,255,.2); }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: .65rem 1.4rem;
+  border-radius: var(--radius-sm);
+  font-size: .875rem;
+  font-weight: 600;
+  transition: all var(--transition);
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+.btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-primary:active { transform: none; }
+.btn-accent {
+  background: var(--accent);
+  color: var(--primary-dark);
+}
+.btn-accent:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+}
+.btn-outline:hover { background: var(--primary); color: white; }
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+.btn-danger:hover { background: #991b1b; }
+.btn-ghost {
+  background: transparent;
+  color: var(--gray-600);
+  padding: .4rem .8rem;
+}
+.btn-ghost:hover { background: var(--gray-100); color: var(--gray-800); }
+.btn-sm { padding: .4rem .9rem; font-size: .8rem; }
+.btn-lg { padding: .85rem 2rem; font-size: 1rem; }
+.btn-full { width: 100%; }
+.btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+}
+.card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-body { padding: 1.5rem; }
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+.card-subtitle {
+  font-size: .8rem;
+  color: var(--gray-500);
+  margin-top: .15rem;
+}
+
+/* ============================================================
+   FORM ELEMENTS
+   ============================================================ */
+.form-group { margin-bottom: 1.25rem; }
+.form-label {
+  display: block;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: .45rem;
+  letter-spacing: .01em;
+}
+.form-control {
+  width: 100%;
+  padding: .7rem 1rem;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  font-size: .9rem;
+  color: var(--gray-800);
+  transition: border var(--transition), box-shadow var(--transition);
+  background: white;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,79,160,.1);
+}
+.form-control::placeholder { color: var(--gray-400); }
+
+/* ============================================================
+   TOAST NOTIFICATIONS
+   ============================================================ */
+#toast-container {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  pointer-events: none;
+}
+.toast {
+  background: var(--gray-900);
+  color: white;
+  padding: .75rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: .85rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  animation: slideIn .3s ease, fadeOut .3s ease 2.7s forwards;
+  pointer-events: all;
+  max-width: 340px;
+}
+.toast.success { border-left: 4px solid #22c55e; }
+.toast.error { border-left: 4px solid #ef4444; }
+.toast.warning { border-left: 4px solid var(--accent); }
+.toast.info { border-left: 4px solid #60a5fa; }
+@keyframes slideIn { from { opacity:0; transform:translateX(20px); } to { opacity:1; transform:none; } }
+@keyframes fadeOut { to { opacity:0; transform:translateX(20px); } }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 8000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+  animation: fadeIn .2s ease;
+}
+.modal-overlay.hidden { display: none; }
+.modal {
+  background: white;
+  border-radius: var(--radius-xl);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-xl);
+  animation: modalIn .25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modalIn { from { opacity:0; transform:scale(.92); } to { opacity:1; transform:none; } }
+.modal-header {
+  padding: 1.5rem 1.75rem;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-title { font-size: 1.1rem; font-weight: 700; }
+.modal-body { padding: 1.5rem 1.75rem; }
+.modal-footer {
+  padding: 1.25rem 1.75rem;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  gap: .75rem;
+  justify-content: flex-end;
+}
+.modal-close {
+  background: var(--gray-100);
+  border: none;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.modal-close:hover { background: var(--gray-200); }
+
+/* ============================================================
+   BADGE / CHIP
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.badge-primary { background: #dbeafe; color: var(--primary); }
+.badge-success { background: var(--success-bg); color: var(--success); }
+.badge-danger { background: var(--danger-bg); color: var(--danger); }
+.badge-warning { background: var(--warning-bg); color: var(--warning); }
+.badge-purple { background: var(--purple-bg); color: var(--purple); }
+.badge-gray { background: var(--gray-100); color: var(--gray-600); }
+
+/* ============================================================
+   LOADING SCREEN
+   ============================================================ */
+#loading-screen {
+  position: fixed; inset: 0;
+  background: var(--primary-dark);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: opacity .4s ease;
+}
+#loading-screen.hidden { opacity: 0; pointer-events: none; }
+.loading-logo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  margin-bottom: .5rem;
+}
+.loading-logo span { color: var(--accent); }
+.loading-subtitle {
+  font-size: .9rem;
+  color: rgba(255,255,255,.6);
+  margin-bottom: 2.5rem;
+  letter-spacing: .05em;
+}
+.loading-bar-wrap {
+  width: 220px;
+  height: 4px;
+  background: rgba(255,255,255,.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.loading-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  animation: loadBar 1.8s ease-in-out forwards;
+}
+@keyframes loadBar { 0%{width:0} 60%{width:70%} 80%{width:85%} 100%{width:100%} }
+.loading-text {
+  margin-top: 1rem;
+  font-size: .78rem;
+  color: rgba(255,255,255,.5);
+  font-family: var(--mono);
+}
+
+/* ============================================================
+   PAGE 1: LOGIN
+   ============================================================ */
+#page-login {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, #1e6bd6 100%);
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+.login-container {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+  max-width: 960px;
+}
+.login-brand h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.login-brand h1 span { color: var(--accent); }
+.login-brand p {
+  color: rgba(255,255,255,.65);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 400px;
+}
+.login-features {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.login-feature {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  color: rgba(255,255,255,.8);
+  font-size: .88rem;
+}
+.login-feature-icon {
+  width: 28px; height: 28px;
+  background: rgba(255,255,255,.1);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+.login-card {
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: 2.5rem;
+}
+.login-card-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.login-card-header .logo-top {
+  background: var(--primary);
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: .6rem 1.2rem;
+  border-radius: var(--radius-md);
+  display: inline-block;
+  margin-bottom: 1rem;
+  letter-spacing: .05em;
+}
+.login-card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+.login-card-header p {
+  color: var(--gray-500);
+  font-size: .82rem;
+  margin-top: .3rem;
+}
+.login-divider {
+  text-align: center;
+  color: var(--gray-400);
+  font-size: .75rem;
+  margin: 1rem 0;
+  position: relative;
+}
+.login-divider::before, .login-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 38%;
+  height: 1px;
+  background: var(--gray-200);
+}
+.login-divider::before { left: 0; }
+.login-divider::after { right: 0; }
+.demo-creds {
+  background: var(--gray-50);
+  border: 1px dashed var(--gray-300);
+  border-radius: var(--radius-sm);
+  padding: .85rem 1rem;
+  font-size: .78rem;
+  color: var(--gray-600);
+  margin-top: 1rem;
+}
+.demo-creds strong { color: var(--primary); font-family: var(--mono); }
+.login-instructions {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gray-100);
+}
+.login-instructions h3 {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--gray-700);
+  margin-bottom: .75rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.login-instructions ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.login-instructions li {
+  font-size: .78rem;
+  color: var(--gray-500);
+  display: flex;
+  align-items: flex-start;
+  gap: .45rem;
+}
+.login-instructions li::before {
+  content: '•';
+  color: var(--primary);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+/* ============================================================
+   PAGE 2: DASHBOARD
+   ============================================================ */
+#page-dashboard { background: var(--gray-100); }
+.dashboard-main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+.dash-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+.profile-card {
+  background: var(--primary-dark);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.profile-card::before {
+  content: '';
+  position: absolute;
+  right: -30px; top: -40px;
+  width: 140px; height: 140px;
+  background: rgba(255,255,255,.06);
+  border-radius: 50%;
+}
+.profile-card::after {
+  content: '';
+  position: absolute;
+  right: 20px; bottom: -60px;
+  width: 180px; height: 180px;
+  background: rgba(255,255,255,.04);
+  border-radius: 50%;
+}
+.profile-avatar {
+  width: 60px; height: 60px;
+  background: var(--accent);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  position: relative; z-index: 1;
+}
+.profile-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: .2rem;
+  position: relative; z-index: 1;
+}
+.profile-id {
+  font-size: .78rem;
+  color: rgba(255,255,255,.55);
+  font-family: var(--mono);
+  margin-bottom: 1.25rem;
+  position: relative; z-index: 1;
+}
+.profile-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+  position: relative; z-index: 1;
+}
+.profile-stat {
+  background: rgba(255,255,255,.1);
+  border-radius: var(--radius-md);
+  padding: .75rem;
+}
+.profile-stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+}
+.profile-stat-label {
+  font-size: .7rem;
+  color: rgba(255,255,255,.6);
+  margin-top: .2rem;
+}
+.dash-section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.test-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--gray-200);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-bottom: .75rem;
+}
+.test-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+.test-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.test-icon.physics { background: #dbeafe; }
+.test-icon.full { background: #ede9fe; }
+.test-icon.mini { background: #dcfce7; }
+.test-meta { flex: 1; }
+.test-name { font-weight: 700; font-size: .95rem; color: var(--gray-800); }
+.test-info { font-size: .78rem; color: var(--gray-500); margin-top: .15rem; }
+.test-action { flex-shrink: 0; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.stat-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  border: 1px solid var(--gray-200);
+}
+.stat-card-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+.stat-card-label {
+  font-size: .75rem;
+  color: var(--gray-500);
+  margin-top: .2rem;
+}
+.stat-card-trend {
+  font-size: .72rem;
+  color: var(--success);
+  margin-top: .3rem;
+}
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .85rem;
+}
+.history-table th {
+  text-align: left;
+  padding: .75rem 1rem;
+  background: var(--gray-50);
+  color: var(--gray-600);
+  font-weight: 600;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  border-bottom: 1px solid var(--gray-200);
+}
+.history-table td {
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700);
+}
+.history-table tr:last-child td { border-bottom: none; }
+.history-table tr:hover td { background: var(--gray-50); }
+.score-bar-wrap { background: var(--gray-200); border-radius: 999px; height: 6px; margin-top: .3rem; }
+.score-bar { background: var(--primary); height: 100%; border-radius: 999px; }
+
+/* ============================================================
+   PAGE 3: INSTRUCTIONS
+   ============================================================ */
+#page-instructions { background: var(--gray-100); }
+.instructions-main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+}
+.instructions-card {
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.instructions-header {
+  background: var(--primary-dark);
+  color: white;
+  padding: 2rem 2.5rem;
+}
+.instructions-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: .35rem;
+}
+.instructions-header p { color: rgba(255,255,255,.65); font-size: .88rem; }
+.instructions-body { padding: 2rem 2.5rem; }
+.instruction-section {
+  margin-bottom: 1.75rem;
+}
+.instruction-section h2 {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: .75rem;
+  padding-bottom: .5rem;
+  border-bottom: 2px solid var(--gray-100);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.instruction-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+}
+.instruction-list li {
+  display: flex;
+  gap: .75rem;
+  align-items: flex-start;
+  font-size: .87rem;
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+.instruction-list li .num {
+  background: var(--primary);
+  color: white;
+  font-size: .7rem;
+  font-weight: 700;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: .1rem;
+}
+.marking-scheme {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.marking-item {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+}
+.marking-item.correct { border-color: #86efac; background: #f0fdf4; }
+.marking-item.wrong { border-color: #fca5a5; background: #fef2f2; }
+.marking-item.unmarked { border-color: var(--gray-200); background: var(--gray-50); }
+.marking-item-value { font-size: 1.5rem; font-weight: 800; }
+.marking-item.correct .marking-item-value { color: var(--success); }
+.marking-item.wrong .marking-item-value { color: var(--danger); }
+.marking-item.unmarked .marking-item-value { color: var(--gray-500); }
+.marking-item-label { font-size: .78rem; color: var(--gray-600); margin-top: .2rem; }
+.palette-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: .75rem;
+}
+.palette-legend-item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .8rem;
+  color: var(--gray-600);
+}
+.legend-dot {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem;
+  font-weight: 700;
+  color: white;
+}
+.legend-dot.not-visited { background: var(--q-not-visited); color: var(--gray-600); }
+.legend-dot.answered { background: var(--q-answered); }
+.legend-dot.not-answered { background: var(--q-not-answered); }
+.legend-dot.marked { background: var(--q-marked); }
+.legend-dot.marked-answered { background: var(--q-marked-answered); }
+.instructions-footer {
+  padding: 1.5rem 2.5rem;
+  border-top: 1px solid var(--gray-100);
+  background: var(--gray-50);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.agreement-check {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  cursor: pointer;
+}
+.agreement-check input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
+.agreement-check span { font-size: .87rem; color: var(--gray-700); font-weight: 500; }
+
+/* ============================================================
+   PAGE 4: EXAM
+   ============================================================ */
+#page-exam {
+  background: var(--gray-100);
+  flex-direction: column;
+}
+.exam-topbar {
+  background: var(--primary-dark);
+  color: white;
+  padding: 0 1.5rem;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.exam-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: .82rem;
+}
+.exam-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.exam-timer {
+  background: #fff3cd;
+  color: #854d0e;
+  padding: .35rem 1rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  min-width: 85px;
+  text-align: center;
+  transition: background var(--transition), color var(--transition);
+}
+.exam-timer.danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+  animation: timerPulse 1s ease infinite;
+}
+@keyframes timerPulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+.exam-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.exam-main-panel {
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.exam-subject-tabs {
+  display: flex;
+  gap: 0;
+  background: white;
+  border-radius: var(--radius-md);
+  padding: .3rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  overflow-x: auto;
+}
+.subject-tab {
+  flex: 1;
+  padding: .5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--gray-500);
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.subject-tab.active {
+  background: var(--primary);
+  color: white;
+}
+.subject-tab:hover:not(.active) { background: var(--gray-100); color: var(--gray-700); }
+.question-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  flex: 1;
+}
+.question-card-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.question-number-badge {
+  background: var(--primary);
+  color: white;
+  font-size: .78rem;
+  font-weight: 700;
+  padding: .25rem .75rem;
+  border-radius: var(--radius-sm);
+}
+.question-meta {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+}
+.question-body {
+  padding: 1.5rem;
+}
+.question-text {
+  font-size: .97rem;
+  line-height: 1.75;
+  color: var(--gray-800);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .85rem 1.25rem;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+}
+.option-item:hover {
+  border-color: var(--primary-light);
+  background: #f0f6ff;
+}
+.option-item.selected {
+  border-color: var(--primary);
+  background: #dbeafe;
+}
+.option-label {
+  width: 28px; height: 28px;
+  border: 2px solid var(--gray-300);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--gray-500);
+  flex-shrink: 0;
+  transition: all var(--transition);
+}
+.option-item.selected .option-label {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+.option-text {
+  font-size: .9rem;
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+.exam-actions {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+.exam-actions-left, .exam-actions-right { display: flex; gap: .6rem; flex-wrap: wrap; }
+/* ---- PALETTE ---- */
+.exam-side-panel {
+  background: white;
+  border-left: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.side-panel-header {
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--gray-50);
+}
+.candidate-info { font-size: .78rem; }
+.candidate-info .name { font-weight: 700; color: var(--gray-800); font-size: .85rem; }
+.candidate-info .id { color: var(--gray-500); font-family: var(--mono); margin-top: .1rem; }
+.palette-section { padding: .75rem 1rem; border-bottom: 1px solid var(--gray-200); }
+.palette-legend-mini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .35rem;
+  margin-bottom: .75rem;
+}
+.palette-legend-mini-item {
+  display: flex; align-items: center; gap: .4rem;
+  font-size: .68rem; color: var(--gray-600);
+}
+.palette-dot-mini {
+  width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0;
+}
+.palette-dot-mini.nv { background: var(--q-not-visited); }
+.palette-dot-mini.ans { background: var(--q-answered); }
+.palette-dot-mini.na { background: var(--q-not-answered); }
+.palette-dot-mini.mr { background: var(--q-marked); }
+.palette-grid { display: flex; flex-wrap: wrap; gap: .4rem; padding: .75rem 1rem; overflow-y: auto; flex: 1; align-content: flex-start; }
+.palette-btn {
+  width: 34px; height: 34px;
+  border-radius: 6px;
+  font-size: .75rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all var(--transition);
+  position: relative;
+}
+.palette-btn:hover { transform: scale(1.1); }
+.palette-btn.not-visited { background: var(--q-not-visited); color: var(--gray-700); }
+.palette-btn.answered { background: var(--q-answered); color: white; }
+.palette-btn.not-answered { background: var(--q-not-answered); color: white; }
+.palette-btn.marked { background: var(--q-marked); color: white; }
+.palette-btn.marked-answered { background: var(--q-marked-answered); color: white; }
+.palette-btn.current { box-shadow: 0 0 0 3px var(--accent); }
+.palette-summary {
+  padding: .75rem 1rem;
+  border-top: 1px solid var(--gray-200);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .4rem;
+}
+.ps-item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .72rem;
+  color: var(--gray-600);
+}
+.ps-count {
+  font-weight: 700;
+  font-size: .85rem;
+  color: var(--gray-800);
+}
+
+/* ============================================================
+   PAGE 5: RESULT
+   ============================================================ */
+#page-result { background: var(--gray-100); }
+.result-main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+.result-hero {
+  background: var(--primary-dark);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.result-hero::before {
+  content: '';
+  position: absolute;
+  right: -50px; top: -50px;
+  width: 300px; height: 300px;
+  background: rgba(255,255,255,.04);
+  border-radius: 50%;
+}
+.result-score-ring {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.result-score-ring canvas { display: block; }
+.score-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+.score-center .big { font-size: 2rem; font-weight: 800; color: var(--accent); }
+.score-center .sub { font-size: .72rem; color: rgba(255,255,255,.6); }
+.result-hero-info { position: relative; z-index: 1; }
+.result-hero-info h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: .5rem; }
+.result-hero-info p { color: rgba(255,255,255,.65); font-size: .9rem; margin-bottom: 1.25rem; }
+.result-hero-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.rhs {
+  text-align: center;
+}
+.rhs-value { font-size: 1.75rem; font-weight: 800; }
+.rhs-label { font-size: .72rem; color: rgba(255,255,255,.55); }
+.rhs.correct .rhs-value { color: #4ade80; }
+.rhs.wrong .rhs-value { color: #f87171; }
+.rhs.skip .rhs-value { color: #94a3b8; }
+.result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.subject-result-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200);
+  padding: 1.25rem 1.5rem;
+}
+.src-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.src-title { font-weight: 700; font-size: .95rem; }
+.src-score { font-size: 1.25rem; font-weight: 800; color: var(--primary); }
+.src-bar { height: 8px; background: var(--gray-200); border-radius: 999px; overflow: hidden; margin-bottom: .75rem; }
+.src-bar-fill { height: 100%; border-radius: 999px; background: var(--primary); transition: width 1s ease; }
+.src-details { display: flex; gap: 1.25rem; }
+.src-detail { font-size: .78rem; color: var(--gray-500); }
+.src-detail strong { color: var(--gray-800); }
+.rank-card {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.rank-card::before {
+  content: '🏆';
+  position: absolute;
+  font-size: 8rem;
+  opacity: .08;
+  right: -1rem;
+  top: -1rem;
+}
+.rank-card h2 { font-size: 1rem; margin-bottom: .5rem; opacity: .8; }
+.rank-value { font-size: 3.5rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: .25rem; }
+.rank-context { font-size: .8rem; opacity: .65; }
+.analysis-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--gray-200); }
+
+/* ============================================================
+   PAGE 6: ADMIN
+   ============================================================ */
+#page-admin { background: var(--gray-100); }
+.admin-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  flex: 1;
+  min-height: 0;
+}
+.admin-sidebar {
+  background: white;
+  border-right: 1px solid var(--gray-200);
+  padding: 1.5rem 0;
+}
+.admin-sidebar-title {
+  padding: 0 1.25rem 1rem;
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--gray-400);
+}
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .7rem 1.25rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: .87rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+.admin-nav-item:hover { background: var(--gray-50); color: var(--gray-800); }
+.admin-nav-item.active { background: #dbeafe; color: var(--primary); border-right: 3px solid var(--primary); }
+.admin-content { padding: 2rem; overflow-y: auto; }
+.admin-section { display: none; }
+.admin-section.active { display: block; }
+.admin-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--gray-800);
+}
+.question-edit-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.question-list-item {
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+  padding: 1rem 1.25rem;
+  margin-bottom: .6rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: all var(--transition);
+}
+.question-list-item:hover { border-color: var(--primary-light); box-shadow: var(--shadow-sm); }
+.qli-id {
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--gray-400);
+  flex-shrink: 0;
+  padding-top: .15rem;
+}
+.qli-body { flex: 1; min-width: 0; }
+.qli-text {
+  font-size: .88rem;
+  color: var(--gray-800);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+.qli-meta {
+  display: flex;
+  gap: .5rem;
+  margin-top: .35rem;
+}
+.qli-actions { display: flex; gap: .4rem; flex-shrink: 0; }
+.json-import-area {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-md);
+  font-family: var(--mono);
+  font-size: .8rem;
+  resize: vertical;
+  color: var(--gray-700);
+}
+.json-import-area:focus { outline: none; border-color: var(--primary); }
+
+/* ============================================================
+   PROCTORING OVERLAY
+   ============================================================ */
+.proctor-bar {
+  background: #1e293b;
+  color: white;
+  padding: .5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: .78rem;
+  flex-shrink: 0;
+}
+.proctor-indicator {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.proctor-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: proctorPulse 2s ease infinite;
+}
+.proctor-dot.off { background: #ef4444; animation: none; }
+@keyframes proctorPulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.proctor-video-wrap {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  width: 140px;
+  height: 100px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #000;
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow-lg);
+  z-index: 500;
+}
+.proctor-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.proctor-video-label {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.7);
+  color: white;
+  font-size: .6rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  font-family: var(--mono);
+}
+.warning-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.8);
+  z-index: 7000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn .2s ease;
+}
+.warning-overlay.hidden { display: none; }
+.warning-box {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 420px;
+  width: 90%;
+}
+.warning-icon { font-size: 3rem; margin-bottom: 1rem; }
+.warning-title { font-size: 1.25rem; font-weight: 700; color: var(--danger); margin-bottom: .5rem; }
+.warning-text { font-size: .9rem; color: var(--gray-600); line-height: 1.6; margin-bottom: 1.5rem; }
+.warning-count {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-radius: var(--radius-md);
+  padding: .6rem 1rem;
+  font-size: .82rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   SUBMIT MODAL
+   ============================================================ */
+.submit-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: .75rem;
+  margin: 1rem 0;
+}
+.submit-summary-item {
+  text-align: center;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+}
+.submit-summary-value { font-size: 1.5rem; font-weight: 800; }
+.submit-summary-label { font-size: .72rem; color: var(--gray-500); margin-top: .2rem; }
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  /* Not applying dark mode on exam page for accessibility, but on other pages */
+}
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 44px; height: 44px;
+  background: var(--primary-dark);
+  color: white;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  z-index: 600;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+.dark-mode-toggle:hover { transform: scale(1.1); }
+body.dark {
+  --gray-50: #1a1f2e;
+  --gray-100: #141824;
+  --gray-200: #1e2538;
+  --gray-300: #2c3450;
+  --gray-400: #4a567a;
+  --gray-500: #6b7db5;
+  --gray-600: #8a99c0;
+  --gray-700: #b0bdd8;
+  --gray-800: #d0d8ee;
+  --gray-900: #e8ecf8;
+  --white: #1e2538;
+  background: #0f1320;
+}
+body.dark .card, body.dark .test-card, body.dark .stat-card,
+body.dark .question-card, body.dark .exam-actions, body.dark .exam-side-panel,
+body.dark .instructions-card, body.dark .subject-result-card, body.dark .analysis-card,
+body.dark .admin-sidebar, body.dark .question-list-item, body.dark .question-edit-card {
+  background: #1e2538;
+  border-color: #2c3450;
+}
+body.dark .history-table th { background: #141824; }
+body.dark .exam-topbar { background: #0a0f1a; }
+body.dark .proctor-bar { background: #0a0f1a; }
+
+/* ============================================================
+   SCROLLBAR STYLING
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: .5rem; }
+.gap-2 { gap: 1rem; }
+.mt-1 { margin-top: .5rem; }
+.mt-2 { margin-top: 1rem; }
+.text-sm { font-size: .82rem; }
+.text-xs { font-size: .72rem; }
+.text-gray { color: var(--gray-500); }
+.text-primary { color: var(--primary); }
+.text-danger { color: var(--danger); }
+.text-success { color: var(--success); }
+.fw-bold { font-weight: 700; }
+.hidden { display: none !important; }
+.relative { position: relative; }
+.w-full { width: 100%; }
+.text-center { text-align: center; }
+
+/* Separator */
+.sep { height: 1px; background: var(--gray-200); margin: 1rem 0; }
+
+/* Activity Log */
+.activity-log {
+  max-height: 120px;
+  overflow-y: auto;
+  font-family: var(--mono);
+  font-size: .7rem;
+  background: #0f1320;
+  color: #a0ffb0;
+  padding: .75rem;
+  border-radius: var(--radius-sm);
+}
+.activity-log-entry { margin-bottom: .2rem; }
+.activity-log-entry .ts { color: #4a567a; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     LOADING SCREEN
+════════════════════════════════════════════ -->
+<div id="loading-screen">
+  <div class="loading-logo">SRM<span>JEEE</span></div>
+  <div class="loading-subtitle">PRACTICE PORTAL · MOCK EXAMINATION SYSTEM</div>
+  <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+  <div class="loading-text" id="loading-text">Initializing examination system...</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TOAST CONTAINER
+════════════════════════════════════════════ -->
+<div id="toast-container"></div>
+
+<!-- ═══════════════════════════════════════════
+     MODALS
+════════════════════════════════════════════ -->
+<!-- Submit Modal -->
+<div class="modal-overlay hidden" id="submit-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⚠️ Submit Examination?</div>
+      <button class="modal-close" onclick="closeModal('submit-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--gray-600);font-size:.9rem;margin-bottom:1rem;">Once submitted, you cannot modify your answers. Please review your responses before submitting.</p>
+      <div class="submit-summary" id="submit-summary">
+        <div class="submit-summary-item">
+          <div class="submit-summary-value text-success" id="ss-answered">0</div>
+          <div class="submit-summary-label">Answered</div>
+        </div>
+        <div class="submit-summary-item">
+          <div class="submit-summary-value text-danger" id="ss-not-answered">0</div>
+          <div class="submit-summary-label">Not Answered</div>
+        </div>
+        <div class="submit-summary-item">
+          <div class="submit-summary-value text-primary" id="ss-marked">0</div>
+          <div class="submit-summary-label">Marked Review</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('submit-modal')">Continue Exam</button>
+      <button class="btn btn-danger" onclick="submitExam()">Submit Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Time Warning Modal -->
+<div class="modal-overlay hidden" id="time-warning-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⏰ Time Warning</div>
+    </div>
+    <div class="modal-body">
+      <p style="color:var(--gray-700);font-size:.9rem;" id="time-warning-text"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeModal('time-warning-modal')">Continue Exam</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Login Modal -->
+<div class="modal-overlay hidden" id="admin-login-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🔐 Admin Access</div>
+      <button class="modal-close" onclick="closeModal('admin-login-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Admin Password</label>
+        <input type="password" class="form-control" id="admin-password-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkAdminLogin()">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('admin-login-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="checkAdminLogin()">Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- Warning Overlay (Tab Switch etc.) -->
+<div class="warning-overlay hidden" id="warning-overlay">
+  <div class="warning-box">
+    <div class="warning-icon">⚠️</div>
+    <div class="warning-title" id="warning-title">Violation Detected!</div>
+    <div class="warning-text" id="warning-text">You have switched tabs or left the exam window. This activity has been recorded.</div>
+    <div class="warning-count" id="warning-count">Violations: 1</div>
+    <button class="btn btn-primary" onclick="dismissWarning()">I Understand – Return to Exam</button>
+  </div>
+</div>
+
+<!-- Add/Edit Question Modal -->
+<div class="modal-overlay hidden" id="question-modal">
+  <div class="modal" style="max-width:640px;">
+    <div class="modal-header">
+      <div class="modal-title" id="qmodal-title">Add Question</div>
+      <button class="modal-close" onclick="closeModal('question-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <select class="form-control" id="qf-subject">
+            <option>Physics</option><option>Chemistry</option>
+            <option>Mathematics</option><option>Aptitude</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chapter</label>
+          <input type="text" class="form-control" id="qf-chapter" placeholder="e.g. Mechanics">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Difficulty</label>
+          <select class="form-control" id="qf-difficulty">
+            <option>Easy</option><option>Medium</option><option>Hard</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correct Answer (1-4)</label>
+          <select class="form-control" id="qf-correct">
+            <option value="0">Option A</option><option value="1">Option B</option>
+            <option value="2">Option C</option><option value="3">Option D</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Question Text</label>
+        <textarea class="form-control" id="qf-text" rows="3" placeholder="Enter the question..."></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+        <div class="form-group"><label class="form-label">Option A</label><input type="text" class="form-control" id="qf-a"></div>
+        <div class="form-group"><label class="form-label">Option B</label><input type="text" class="form-control" id="qf-b"></div>
+        <div class="form-group"><label class="form-label">Option C</label><input type="text" class="form-control" id="qf-c"></div>
+        <div class="form-group"><label class="form-label">Option D</label><input type="text" class="form-control" id="qf-d"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('question-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveQuestion()">Save Question</button>
+    </div>
+  </div>
+</div>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode" id="dark-toggle">🌙</button>
+
+<!-- Proctor Camera -->
+<div class="proctor-video-wrap hidden" id="proctor-video-wrap">
+  <video id="proctor-video" autoplay muted playsinline></video>
+  <div class="proctor-video-label">📷 LIVE MONITORING</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: LOGIN
+════════════════════════════════════════════ -->
+<div class="page" id="page-login">
+  <div class="login-container">
+    <div class="login-brand">
+      <h1>SRM<span>JEEE</span><br>Practice Portal</h1>
+      <p>Experience the real examination environment before your actual SRMJEEE exam. Practice with authentic question patterns, timed sessions, and detailed performance analytics.</p>
+      <div class="login-features">
+        <div class="login-feature"><div class="login-feature-icon">📚</div> 125+ curated questions across 4 subjects</div>
+        <div class="login-feature"><div class="login-feature-icon">⏱️</div> Authentic 2-hour timed exam environment</div>
+        <div class="login-feature"><div class="login-feature-icon">📊</div> Detailed performance analytics & rank prediction</div>
+        <div class="login-feature"><div class="login-feature-icon">🔒</div> Proctoring simulation with activity monitoring</div>
+        <div class="login-feature"><div class="login-feature-icon">📱</div> Works completely offline in your browser</div>
+      </div>
+    </div>
+    <div class="login-card">
+      <div class="login-card-header">
+        <div class="logo-top">SRMIST</div>
+        <h2>Candidate Login</h2>
+        <p>Enter your credentials to access the examination portal</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Candidate ID / Registration Number</label>
+        <input type="text" class="form-control" id="login-id" placeholder="e.g. RA2411003010001" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password / Date of Birth (DDMMYYYY)</label>
+        <input type="password" class="form-control" id="login-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="btn btn-primary btn-full btn-lg" onclick="doLogin()">Login to Portal →</button>
+      <div class="login-divider">Demo Credentials</div>
+      <div class="demo-creds">
+        <div>ID: <strong>RA2411003010001</strong></div>
+        <div style="margin-top:.3rem">Password: <strong>12012006</strong></div>
+        <div style="margin-top:.3rem;color:var(--gray-400);font-size:.72rem;">Admin: type <strong>admin123</strong> as ID to access admin panel</div>
+      </div>
+      <div class="login-instructions">
+        <h3>📋 Before You Begin</h3>
+        <ul>
+          <li>Ensure stable internet connection throughout the exam</li>
+          <li>Do not refresh or close the browser during examination</li>
+          <li>Use Google Chrome or Mozilla Firefox for best experience</li>
+          <li>Enable webcam and microphone for proctoring compliance</li>
+          <li>All responses are auto-saved every 30 seconds</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: DASHBOARD
+════════════════════════════════════════════ -->
+<div class="page" id="page-dashboard">
+  <header class="site-header">
+    <div class="header-logo">
+      <span class="logo-badge">SRMIST</span>
+      SRMJEEE Practice Portal
+    </div>
+    <div class="header-right">
+      <span style="color:rgba(255,255,255,.5);font-size:.75rem;" id="dash-datetime"></span>
+      <div class="header-user">
+        <div class="header-avatar" id="dash-avatar">T</div>
+        <span id="dash-username">Candidate</span>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </header>
+  <main class="dashboard-main">
+    <div style="margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <h1 style="font-size:1.4rem;font-weight:800;color:var(--gray-800);">Welcome back, <span id="dash-greet-name">Candidate</span> 👋</h1>
+        <p style="color:var(--gray-500);font-size:.85rem;margin-top:.2rem;">Your SRMJEEE preparation dashboard</p>
+      </div>
+      <div style="font-size:.78rem;color:var(--gray-500);">
+        Exam Date: <strong style="color:var(--primary);">April 2025</strong>
+      </div>
+    </div>
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-value" id="ds-tests">0</div>
+        <div class="stat-card-label">Tests Taken</div>
+        <div class="stat-card-trend">↑ Keep practicing!</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-value" id="ds-best">--</div>
+        <div class="stat-card-label">Best Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-value" id="ds-avg">--</div>
+        <div class="stat-card-label">Avg Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-value" id="ds-streak">0🔥</div>
+        <div class="stat-card-label">Day Streak</div>
+      </div>
+    </div>
+    <div class="dash-grid">
+      <!-- Left: Profile + Available Tests -->
+      <div>
+        <div class="profile-card" style="margin-bottom:1.25rem;">
+          <div class="profile-avatar" id="p-avatar">T</div>
+          <div class="profile-name" id="p-name">Tejas Sharma</div>
+          <div class="profile-id" id="p-id">RA2411003010001</div>
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <div class="profile-stat-value" id="ps-rank">N/A</div>
+              <div class="profile-stat-label">Predicted Rank</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-value" id="ps-score">--</div>
+              <div class="profile-stat-label">Last Score</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:1.25rem;">
+          <div class="card-header">
+            <div>
+              <div class="card-title">📊 Subject Readiness</div>
+              <div class="card-subtitle">Based on practice performance</div>
+            </div>
+          </div>
+          <div class="card-body" id="subject-readiness">
+            <div style="font-size:.82rem;color:var(--gray-500);text-align:center;padding:1rem 0;">Take a test to see your readiness scores</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="width:100%;color:var(--gray-400);" onclick="openAdminModal()">⚙️ Admin Panel</button>
+      </div>
+      <!-- Right: Tests + History -->
+      <div>
+        <div class="dash-section-title">
+          <span>📝 Available Mock Tests</span>
+          <span class="badge badge-primary">3 Tests</span>
+        </div>
+        <div class="test-card" onclick="goToInstructions('full')">
+          <div class="test-icon full">📋</div>
+          <div class="test-meta">
+            <div class="test-name">SRMJEEE Full Mock Test 1</div>
+            <div class="test-info">125 Questions · 4 Subjects · 2 Hours · −1 Negative Marking</div>
+            <div style="margin-top:.4rem;display:flex;gap:.4rem;">
+              <span class="badge badge-purple">RECOMMENDED</span>
+              <span class="badge badge-gray">PHYSICS + CHEM + MATH + APTITUDE</span>
+            </div>
+          </div>
+          <div class="test-action"><button class="btn btn-primary btn-sm">Start →</button></div>
+        </div>
+        <div class="test-card" onclick="goToInstructions('physics')">
+          <div class="test-icon physics">⚛️</div>
+          <div class="test-meta">
+            <div class="test-name">Physics Subject Test</div>
+            <div class="test-info">35 Questions · 1 Hour · Physics Only</div>
+            <div style="margin-top:.4rem;"><span class="badge badge-primary">SUBJECT FOCUS</span></div>
+          </div>
+          <div class="test-action"><button class="btn btn-outline btn-sm">Start →</button></div>
+        </div>
+        <div class="test-card" onclick="goToInstructions('mini')">
+          <div class="test-icon mini">⚡</div>
+          <div class="test-meta">
+            <div class="test-name">Quick Mini Test</div>
+            <div class="test-info">30 Questions · 30 Minutes · Mixed Subjects</div>
+            <div style="margin-top:.4rem;"><span class="badge badge-success">QUICK PRACTICE</span></div>
+          </div>
+          <div class="test-action"><button class="btn btn-outline btn-sm">Start →</button></div>
+        </div>
+        <div class="sep"></div>
+        <div class="dash-section-title">📈 Test History</div>
+        <div class="card">
+          <table class="history-table" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Test</th><th>Date</th><th>Score</th><th>Accuracy</th><th>Rank</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody">
+              <tr><td colspan="5" style="text-align:center;color:var(--gray-400);padding:1.5rem;">No tests taken yet. Start your first mock test!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: INSTRUCTIONS
+════════════════════════════════════════════ -->
+<div class="page" id="page-instructions">
+  <header class="site-header">
+    <div class="header-logo">
+      <span class="logo-badge">SRMIST</span>
+      SRMJEEE Practice Portal
+    </div>
+    <div class="header-right">
+      <div class="header-user">
+        <div class="header-avatar" id="ins-avatar">T</div>
+        <span id="ins-username">Candidate</span>
+      </div>
+      <button class="btn-logout" onclick="showPage('page-dashboard')">← Dashboard</button>
+    </div>
+  </header>
+  <main class="instructions-main">
+    <div class="instructions-card">
+      <div class="instructions-header">
+        <h1>📋 Examination Instructions & Guidelines</h1>
+        <p>Please read all instructions carefully before proceeding to the examination.</p>
+      </div>
+      <div class="instructions-body">
+        <div class="instruction-section">
+          <h2>General Instructions</h2>
+          <ul class="instruction-list">
+            <li><span class="num">1</span>This is a Computer Based Test (CBT) examination. The exam duration is <strong>2 hours (120 minutes)</strong>.</li>
+            <li><span class="num">2</span>The examination consists of <strong>125 questions</strong> from Physics, Chemistry, Mathematics, and Aptitude.</li>
+            <li><span class="num">3</span>Each correct answer carries <strong>+3 marks</strong>. Each wrong answer carries <strong>-1 mark</strong>. Unattempted questions carry <strong>0 marks</strong>.</li>
+            <li><span class="num">4</span>Maximum marks: <strong>375 marks</strong>.</li>
+            <li><span class="num">5</span>You can navigate between questions freely using the question palette or Previous/Next buttons.</li>
+            <li><span class="num">6</span>Do not close or refresh the browser during the examination. Your responses are auto-saved.</li>
+            <li><span class="num">7</span>The exam will <strong>auto-submit</strong> when the timer reaches zero.</li>
+          </ul>
+        </div>
+        <div class="instruction-section">
+          <h2>Marking Scheme</h2>
+          <div class="marking-scheme">
+            <div class="marking-item correct"><div class="marking-item-value">+3</div><div class="marking-item-label">For every correct answer</div></div>
+            <div class="marking-item wrong"><div class="marking-item-value">−1</div><div class="marking-item-label">For every wrong answer</div></div>
+            <div class="marking-item unmarked" style="grid-column:1/-1"><div class="marking-item-value">0</div><div class="marking-item-label">For unattempted / skipped questions</div></div>
+          </div>
+        </div>
+        <div class="instruction-section">
+          <h2>Question Palette Legend</h2>
+          <div class="palette-legend">
+            <div class="palette-legend-item"><div class="legend-dot not-visited">1</div> Not Visited</div>
+            <div class="palette-legend-item"><div class="legend-dot answered">2</div> Answered</div>
+            <div class="palette-legend-item"><div class="legend-dot not-answered">3</div> Not Answered</div>
+            <div class="palette-legend-item"><div class="legend-dot marked">4</div> Marked for Review</div>
+            <div class="palette-legend-item"><div class="legend-dot marked-answered">5</div> Marked + Answered</div>
+          </div>
+        </div>
+        <div class="instruction-section">
+          <h2>Proctoring Rules</h2>
+          <ul class="instruction-list">
+            <li><span class="num">1</span>Your webcam must remain active throughout the examination. Covering or disconnecting the webcam is a violation.</li>
+            <li><span class="num">2</span>Do not switch tabs, minimize the browser window, or navigate away from the exam page.</li>
+            <li><span class="num">3</span>Each tab switch or window minimization will be recorded and flagged.</li>
+            <li><span class="num">4</span>More than 3 violations may result in automatic exam termination.</li>
+            <li><span class="num">5</span>Ensure you are in a well-lit, quiet environment throughout the test.</li>
+          </ul>
+        </div>
+        <div class="instruction-section">
+          <h2>Subject Distribution</h2>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;">
+            <div style="text-align:center;padding:1rem;background:var(--gray-50);border-radius:var(--radius-md);border:1px solid var(--gray-200);">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">⚛️</div>
+              <div style="font-weight:700;font-size:.88rem;">Physics</div>
+              <div style="color:var(--gray-500);font-size:.75rem;margin-top:.2rem;">35 Questions</div>
+            </div>
+            <div style="text-align:center;padding:1rem;background:var(--gray-50);border-radius:var(--radius-md);border:1px solid var(--gray-200);">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">🧪</div>
+              <div style="font-weight:700;font-size:.88rem;">Chemistry</div>
+              <div style="color:var(--gray-500);font-size:.75rem;margin-top:.2rem;">35 Questions</div>
+            </div>
+            <div style="text-align:center;padding:1rem;background:var(--gray-50);border-radius:var(--radius-md);border:1px solid var(--gray-200);">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">📐</div>
+              <div style="font-weight:700;font-size:.88rem;">Mathematics</div>
+              <div style="color:var(--gray-500);font-size:.75rem;margin-top:.2rem;">40 Questions</div>
+            </div>
+            <div style="text-align:center;padding:1rem;background:var(--gray-50);border-radius:var(--radius-md);border:1px solid var(--gray-200);">
+              <div style="font-size:1.4rem;margin-bottom:.3rem;">🧠</div>
+              <div style="font-weight:700;font-size:.88rem;">Aptitude</div>
+              <div style="color:var(--gray-500);font-size:.75rem;margin-top:.2rem;">15 Questions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="instructions-footer">
+        <label class="agreement-check">
+          <input type="checkbox" id="agree-checkbox">
+          <span>I have read and understood all the examination instructions and agree to abide by the rules.</span>
+        </label>
+        <button class="btn btn-accent btn-lg" id="start-exam-btn" onclick="startExam()" disabled>Start Examination →</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: EXAM
+════════════════════════════════════════════ -->
+<div class="page" id="page-exam">
+  <div class="exam-topbar">
+    <div class="exam-topbar-left">
+      <div class="logo-badge" style="background:var(--accent);color:var(--primary-dark);font-size:.72rem;padding:.2rem .5rem;border-radius:4px;font-weight:800;">SRMIST</div>
+      <span style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.9);">SRMJEEE Mock Test</span>
+      <span style="color:rgba(255,255,255,.35);font-size:.75rem;" id="exam-test-label">Full Mock Test 1</span>
+    </div>
+    <div class="exam-topbar-right">
+      <div id="proctor-status" style="display:flex;gap:1rem;font-size:.72rem;"></div>
+      <div>
+        <div style="font-size:.65rem;color:rgba(255,255,255,.5);text-align:center;margin-bottom:.1rem;">TIME REMAINING</div>
+        <div class="exam-timer" id="exam-timer">02:00:00</div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="openSubmitModal()">Submit Test</button>
+    </div>
+  </div>
+
+  <!-- Proctoring Bar -->
+  <div class="proctor-bar" id="proctor-bar">
+    <div class="proctor-indicator">
+      <div class="proctor-dot" id="cam-dot"></div>
+      <span>Camera</span>
+    </div>
+    <div class="proctor-indicator">
+      <div class="proctor-dot" id="mic-dot"></div>
+      <span>Microphone</span>
+    </div>
+    <div style="flex:1;"></div>
+    <div class="activity-log" id="activity-log" style="flex:1;max-width:500px;max-height:30px;overflow:hidden;font-size:.65rem;"></div>
+    <div style="color:rgba(255,255,255,.4);font-size:.7rem;" id="violation-count">Violations: 0</div>
+  </div>
+
+  <div class="exam-layout">
+    <!-- Main Content -->
+    <div class="exam-main-panel">
+      <!-- Subject Tabs -->
+      <div class="exam-subject-tabs" id="subject-tabs"></div>
+
+      <!-- Question Card -->
+      <div class="question-card">
+        <div class="question-card-header">
+          <div style="display:flex;align-items:center;gap:.75rem;">
+            <span class="question-number-badge" id="q-num-badge">Q.1</span>
+            <span style="font-size:.78rem;color:var(--gray-500);" id="q-subject-label">Physics</span>
+          </div>
+          <div class="question-meta">
+            <span class="badge" id="q-difficulty-badge">Medium</span>
+            <span style="font-size:.75rem;color:var(--gray-400);" id="q-chapter-label"></span>
+          </div>
+        </div>
+        <div class="question-body">
+          <div class="question-text" id="question-text">Loading question...</div>
+          <div class="options-list" id="options-list"></div>
+        </div>
+      </div>
+
+      <!-- Exam Actions -->
+      <div class="exam-actions">
+        <div class="exam-actions-left">
+          <button class="btn btn-ghost btn-sm" onclick="markForReview()">🔖 Mark for Review</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearResponse()">🗑️ Clear Response</button>
+        </div>
+        <div class="exam-actions-right">
+          <button class="btn btn-outline btn-sm" onclick="prevQuestion()">← Previous</button>
+          <button class="btn btn-primary btn-sm" onclick="saveAndNext()">Save & Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side Panel -->
+    <div class="exam-side-panel">
+      <div class="side-panel-header">
+        <div class="candidate-info">
+          <div class="name" id="sp-name">Candidate</div>
+          <div class="id" id="sp-id">RA2411003010001</div>
+        </div>
+      </div>
+      <div class="palette-section">
+        <div style="font-size:.75rem;font-weight:700;color:var(--gray-700);margin-bottom:.5rem;">QUESTION PALETTE</div>
+        <div class="palette-legend-mini">
+          <div class="palette-legend-mini-item"><div class="palette-dot-mini nv"></div>Not Visited</div>
+          <div class="palette-legend-mini-item"><div class="palette-dot-mini ans"></div>Answered</div>
+          <div class="palette-legend-mini-item"><div class="palette-dot-mini na"></div>Not Answered</div>
+          <div class="palette-legend-mini-item"><div class="palette-dot-mini mr"></div>Marked</div>
+        </div>
+      </div>
+      <div class="palette-grid" id="palette-grid"></div>
+      <div class="palette-summary" id="palette-summary"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: RESULT
+════════════════════════════════════════════ -->
+<div class="page" id="page-result">
+  <header class="site-header">
+    <div class="header-logo">
+      <span class="logo-badge">SRMIST</span>
+      SRMJEEE Practice Portal — Examination Result
+    </div>
+    <div class="header-right">
+      <button class="btn-logout" onclick="showPage('page-dashboard')">← Dashboard</button>
+    </div>
+  </header>
+  <main class="result-main">
+    <!-- Hero -->
+    <div class="result-hero">
+      <div class="result-score-ring" style="position:relative;width:160px;height:160px;">
+        <canvas id="score-donut" width="160" height="160"></canvas>
+        <div class="score-center">
+          <div class="big" id="r-score">0</div>
+          <div class="sub">/ 375</div>
+        </div>
+      </div>
+      <div class="result-hero-info">
+        <h1>Examination Completed! 🎉</h1>
+        <p id="r-candidate-line">Candidate · SRMJEEE Mock Test 1</p>
+        <div class="result-hero-stats">
+          <div class="rhs correct">
+            <div class="rhs-value" id="r-correct">0</div>
+            <div class="rhs-label">Correct</div>
+          </div>
+          <div class="rhs wrong">
+            <div class="rhs-value" id="r-wrong">0</div>
+            <div class="rhs-label">Wrong</div>
+          </div>
+          <div class="rhs skip">
+            <div class="rhs-value" id="r-skip">0</div>
+            <div class="rhs-label">Skipped</div>
+          </div>
+          <div class="rhs">
+            <div class="rhs-value" style="color:var(--accent);" id="r-accuracy">0%</div>
+            <div class="rhs-label">Accuracy</div>
+          </div>
+          <div class="rhs">
+            <div class="rhs-value" style="color:white;" id="r-time">00:00</div>
+            <div class="rhs-label">Time Used</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject-wise -->
+    <div style="font-size:1.05rem;font-weight:700;margin-bottom:1rem;color:var(--gray-800);">📊 Subject-wise Performance</div>
+    <div class="result-grid" id="subject-results"></div>
+
+    <!-- Rank + Chart Row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;">
+      <div class="rank-card">
+        <h2>🏆 Predicted Rank</h2>
+        <div class="rank-value" id="r-rank">N/A</div>
+        <div class="rank-context" id="r-rank-context">Based on your score among all SRMJEEE aspirants</div>
+        <div style="margin-top:1rem;font-size:.78rem;opacity:.65;">
+          <div>Estimated percentile: <strong style="opacity:1;" id="r-percentile">--</strong></div>
+          <div style="margin-top:.3rem;">Category rank: <strong style="opacity:1;" id="r-cat-rank">--</strong></div>
+        </div>
+      </div>
+      <div class="analysis-card">
+        <div class="card-header">
+          <div class="card-title">Performance Chart</div>
+        </div>
+        <div class="card-body" style="padding:1rem;">
+          <canvas id="subject-chart" width="380" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proctoring Summary -->
+    <div class="card" style="margin-bottom:1.25rem;">
+      <div class="card-header"><div class="card-title">🔒 Proctoring Report</div></div>
+      <div class="card-body" id="proctor-report">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+          <div style="text-align:center;padding:1rem;background:var(--gray-50);border-radius:var(--radius-md);">
+            <div style="font-size:1.5rem;font-weight:800;color:var(--danger);" id="pr-violations">0</div>
+            <div style="font-size:.75rem;color:var(--gray-500);margin-top:.2rem;">Tab Switches</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:var(--gray-50);border-radius:var(--radius-md);">
+            <div style="font-size:1.5rem;font-weight:800;color:var(--warning);" id="pr-fs">0</div>
+            <div style="font-size:.75rem;color:var(--gray-500);margin-top:.2rem;">Fullscreen Exits</div>
+          </div>
+          <div style="text-align:center;padding:1rem;background:var(--gray-50);border-radius:var(--radius-md);">
+            <div style="font-size:1.5rem;font-weight:800;color:var(--success);" id="pr-status">CLEAR</div>
+            <div style="font-size:.75rem;color:var(--gray-500);margin-top:.2rem;">Proctor Status</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:1rem;justify-content:center;padding-bottom:2rem;">
+      <button class="btn btn-outline" onclick="showPage('page-dashboard')">← Back to Dashboard</button>
+      <button class="btn btn-primary" onclick="goToInstructions('full')">Retake Test →</button>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE: ADMIN
+════════════════════════════════════════════ -->
+<div class="page" id="page-admin">
+  <header class="site-header">
+    <div class="header-logo">
+      <span class="logo-badge" style="background:#ef4444;">ADMIN</span>
+      SRMJEEE Portal — Administration Panel
+    </div>
+    <div class="header-right">
+      <button class="btn-logout" onclick="showPage('page-dashboard')">← Exit Admin</button>
+    </div>
+  </header>
+  <div class="admin-layout" style="flex:1;">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-title">ADMIN MENU</div>
+      <div class="admin-nav-item active" onclick="adminNav('questions','this')">📝 Question Bank</div>
+      <div class="admin-nav-item" onclick="adminNav('add','this')">➕ Add Question</div>
+      <div class="admin-nav-item" onclick="adminNav('import','this')">📥 Import JSON</div>
+      <div class="admin-nav-item" onclick="adminNav('export','this')">📤 Export Questions</div>
+      <div class="admin-nav-item" onclick="adminNav('stats','this')">📊 Statistics</div>
+    </aside>
+    <div class="admin-content">
+      <!-- Question Bank -->
+      <div class="admin-section active" id="admin-sec-questions">
+        <div class="admin-section-title">📝 Question Bank</div>
+        <div style="display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <input type="text" class="form-control" style="max-width:300px;" placeholder="Search questions..." id="q-search" oninput="renderAdminQuestions()">
+          <select class="form-control" style="width:auto;" id="q-filter-subject" onchange="renderAdminQuestions()">
+            <option value="">All Subjects</option>
+            <option>Physics</option><option>Chemistry</option>
+            <option>Mathematics</option><option>Aptitude</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="adminNav('add',null)">+ Add New</button>
+        </div>
+        <div id="admin-question-list"></div>
+      </div>
+
+      <!-- Add Question -->
+      <div class="admin-section" id="admin-sec-add">
+        <div class="admin-section-title">➕ Add / Edit Question</div>
+        <div class="question-edit-card">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1rem;">
+            <div class="form-group"><label class="form-label">Subject</label>
+              <select class="form-control" id="af-subject"><option>Physics</option><option>Chemistry</option><option>Mathematics</option><option>Aptitude</option></select></div>
+            <div class="form-group"><label class="form-label">Chapter</label>
+              <input type="text" class="form-control" id="af-chapter" placeholder="Chapter name"></div>
+            <div class="form-group"><label class="form-label">Difficulty</label>
+              <select class="form-control" id="af-difficulty"><option>Easy</option><option selected>Medium</option><option>Hard</option></select></div>
+            <div class="form-group"><label class="form-label">Correct Answer</label>
+              <select class="form-control" id="af-correct"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></div>
+          </div>
+          <div class="form-group"><label class="form-label">Question Text</label>
+            <textarea class="form-control" id="af-question" rows="3" placeholder="Enter question text..."></textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="form-group"><label class="form-label">Option A</label><input type="text" class="form-control" id="af-a"></div>
+            <div class="form-group"><label class="form-label">Option B</label><input type="text" class="form-control" id="af-b"></div>
+            <div class="form-group"><label class="form-label">Option C</label><input type="text" class="form-control" id="af-c"></div>
+            <div class="form-group"><label class="form-label">Option D</label><input type="text" class="form-control" id="af-d"></div>
+          </div>
+          <button class="btn btn-primary" onclick="adminAddQuestion()">💾 Save Question</button>
+          <input type="hidden" id="af-edit-id" value="">
+        </div>
+      </div>
+
+      <!-- Import -->
+      <div class="admin-section" id="admin-sec-import">
+        <div class="admin-section-title">📥 Import Questions (JSON)</div>
+        <div class="question-edit-card">
+          <p style="font-size:.85rem;color:var(--gray-600);margin-bottom:1rem;">Paste a JSON array of question objects. Format: <code style="font-family:var(--mono);font-size:.8rem;">[{"subject":"Physics","chapter":"...","difficulty":"Medium","question":"...","options":["A","B","C","D"],"correctAnswer":0}]</code></p>
+          <textarea class="json-import-area" id="import-json" placeholder='[{"subject":"Physics","chapter":"Kinematics","difficulty":"Easy","question":"A body starts from rest...","options":["2 m/s","4 m/s","6 m/s","8 m/s"],"correctAnswer":1}]'></textarea>
+          <div style="display:flex;gap:.75rem;margin-top:1rem;">
+            <button class="btn btn-primary" onclick="importQuestions()">📥 Import</button>
+            <button class="btn btn-ghost" onclick="document.getElementById('import-json').value=''">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export -->
+      <div class="admin-section" id="admin-sec-export">
+        <div class="admin-section-title">📤 Export Questions</div>
+        <div class="question-edit-card">
+          <p style="font-size:.85rem;color:var(--gray-600);margin-bottom:1rem;">Export all questions as JSON file.</p>
+          <div style="display:flex;gap:.75rem;margin-bottom:1rem;">
+            <button class="btn btn-primary" onclick="exportQuestions()">📥 Download questions.json</button>
+            <button class="btn btn-outline" onclick="copyQuestionsJSON()">📋 Copy to Clipboard</button>
+          </div>
+          <div id="export-preview" style="font-family:var(--mono);font-size:.72rem;background:var(--gray-50);padding:1rem;border-radius:var(--radius-md);border:1px solid var(--gray-200);max-height:300px;overflow-y:auto;white-space:pre-wrap;color:var(--gray-600);"></div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="admin-section" id="admin-sec-stats">
+        <div class="admin-section-title">📊 Question Bank Statistics</div>
+        <div class="stats-grid" id="admin-stats-grid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script>
+/* ============================================================
+   QUESTION DATABASE (125+ questions)
+   ============================================================ */
+const QUESTIONS_DEFAULT = [
+  // ───── PHYSICS ─────
+  {id:1,subject:"Physics",chapter:"Kinematics",difficulty:"Easy",question:"A particle starts from rest and accelerates uniformly at 4 m/s². What is its velocity after 5 seconds?",options:["10 m/s","20 m/s","25 m/s","40 m/s"],correctAnswer:1},
+  {id:2,subject:"Physics",chapter:"Kinematics",difficulty:"Medium",question:"A ball is thrown vertically upward with velocity 20 m/s. The maximum height reached (g = 10 m/s²) is:",options:["10 m","20 m","30 m","40 m"],correctAnswer:1},
+  {id:3,subject:"Physics",chapter:"Laws of Motion",difficulty:"Easy",question:"A force of 50 N acts on a body of mass 10 kg. The acceleration produced is:",options:["0.5 m/s²","5 m/s²","500 m/s²","5000 m/s²"],correctAnswer:1},
+  {id:4,subject:"Physics",chapter:"Laws of Motion",difficulty:"Medium",question:"The coefficient of static friction between two surfaces is 0.4. If the normal reaction is 100 N, the maximum static friction force is:",options:["20 N","40 N","60 N","80 N"],correctAnswer:1},
+  {id:5,subject:"Physics",chapter:"Work Energy Power",difficulty:"Medium",question:"A body of mass 5 kg is moving with velocity 4 m/s. Its kinetic energy is:",options:["10 J","20 J","40 J","80 J"],correctAnswer:2},
+  {id:6,subject:"Physics",chapter:"Work Energy Power",difficulty:"Hard",question:"A spring of spring constant 1000 N/m is compressed by 5 cm. The potential energy stored is:",options:["1.25 J","2.5 J","0.625 J","5 J"],correctAnswer:0},
+  {id:7,subject:"Physics",chapter:"Gravitation",difficulty:"Easy",question:"The acceleration due to gravity on the surface of the earth is approximately:",options:["8.9 m/s²","9.8 m/s²","10.8 m/s²","11.2 m/s²"],correctAnswer:1},
+  {id:8,subject:"Physics",chapter:"Gravitation",difficulty:"Medium",question:"The escape velocity from Earth's surface is approximately:",options:["7.9 km/s","11.2 km/s","25 km/s","3 km/s"],correctAnswer:1},
+  {id:9,subject:"Physics",chapter:"Waves",difficulty:"Medium",question:"The speed of sound in air at 0°C is 332 m/s. At 20°C it will be approximately:",options:["340 m/s","343 m/s","350 m/s","360 m/s"],correctAnswer:1},
+  {id:10,subject:"Physics",chapter:"Waves",difficulty:"Hard",question:"Two waves of wavelengths 1 m and 1.01 m produce beats. If the speed is 340 m/s, the beat frequency is approximately:",options:["3.36 Hz","2.5 Hz","4 Hz","5 Hz"],correctAnswer:0},
+  {id:11,subject:"Physics",chapter:"Optics",difficulty:"Easy",question:"The focal length of a convex lens is 20 cm. Its power is:",options:["+2 D","+5 D","+10 D","+0.2 D"],correctAnswer:1},
+  {id:12,subject:"Physics",chapter:"Optics",difficulty:"Medium",question:"A ray of light goes from water (n=1.33) to glass (n=1.5). The critical angle exists:",options:["No critical angle","At 62.4°","At 48.6°","At 90°"],correctAnswer:0},
+  {id:13,subject:"Physics",chapter:"Electrostatics",difficulty:"Medium",question:"Two charges of +4 μC and −4 μC are separated by 10 cm. The electric force between them (k=9×10⁹) is:",options:["14.4 N","1.44 N","0.144 N","144 N"],correctAnswer:0},
+  {id:14,subject:"Physics",chapter:"Electrostatics",difficulty:"Hard",question:"A parallel plate capacitor has plate area 0.01 m² and separation 1 mm. Its capacitance (ε₀=8.85×10⁻¹² F/m) is:",options:["88.5 pF","8.85 pF","885 pF","0.885 pF"],correctAnswer:0},
+  {id:15,subject:"Physics",chapter:"Current Electricity",difficulty:"Easy",question:"In a series circuit with resistors 2Ω, 3Ω, and 5Ω, the equivalent resistance is:",options:["0.97 Ω","10 Ω","30 Ω","1.02 Ω"],correctAnswer:1},
+  {id:16,subject:"Physics",chapter:"Current Electricity",difficulty:"Medium",question:"A 60W bulb and 40W bulb are connected in series to 220V. Which bulb glows brighter?",options:["60W bulb","40W bulb","Both equally","Neither"],correctAnswer:1},
+  {id:17,subject:"Physics",chapter:"Magnetism",difficulty:"Medium",question:"A proton moving with velocity v in a magnetic field B perpendicular to it experiences a force:",options:["evB","ev/B","eB/v","ev²B"],correctAnswer:0},
+  {id:18,subject:"Physics",chapter:"Magnetism",difficulty:"Hard",question:"A solenoid has 100 turns, length 10 cm, and carries 2A current. The magnetic field inside (μ₀=4π×10⁻⁷) is approximately:",options:["2.51 mT","0.251 mT","25.1 mT","0.025 mT"],correctAnswer:0},
+  {id:19,subject:"Physics",chapter:"Modern Physics",difficulty:"Medium",question:"The photoelectric effect proves the quantum nature of:",options:["Electrons","Light","Matter","Space"],correctAnswer:1},
+  {id:20,subject:"Physics",chapter:"Modern Physics",difficulty:"Hard",question:"The de Broglie wavelength of an electron accelerated through 100V is approximately:",options:["0.123 nm","1.23 nm","12.3 nm","0.0123 nm"],correctAnswer:0},
+  {id:21,subject:"Physics",chapter:"Nuclear Physics",difficulty:"Medium",question:"In nuclear fission, the energy released per reaction is approximately:",options:["1 eV","1 keV","200 MeV","1 GeV"],correctAnswer:2},
+  {id:22,subject:"Physics",chapter:"Thermodynamics",difficulty:"Medium",question:"For an ideal gas, the work done in isothermal expansion from V₁ to V₂ is:",options:["nRT ln(V₂/V₁)","nRT(V₂-V₁)","P(V₂-V₁)","nCV(T₂-T₁)"],correctAnswer:0},
+  {id:23,subject:"Physics",chapter:"Thermodynamics",difficulty:"Easy",question:"The efficiency of a Carnot engine operating between 400K and 300K is:",options:["25%","33%","75%","50%"],correctAnswer:0},
+  {id:24,subject:"Physics",chapter:"Rotational Motion",difficulty:"Medium",question:"The moment of inertia of a solid sphere of mass M and radius R about its diameter is:",options:["MR²","(2/5)MR²","(2/3)MR²","(1/2)MR²"],correctAnswer:1},
+  {id:25,subject:"Physics",chapter:"Rotational Motion",difficulty:"Hard",question:"A disc of radius R rolls without slipping on a horizontal surface with angular velocity ω. The velocity of the topmost point is:",options:["ωR","2ωR","0","(3/2)ωR"],correctAnswer:1},
+  {id:26,subject:"Physics",chapter:"Fluid Mechanics",difficulty:"Medium",question:"Bernoulli's theorem is essentially a statement of conservation of:",options:["Mass","Momentum","Energy","Angular momentum"],correctAnswer:2},
+  {id:27,subject:"Physics",chapter:"Electromagnetic Induction",difficulty:"Medium",question:"A coil of N turns and area A is rotated with angular velocity ω in a magnetic field B. The maximum EMF induced is:",options:["NBAω","NBA/ω","NAω/B","NBA²ω"],correctAnswer:0},
+  {id:28,subject:"Physics",chapter:"Semiconductors",difficulty:"Easy",question:"In a p-type semiconductor, majority charge carriers are:",options:["Electrons","Holes","Protons","Neutrons"],correctAnswer:1},
+  {id:29,subject:"Physics",chapter:"Semiconductors",difficulty:"Medium",question:"The forward bias voltage for a silicon diode is approximately:",options:["0.3 V","0.7 V","1.1 V","1.5 V"],correctAnswer:1},
+  {id:30,subject:"Physics",chapter:"Communication",difficulty:"Easy",question:"Modulation in communication means:",options:["Amplifying signal","Superimposing message on carrier","Filtering noise","Digitizing signal"],correctAnswer:1},
+  {id:31,subject:"Physics",chapter:"Kinematics",difficulty:"Medium",question:"A projectile is thrown at 30° to horizontal with speed 40 m/s. Its range (g=10) is:",options:["80 m","138.6 m","160 m","120 m"],correctAnswer:1},
+  {id:32,subject:"Physics",chapter:"Optics",difficulty:"Medium",question:"In Young's double slit experiment, fringe width β = λD/d. If the distance D is doubled, fringe width:",options:["Halves","Doubles","Stays same","Quadruples"],correctAnswer:1},
+  {id:33,subject:"Physics",chapter:"Electrostatics",difficulty:"Easy",question:"The unit of electric potential is:",options:["Joule","Coulomb","Volt","Ampere"],correctAnswer:2},
+  {id:34,subject:"Physics",chapter:"Modern Physics",difficulty:"Medium",question:"The half-life of a radioactive substance is 20 days. After 60 days, the fraction remaining is:",options:["1/8","1/4","1/2","1/6"],correctAnswer:0},
+  {id:35,subject:"Physics",chapter:"Waves",difficulty:"Hard",question:"The frequency of the second overtone of an open organ pipe of length 1m (speed of sound = 340 m/s) is:",options:["170 Hz","340 Hz","510 Hz","680 Hz"],correctAnswer:2},
+
+  // ───── CHEMISTRY ─────
+  {id:36,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Easy",question:"The number of electrons in the outermost shell of sodium (Na, Z=11) is:",options:["1","2","3","4"],correctAnswer:0},
+  {id:37,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Medium",question:"Which quantum number determines the shape of an orbital?",options:["Principal (n)","Azimuthal (l)","Magnetic (m)","Spin (s)"],correctAnswer:1},
+  {id:38,subject:"Chemistry",chapter:"Chemical Bonding",difficulty:"Easy",question:"The type of bond present in NaCl crystal is:",options:["Covalent","Ionic","Metallic","Hydrogen"],correctAnswer:1},
+  {id:39,subject:"Chemistry",chapter:"Chemical Bonding",difficulty:"Medium",question:"The geometry of BF₃ molecule (hybridization of B) is:",options:["Linear","Trigonal planar","Tetrahedral","Pyramidal"],correctAnswer:1},
+  {id:40,subject:"Chemistry",chapter:"Thermodynamics",difficulty:"Medium",question:"For a spontaneous process at constant T and P:",options:["ΔG > 0","ΔG = 0","ΔG < 0","ΔS < 0"],correctAnswer:2},
+  {id:41,subject:"Chemistry",chapter:"Thermodynamics",difficulty:"Hard",question:"If ΔH = −500 kJ and ΔS = −200 J/K at 300 K, ΔG equals:",options:["−440 kJ","−560 kJ","440 kJ","560 kJ"],correctAnswer:0},
+  {id:42,subject:"Chemistry",chapter:"Equilibrium",difficulty:"Medium",question:"For the reaction N₂ + 3H₂ ⇌ 2NH₃, Kc = 1.8 × 10⁻⁵. The reaction at equilibrium favors:",options:["Reactants","Products","Neither","Cannot determine"],correctAnswer:0},
+  {id:43,subject:"Chemistry",chapter:"Equilibrium",difficulty:"Easy",question:"The pH of a 0.01 M HCl solution is:",options:["1","2","3","4"],correctAnswer:1},
+  {id:44,subject:"Chemistry",chapter:"Redox Reactions",difficulty:"Medium",question:"In the reaction: MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O, manganese undergoes:",options:["Oxidation","Reduction","Disproportionation","None"],correctAnswer:1},
+  {id:45,subject:"Chemistry",chapter:"Electrochemistry",difficulty:"Medium",question:"Standard electrode potential of zinc is −0.76 V and copper is +0.34 V. EMF of Zn-Cu cell is:",options:["0.42 V","1.10 V","0.38 V","1.52 V"],correctAnswer:1},
+  {id:46,subject:"Chemistry",chapter:"Chemical Kinetics",difficulty:"Medium",question:"A first-order reaction has rate constant k = 0.693 min⁻¹. Its half-life is:",options:["0.693 min","1 min","2 min","1.386 min"],correctAnswer:1},
+  {id:47,subject:"Chemistry",chapter:"Chemical Kinetics",difficulty:"Hard",question:"For a zero-order reaction, the rate depends on:",options:["Concentration of reactant","Square of concentration","Cube of concentration","None of the above"],correctAnswer:3},
+  {id:48,subject:"Chemistry",chapter:"Surface Chemistry",difficulty:"Easy",question:"The process of adsorption of a gas on a solid surface involves:",options:["Positive ΔH always","Negative ΔH always","Zero ΔH","Positive ΔS"],correctAnswer:1},
+  {id:49,subject:"Chemistry",chapter:"Periodic Table",difficulty:"Easy",question:"The element with highest electronegativity is:",options:["Oxygen","Nitrogen","Chlorine","Fluorine"],correctAnswer:3},
+  {id:50,subject:"Chemistry",chapter:"Periodic Table",difficulty:"Medium",question:"The first ionization energy is highest for:",options:["Na","Mg","Al","Ne"],correctAnswer:3},
+  {id:51,subject:"Chemistry",chapter:"s-block Elements",difficulty:"Easy",question:"Sodium reacts with water to form:",options:["NaOH + O₂","NaOH + H₂","Na₂O + H₂O","Na₂O₂ + H₂"],correctAnswer:1},
+  {id:52,subject:"Chemistry",chapter:"p-block Elements",difficulty:"Medium",question:"Which of the following is the most acidic oxide?",options:["N₂O","NO","N₂O₃","N₂O₅"],correctAnswer:3},
+  {id:53,subject:"Chemistry",chapter:"d-block Elements",difficulty:"Medium",question:"The highest oxidation state of Mn is:",options:["+4","+6","+7","+8"],correctAnswer:2},
+  {id:54,subject:"Chemistry",chapter:"Coordination Chemistry",difficulty:"Hard",question:"The IUPAC name of [Cu(NH₃)₄]²⁺ is:",options:["Tetraaminocopper(II)","Tetraaminocuprate(II)","Tetraamminecopper(II) ion","Cupric ammonia"],correctAnswer:2},
+  {id:55,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Easy",question:"The IUPAC name of CH₃−CH₂−OH is:",options:["Methanol","Ethanol","Propanol","Butanol"],correctAnswer:1},
+  {id:56,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Medium",question:"Markovnikov's rule predicts that in addition of HBr to propene, the product is:",options:["1-bromopropane","2-bromopropane","1,2-dibromopropane","None"],correctAnswer:1},
+  {id:57,subject:"Chemistry",chapter:"Alcohols",difficulty:"Medium",question:"The oxidation of primary alcohol with mild oxidizing agent gives:",options:["Carboxylic acid","Aldehyde","Ketone","Ester"],correctAnswer:1},
+  {id:58,subject:"Chemistry",chapter:"Carbonyl Compounds",difficulty:"Medium",question:"Tollen's test is used to distinguish between:",options:["Aldehyde and ketone","Aldehyde and alcohol","Ketone and carboxylic acid","Alcohol and ether"],correctAnswer:0},
+  {id:59,subject:"Chemistry",chapter:"Polymers",difficulty:"Easy",question:"Nylon-6,6 is an example of:",options:["Addition polymer","Condensation polymer","Natural polymer","Biopolymer"],correctAnswer:1},
+  {id:60,subject:"Chemistry",chapter:"Biomolecules",difficulty:"Easy",question:"DNA differs from RNA in that DNA contains:",options:["Ribose sugar","Uracil","Thymine","Adenine"],correctAnswer:2},
+  {id:61,subject:"Chemistry",chapter:"Environmental Chemistry",difficulty:"Easy",question:"The major cause of acid rain is:",options:["CO₂","SO₂","NO₂","Both SO₂ and NO₂"],correctAnswer:3},
+  {id:62,subject:"Chemistry",chapter:"Solutions",difficulty:"Medium",question:"A solution that has higher osmotic pressure than blood is called:",options:["Isotonic","Hypotonic","Hypertonic","None"],correctAnswer:2},
+  {id:63,subject:"Chemistry",chapter:"Solutions",difficulty:"Hard",question:"The van't Hoff factor for K₂SO₄ (fully dissociated) in dilute solution is:",options:["1","2","3","4"],correctAnswer:2},
+  {id:64,subject:"Chemistry",chapter:"Haloalkanes",difficulty:"Medium",question:"SN2 reaction occurs preferentially with:",options:["Tertiary halides","Secondary halides","Primary halides","None"],correctAnswer:2},
+  {id:65,subject:"Chemistry",chapter:"Amines",difficulty:"Medium",question:"Which amine is the strongest base?",options:["NH₃","Methylamine","Dimethylamine","Aniline"],correctAnswer:2},
+  {id:66,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Hard",question:"The product of reaction between acetaldehyde and excess HCN followed by hydrolysis is:",options:["Lactic acid","Pyruvic acid","Acetic acid","Acetaldehyde cyanohydrin"],correctAnswer:0},
+  {id:67,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Hard",question:"The number of radial nodes in 3p orbital is:",options:["0","1","2","3"],correctAnswer:1},
+  {id:68,subject:"Chemistry",chapter:"Gaseous State",difficulty:"Medium",question:"For an ideal gas, PV = nRT. Which of these does NOT affect the behavior of ideal gas?",options:["Temperature","Pressure","Intermolecular forces","Volume"],correctAnswer:2},
+  {id:69,subject:"Chemistry",chapter:"Solid State",difficulty:"Medium",question:"In an FCC lattice, the number of atoms per unit cell is:",options:["1","2","4","6"],correctAnswer:2},
+  {id:70,subject:"Chemistry",chapter:"Nuclear Chemistry",difficulty:"Easy",question:"Alpha decay results in:",options:["A increases by 4, Z increases by 2","A decreases by 4, Z decreases by 2","A decreases by 2, Z decreases by 1","A stays same, Z increases by 1"],correctAnswer:1},
+
+  // ───── MATHEMATICS ─────
+  {id:71,subject:"Mathematics",chapter:"Algebra",difficulty:"Easy",question:"If x² − 5x + 6 = 0, the roots are:",options:["2 and 3","1 and 6","−2 and −3","3 and 4"],correctAnswer:0},
+  {id:72,subject:"Mathematics",chapter:"Algebra",difficulty:"Medium",question:"The sum of infinite GP with first term 1 and common ratio 1/2 is:",options:["1","2","3","Infinity"],correctAnswer:1},
+  {id:73,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Easy",question:"The value of sin 30° + cos 60° is:",options:["1","√2","1/2","√3/2"],correctAnswer:0},
+  {id:74,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Medium",question:"If sin θ = 3/5, then cos θ (for acute θ) is:",options:["4/5","3/4","5/4","5/3"],correctAnswer:0},
+  {id:75,subject:"Mathematics",chapter:"Calculus",difficulty:"Medium",question:"The derivative of x³ − 3x² + 2x − 1 at x = 2 is:",options:["2","4","6","8"],correctAnswer:0},
+  {id:76,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"∫₀¹ x² dx equals:",options:["1/2","1/3","1/4","1"],correctAnswer:1},
+  {id:77,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Easy",question:"The slope of the line joining (2,3) and (4,7) is:",options:["1","2","3","4"],correctAnswer:1},
+  {id:78,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Medium",question:"The equation of a circle with center (2,−3) and radius 5 is:",options:["(x-2)²+(y+3)²=25","(x+2)²+(y-3)²=25","(x-2)²+(y+3)²=5","(x-2)²+(y-3)²=25"],correctAnswer:0},
+  {id:79,subject:"Mathematics",chapter:"Matrices",difficulty:"Easy",question:"The determinant of matrix [[3,1],[2,4]] is:",options:["10","−10","14","−14"],correctAnswer:0},
+  {id:80,subject:"Mathematics",chapter:"Matrices",difficulty:"Medium",question:"If A = [[1,2],[3,4]], then A + Aᵀ is:",options:["[[2,5],[5,8]]","[[0,1],[3,0]]","[[1,1],[1,1]]","[[2,2],[2,2]]"],correctAnswer:0},
+  {id:81,subject:"Mathematics",chapter:"Probability",difficulty:"Medium",question:"A bag contains 3 red and 4 blue balls. The probability of drawing 2 red balls in succession (without replacement) is:",options:["1/7","2/7","3/14","1/14"],correctAnswer:0},
+  {id:82,subject:"Mathematics",chapter:"Probability",difficulty:"Hard",question:"P(A) = 0.3, P(B) = 0.4, P(A∩B) = 0.12. A and B are:",options:["Independent","Mutually exclusive","Dependent","Exhaustive"],correctAnswer:0},
+  {id:83,subject:"Mathematics",chapter:"Vectors",difficulty:"Medium",question:"If |a⃗| = 3, |b⃗| = 4, and a⃗ ⊥ b⃗, then |a⃗ + b⃗| is:",options:["1","5","7","√7"],correctAnswer:1},
+  {id:84,subject:"Mathematics",chapter:"Vectors",difficulty:"Hard",question:"The dot product of vectors 2î + 3ĵ − k̂ and î − 2ĵ + 4k̂ is:",options:["−8","−4","8","4"],correctAnswer:0},
+  {id:85,subject:"Mathematics",chapter:"Complex Numbers",difficulty:"Medium",question:"The modulus of complex number 3 + 4i is:",options:["3","4","5","7"],correctAnswer:2},
+  {id:86,subject:"Mathematics",chapter:"Complex Numbers",difficulty:"Hard",question:"The argument (principal) of −1 − i is:",options:["π/4","−3π/4","3π/4","−π/4"],correctAnswer:1},
+  {id:87,subject:"Mathematics",chapter:"3D Geometry",difficulty:"Medium",question:"The distance from point (1,2,3) to the origin is:",options:["√6","√14","√10","6"],correctAnswer:1},
+  {id:88,subject:"Mathematics",chapter:"3D Geometry",difficulty:"Hard",question:"The equation of the plane through (1,0,0), (0,1,0), (0,0,1) is:",options:["x+y+z=0","x+y+z=1","x−y+z=1","2x+y+z=1"],correctAnswer:1},
+  {id:89,subject:"Mathematics",chapter:"Binomial Theorem",difficulty:"Medium",question:"The middle term in the expansion of (x+1)⁸ is the:",options:["4th term","5th term","6th term","7th term"],correctAnswer:1},
+  {id:90,subject:"Mathematics",chapter:"Binomial Theorem",difficulty:"Hard",question:"The coefficient of x³ in the expansion of (1+x)⁶ is:",options:["15","20","6","10"],correctAnswer:1},
+  {id:91,subject:"Mathematics",chapter:"Sequences and Series",difficulty:"Medium",question:"The 10th term of AP: 3, 7, 11, 15, ... is:",options:["39","41","43","45"],correctAnswer:0},
+  {id:92,subject:"Mathematics",chapter:"Sequences and Series",difficulty:"Hard",question:"Sum of first 20 terms of AP with first term 5 and common difference 3 is:",options:["670","680","690","700"],correctAnswer:1},
+  {id:93,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"The area bounded by y = x², x = 0, x = 2, and y = 0 is:",options:["4/3","8/3","4","8"],correctAnswer:1},
+  {id:94,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Hard",question:"cos 15° equals:",options:["(√6+√2)/4","(√6−√2)/4","(√3+1)/2√2","(√3−1)/2√2"],correctAnswer:0},
+  {id:95,subject:"Mathematics",chapter:"Statistics",difficulty:"Medium",question:"The mean of 5 numbers is 10. If each number is multiplied by 2, the new mean is:",options:["10","12","15","20"],correctAnswer:3},
+  {id:96,subject:"Mathematics",chapter:"Sets and Functions",difficulty:"Easy",question:"If A = {1,2,3,4} and B = {3,4,5,6}, then A∩B is:",options:["{1,2}","{5,6}","{3,4}","{1,2,5,6}"],correctAnswer:2},
+  {id:97,subject:"Mathematics",chapter:"Permutations and Combinations",difficulty:"Medium",question:"The number of ways to arrange the letters of the word 'EXAM' is:",options:["12","16","24","48"],correctAnswer:2},
+  {id:98,subject:"Mathematics",chapter:"Permutations and Combinations",difficulty:"Hard",question:"From 8 students, a committee of 3 is to be formed. The number of ways is:",options:["56","24","168","336"],correctAnswer:0},
+  {id:99,subject:"Mathematics",chapter:"Quadratic Equations",difficulty:"Medium",question:"The discriminant of x² + 4x + 4 = 0 is:",options:["0","4","8","16"],correctAnswer:0},
+  {id:100,subject:"Mathematics",chapter:"Logarithms",difficulty:"Medium",question:"log₂ 32 equals:",options:["4","5","6","8"],correctAnswer:1},
+  {id:101,subject:"Mathematics",chapter:"Inequalities",difficulty:"Medium",question:"Solution of |2x − 3| < 5 is:",options:["x < 4","−1 < x < 4","x > −1","1 < x < 4"],correctAnswer:1},
+  {id:102,subject:"Mathematics",chapter:"Limits",difficulty:"Hard",question:"lim(x→0) (sin x)/x equals:",options:["0","∞","1","Undefined"],correctAnswer:2},
+  {id:103,subject:"Mathematics",chapter:"Differentiation",difficulty:"Hard",question:"If y = sin(x²), then dy/dx is:",options:["cos(x²)","2x·cos(x²)","x·cos(x²)","−2x·cos(x²)"],correctAnswer:1},
+  {id:104,subject:"Mathematics",chapter:"Applications of Derivatives",difficulty:"Hard",question:"The function f(x) = x³ − 3x has a local minimum at:",options:["x = −1","x = 0","x = 1","x = 2"],correctAnswer:2},
+  {id:105,subject:"Mathematics",chapter:"Integration",difficulty:"Hard",question:"∫ e^x dx is:",options:["xe^x + C","e^x + C","e^x/x + C","ln(x)e^x + C"],correctAnswer:1},
+  {id:106,subject:"Mathematics",chapter:"Differential Equations",difficulty:"Hard",question:"The order of the differential equation d²y/dx² + dy/dx + y = 0 is:",options:["1","2","3","0"],correctAnswer:1},
+  {id:107,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Hard",question:"The eccentricity of ellipse x²/9 + y²/4 = 1 is:",options:["√5/3","√5/2","2/3","5/9"],correctAnswer:0},
+  {id:108,subject:"Mathematics",chapter:"Mathematical Reasoning",difficulty:"Easy",question:"The contrapositive of 'If p then q' is:",options:["If q then p","If ¬q then ¬p","If ¬p then ¬q","If p then ¬q"],correctAnswer:1},
+  {id:109,subject:"Mathematics",chapter:"Linear Programming",difficulty:"Medium",question:"In linear programming, the optimal solution (if exists) always occurs at a:",options:["Boundary point","Corner (vertex) point","Interior point","Any feasible point"],correctAnswer:1},
+  {id:110,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Medium",question:"The general solution of sin θ = 1/2 is:",options:["θ = nπ ± π/6","θ = nπ + (−1)ⁿπ/6","θ = 2nπ ± π/6","θ = nπ/6"],correctAnswer:1},
+
+  // ───── APTITUDE ─────
+  {id:111,subject:"Aptitude",chapter:"Number System",difficulty:"Easy",question:"What is the LCM of 12, 18, and 24?",options:["36","48","72","96"],correctAnswer:2},
+  {id:112,subject:"Aptitude",chapter:"Percentages",difficulty:"Easy",question:"What is 25% of 240?",options:["40","60","80","100"],correctAnswer:1},
+  {id:113,subject:"Aptitude",chapter:"Ratio and Proportion",difficulty:"Medium",question:"If A:B = 3:4 and B:C = 5:6, then A:B:C is:",options:["3:4:6","15:20:24","12:16:20","9:12:16"],correctAnswer:1},
+  {id:114,subject:"Aptitude",chapter:"Speed Time Distance",difficulty:"Medium",question:"A train 200m long passes a pole in 10 seconds. Its speed is:",options:["18 km/h","36 km/h","54 km/h","72 km/h"],correctAnswer:3},
+  {id:115,subject:"Aptitude",chapter:"Logical Reasoning",difficulty:"Medium",question:"If all As are Bs, and no Bs are Cs, then:",options:["No As are Cs","Some As are Cs","All Cs are As","Some Cs are As"],correctAnswer:0},
+  {id:116,subject:"Aptitude",chapter:"Data Interpretation",difficulty:"Hard",question:"Sales in Jan=100, Feb=120, Mar=90, Apr=150. Average monthly sale is:",options:["110","112.5","115","120"],correctAnswer:1},
+  {id:117,subject:"Aptitude",chapter:"Series Completion",difficulty:"Medium",question:"Next term in series: 2, 6, 12, 20, 30, ?",options:["40","42","44","48"],correctAnswer:1},
+  {id:118,subject:"Aptitude",chapter:"Coding Decoding",difficulty:"Easy",question:"If APPLE is coded as BQQMF, then MANGO is coded as:",options:["NBOHO","NBOHP","NBOIP","NCOHO"],correctAnswer:1},
+  {id:119,subject:"Aptitude",chapter:"Number System",difficulty:"Hard",question:"How many prime numbers are there between 1 and 50?",options:["13","14","15","16"],correctAnswer:2},
+  {id:120,subject:"Aptitude",chapter:"Geometry",difficulty:"Medium",question:"The area of a rhombus with diagonals 10 cm and 24 cm is:",options:["120 cm²","240 cm²","60 cm²","48 cm²"],correctAnswer:0},
+  {id:121,subject:"Aptitude",chapter:"Profit and Loss",difficulty:"Easy",question:"A shopkeeper buys an article for ₹800 and sells for ₹1000. Profit percentage is:",options:["20%","25%","30%","40%"],correctAnswer:1},
+  {id:122,subject:"Aptitude",chapter:"Ages",difficulty:"Medium",question:"The ratio of ages of A and B is 5:3. After 6 years, ratio becomes 7:5. Present age of A is:",options:["15 years","18 years","20 years","25 years"],correctAnswer:0},
+  {id:123,subject:"Aptitude",chapter:"Permutation Combination",difficulty:"Hard",question:"In how many ways can 3 boys and 3 girls be seated in a row so that no two girls sit together?",options:["144","72","48","36"],correctAnswer:0},
+  {id:124,subject:"Aptitude",chapter:"Blood Relations",difficulty:"Medium",question:"A is B's brother. C is A's mother. D is C's father. E is D's mother. How is A related to D?",options:["Grandson","Son","Great-grandson","None"],correctAnswer:0},
+  {id:125,subject:"Aptitude",chapter:"Directions",difficulty:"Easy",question:"A person walks 10m north, turns right and walks 15m, then turns right and walks 10m. He is now facing:",options:["North","South","East","West"],correctAnswer:1},
+  {id:126,subject:"Aptitude",chapter:"Simple Interest",difficulty:"Easy",question:"Simple interest on ₹5000 at 8% per annum for 3 years is:",options:["₹1000","₹1200","₹1500","₹2400"],correctAnswer:1},
+  {id:127,subject:"Aptitude",chapter:"Compound Interest",difficulty:"Medium",question:"Compound interest on ₹10000 at 10% for 2 years (compounded annually) is:",options:["₹2000","₹2100","₹2200","₹2500"],correctAnswer:1},
+  {id:128,subject:"Aptitude",chapter:"Mensuration",difficulty:"Medium",question:"Volume of a cylinder with radius 7 cm and height 10 cm (π=22/7) is:",options:["1540 cm³","1440 cm³","1640 cm³","1240 cm³"],correctAnswer:0},
+  {id:129,subject:"Aptitude",chapter:"Clock Problems",difficulty:"Medium",question:"At 3:30, the angle between hour and minute hands of a clock is:",options:["45°","60°","75°","90°"],correctAnswer:2},
+  {id:130,subject:"Aptitude",chapter:"Number System",difficulty:"Medium",question:"What is the remainder when 2¹⁰⁰ is divided by 7?",options:["1","2","4","6"],correctAnswer:0},
+];
+
+/* ============================================================
+   APP STATE
+   ============================================================ */
+let state = {
+  currentPage: 'page-login',
+  user: null,
+  testType: 'full',
+  questions: [],
+  currentQuestionIndex: 0,
+  answers: {}, // questionId -> optionIndex
+  questionStatus: {}, // questionId -> 'not-visited'|'answered'|'not-answered'|'marked'|'marked-answered'
+  timeLeft: 7200, // seconds
+  timerInterval: null,
+  examStartTime: null,
+  proctoring: { camActive: false, micActive: false, violations: 0, tabSwitches: 0, fsExits: 0, log: [] },
+  warningShown: { 30: false, 10: false, 5: false },
+  currentSubject: null,
+  adminEditId: null,
+  darkMode: false,
+};
+
+/* ============================================================
+   STORAGE HELPERS
+   ============================================================ */
+function loadQuestions() {
+  try {
+    const stored = localStorage.getItem('srm_questions');
+    if (stored) return JSON.parse(stored);
+  } catch(e) {}
+  return [...QUESTIONS_DEFAULT];
+}
+function saveQuestions(q) { localStorage.setItem('srm_questions', JSON.stringify(q)); }
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem('srm_history') || '[]'); } catch(e) { return []; }
+}
+function saveHistory(h) { localStorage.setItem('srm_history', JSON.stringify(h)); }
+function loadExamState() {
+  try { return JSON.parse(localStorage.getItem('srm_exam_state')); } catch(e) { return null; }
+}
+function saveExamState() {
+  const es = {
+    questions: state.questions.map(q=>q.id),
+    currentQuestionIndex: state.currentQuestionIndex,
+    answers: state.answers,
+    questionStatus: state.questionStatus,
+    timeLeft: state.timeLeft,
+    testType: state.testType,
+    examStartTime: state.examStartTime,
+  };
+  localStorage.setItem('srm_exam_state', JSON.stringify(es));
+}
+function clearExamState() { localStorage.removeItem('srm_exam_state'); }
+function loadUserPrefs() {
+  try { return JSON.parse(localStorage.getItem('srm_prefs') || '{}'); } catch(e) { return {}; }
+}
+function saveUserPrefs(p) { localStorage.setItem('srm_prefs', JSON.stringify(p)); }
+
+/* ============================================================
+   PAGE NAVIGATION
+   ============================================================ */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  state.currentPage = id;
+  if (id !== 'page-exam') document.getElementById('dark-toggle').style.display = 'flex';
+  else document.getElementById('dark-toggle').style.display = 'none';
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function toast(msg, type='info', duration=3000) {
+  const icons = {success:'✅', error:'❌', warning:'⚠️', info:'ℹ️'};
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
+  document.getElementById('toast-container').appendChild(el);
+  setTimeout(() => el.remove(), duration);
+}
+
+/* ============================================================
+   MODAL HELPERS
+   ============================================================ */
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+function toggleDarkMode() {
+  state.darkMode = !state.darkMode;
+  document.body.classList.toggle('dark', state.darkMode);
+  document.getElementById('dark-toggle').textContent = state.darkMode ? '☀️' : '🌙';
+  saveUserPrefs({...loadUserPrefs(), darkMode: state.darkMode});
+}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+function doLogin() {
+  const id = document.getElementById('login-id').value.trim();
+  const pass = document.getElementById('login-pass').value.trim();
+  if (!id || !pass) { toast('Please enter both Candidate ID and Password', 'error'); return; }
+  if (id === 'admin123') { openAdminModal(); return; }
+  // Accept any credentials for practice
+  state.user = {
+    id: id,
+    name: generateName(id),
+    password: pass,
+    dob: pass,
+  };
+  toast(`Welcome, ${state.user.name}! Login successful.`, 'success');
+  updateDashboard();
+  showPage('page-dashboard');
+}
+
+function generateName(id) {
+  const names = ['Arjun Sharma','Priya Menon','Rahul Verma','Sneha Iyer','Tejas Goel','Ananya Das','Karan Mehta','Divya Nair','Tejas Kumar','Riya Patel'];
+  let hash = 0; for (let c of id) hash += c.charCodeAt(0);
+  return names[hash % names.length];
+}
+
+function doLogout() {
+  clearExamState();
+  state.user = null;
+  if (state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; }
+  showPage('page-login');
+  toast('Logged out successfully', 'info');
+}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+function updateDashboard() {
+  if (!state.user) return;
+  const name = state.user.name;
+  const id = state.user.id;
+  const initial = name[0];
+
+  ['dash-avatar','p-avatar'].forEach(i => { const el=document.getElementById(i); if(el) el.textContent=initial; });
+  const dnEl = document.getElementById('dash-username'); if(dnEl) dnEl.textContent = name;
+  const gnEl = document.getElementById('dash-greet-name'); if(gnEl) gnEl.textContent = name.split(' ')[0];
+  const pnEl = document.getElementById('p-name'); if(pnEl) pnEl.textContent = name;
+  const piEl = document.getElementById('p-id'); if(piEl) piEl.textContent = id;
+
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+
+  const history = loadHistory().filter(h => h.userId === state.user.id);
+  const testsEl = document.getElementById('ds-tests'); if(testsEl) testsEl.textContent = history.length;
+
+  if (history.length > 0) {
+    const scores = history.map(h=>h.score);
+    const best = Math.max(...scores);
+    const lastScore = history[history.length-1];
+    const avgAcc = Math.round(history.reduce((a,h)=>a+h.accuracy,0)/history.length);
+
+    const bestEl = document.getElementById('ds-best'); if(bestEl) bestEl.textContent = best;
+    const avgEl = document.getElementById('ds-avg'); if(avgEl) avgEl.textContent = avgAcc+'%';
+    const psEl = document.getElementById('ps-score'); if(psEl) psEl.textContent = lastScore.score+'/'+lastScore.maxScore;
+    const rankEl = document.getElementById('ps-rank'); if(rankEl) rankEl.textContent = '#'+predictRank(lastScore.score, lastScore.maxScore);
+    const streakEl = document.getElementById('ds-streak'); if(streakEl) streakEl.textContent = Math.min(history.length,5)+'🔥';
+
+    // Subject readiness
+    const subjectMap = {};
+    history.forEach(h => {
+      if (h.subjectScores) {
+        Object.entries(h.subjectScores).forEach(([subj,data]) => {
+          if (!subjectMap[subj]) subjectMap[subj] = [];
+          subjectMap[subj].push(data.accuracy);
+        });
+      }
+    });
+    const srEl = document.getElementById('subject-readiness');
+    if (srEl && Object.keys(subjectMap).length > 0) {
+      srEl.innerHTML = Object.entries(subjectMap).map(([s,accs]) => {
+        const avg = Math.round(accs.reduce((a,b)=>a+b,0)/accs.length);
+        const color = avg>=70?'var(--success)':avg>=50?'var(--accent)':'var(--danger)';
+        return `<div style="margin-bottom:.75rem;">
+          <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem;">
+            <span style="font-weight:600;color:var(--gray-700);">${s}</span>
+            <span style="font-weight:700;color:${color};">${avg}%</span>
+          </div>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:${avg}%;background:${color};"></div></div>
+        </div>`;
+      }).join('');
+    }
+
+    // Render history table
+    const tbody = document.getElementById('history-tbody');
+    if (tbody) {
+      tbody.innerHTML = history.slice().reverse().slice(0,5).map(h => `
+        <tr>
+          <td><strong>${h.testName||'Mock Test'}</strong></td>
+          <td>${new Date(h.date).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}</td>
+          <td><strong>${h.score}/${h.maxScore}</strong>
+            <div class="score-bar-wrap" style="margin-top:.3rem;"><div class="score-bar" style="width:${Math.round((h.score/h.maxScore)*100)}%;"></div></div>
+          </td>
+          <td><span class="badge badge-${h.accuracy>=70?'success':h.accuracy>=50?'warning':'danger'}">${h.accuracy}%</span></td>
+          <td>#${predictRank(h.score,h.maxScore)}</td>
+        </tr>
+      `).join('');
+    }
+  } else {
+    const streakEl = document.getElementById('ds-streak'); if(streakEl) streakEl.textContent = '0🔥';
+  }
+}
+
+function updateDateTime() {
+  const el = document.getElementById('dash-datetime');
+  if (el) {
+    const now = new Date();
+    el.textContent = now.toLocaleDateString('en-IN',{weekday:'short',day:'2-digit',month:'short'}) + ' ' +
+      now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  }
+}
+
+function predictRank(score, maxScore) {
+  const pct = (score/maxScore)*100;
+  if (pct>=95) return Math.floor(Math.random()*500)+1;
+  if (pct>=85) return Math.floor(Math.random()*2000)+500;
+  if (pct>=75) return Math.floor(Math.random()*5000)+2000;
+  if (pct>=65) return Math.floor(Math.random()*10000)+5000;
+  if (pct>=50) return Math.floor(Math.random()*20000)+10000;
+  return Math.floor(Math.random()*50000)+20000;
+}
+
+/* ============================================================
+   INSTRUCTIONS
+   ============================================================ */
+function goToInstructions(type) {
+  state.testType = type || 'full';
+  // Update user info
+  if (state.user) {
+    const n = state.user.name;
+    const iavEl = document.getElementById('ins-avatar'); if(iavEl) iavEl.textContent = n[0];
+    const iunEl = document.getElementById('ins-username'); if(iunEl) iunEl.textContent = n;
+  }
+  document.getElementById('agree-checkbox').checked = false;
+  document.getElementById('start-exam-btn').disabled = true;
+  document.getElementById('agree-checkbox').addEventListener('change', function() {
+    document.getElementById('start-exam-btn').disabled = !this.checked;
+  });
+  showPage('page-instructions');
+}
+
+/* ============================================================
+   EXAM INITIALIZATION
+   ============================================================ */
+function startExam() {
+  requestProctoring();
+  initExam();
+  showPage('page-exam');
+  // Try fullscreen
+  try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); } catch(e) {}
+  setupProctoringListeners();
+}
+
+function initExam() {
+  const allQ = loadQuestions();
+  let filtered;
+  const type = state.testType;
+
+  if (type === 'physics') {
+    filtered = allQ.filter(q=>q.subject==='Physics');
+    state.timeLeft = 3600;
+  } else if (type === 'mini') {
+    // 30 random questions
+    const shuffled = [...allQ].sort(()=>Math.random()-.5);
+    filtered = shuffled.slice(0,30);
+    state.timeLeft = 1800;
+  } else {
+    // Full test: shuffle within subjects
+    const subjects = ['Physics','Chemistry','Mathematics','Aptitude'];
+    filtered = [];
+    subjects.forEach(s => {
+      const sq = allQ.filter(q=>q.subject===s).sort(()=>Math.random()-.5);
+      filtered.push(...sq);
+    });
+    state.timeLeft = 7200;
+  }
+
+  // Restore state if exists
+  const saved = loadExamState();
+  if (saved && saved.testType === type) {
+    const allQmap = {};
+    allQ.forEach(q => allQmap[q.id] = q);
+    const restored = saved.questions.map(id=>allQmap[id]).filter(Boolean);
+    if (restored.length > 0) {
+      state.questions = restored;
+      state.currentQuestionIndex = saved.currentQuestionIndex || 0;
+      state.answers = saved.answers || {};
+      state.questionStatus = saved.questionStatus || {};
+      state.timeLeft = saved.timeLeft || state.timeLeft;
+      state.examStartTime = saved.examStartTime || Date.now();
+      buildExamUI();
+      startTimer();
+      toast('Exam session restored!', 'info');
+      return;
+    }
+  }
+
+  state.questions = filtered;
+  state.currentQuestionIndex = 0;
+  state.answers = {};
+  state.questionStatus = {};
+  state.examStartTime = Date.now();
+  state.warningShown = { 30: false, 10: false, 5: false };
+  state.proctoring = { camActive: false, micActive: false, violations: 0, tabSwitches: 0, fsExits: 0, log: [] };
+
+  // Initialize all as not-visited
+  state.questions.forEach(q => { state.questionStatus[q.id] = 'not-visited'; });
+
+  buildExamUI();
+  startTimer();
+  saveExamState();
+
+  const labelMap = {full:'Full Mock Test 1', physics:'Physics Subject Test', mini:'Quick Mini Test'};
+  const labelEl = document.getElementById('exam-test-label');
+  if (labelEl) labelEl.textContent = labelMap[type]||'Mock Test';
+}
+
+function buildExamUI() {
+  buildSubjectTabs();
+  renderQuestion();
+  buildPalette();
+
+  if (state.user) {
+    const spnEl = document.getElementById('sp-name'); if(spnEl) spnEl.textContent = state.user.name;
+    const spiEl = document.getElementById('sp-id'); if(spiEl) spiEl.textContent = state.user.id;
+  }
+}
+
+function buildSubjectTabs() {
+  const subjects = [...new Set(state.questions.map(q=>q.subject))];
+  const container = document.getElementById('subject-tabs');
+  if (!container) return;
+
+  container.innerHTML = subjects.map(s => {
+    const count = state.questions.filter(q=>q.subject===s).length;
+    return `<div class="subject-tab ${s===subjects[0]?'active':''}" onclick="switchSubject('${s}',this)">${s} (${count})</div>`;
+  }).join('');
+  state.currentSubject = subjects[0];
+}
+
+function switchSubject(subject, el) {
+  state.currentSubject = subject;
+  document.querySelectorAll('.subject-tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+
+  const firstIdx = state.questions.findIndex(q=>q.subject===subject);
+  if (firstIdx !== -1) {
+    state.currentQuestionIndex = firstIdx;
+    renderQuestion();
+    buildPalette();
+  }
+}
+
+/* ============================================================
+   QUESTION RENDERING
+   ============================================================ */
+function renderQuestion() {
+  const q = state.questions[state.currentQuestionIndex];
+  if (!q) return;
+
+  // Mark as visited if not-visited
+  if (state.questionStatus[q.id] === 'not-visited') {
+    state.questionStatus[q.id] = 'not-answered';
+  }
+
+  const numEl = document.getElementById('q-num-badge');
+  if(numEl) numEl.textContent = `Q.${state.currentQuestionIndex+1}`;
+
+  const subEl = document.getElementById('q-subject-label');
+  if(subEl) subEl.textContent = q.subject;
+
+  const diffEl = document.getElementById('q-difficulty-badge');
+  if(diffEl) {
+    diffEl.textContent = q.difficulty;
+    diffEl.className = `badge badge-${q.difficulty==='Easy'?'success':q.difficulty==='Medium'?'warning':'danger'}`;
+  }
+
+  const chapEl = document.getElementById('q-chapter-label');
+  if(chapEl) chapEl.textContent = q.chapter;
+
+  const textEl = document.getElementById('question-text');
+  if(textEl) textEl.textContent = q.question;
+
+  const optList = document.getElementById('options-list');
+  if(optList) {
+    const labels = ['A','B','C','D'];
+    const selected = state.answers[q.id];
+    optList.innerHTML = q.options.map((opt,i) => `
+      <div class="option-item ${selected===i?'selected':''}" onclick="selectOption(${i})">
+        <div class="option-label">${labels[i]}</div>
+        <div class="option-text">${opt}</div>
+      </div>
+    `).join('');
+  }
+
+  // Update subject tab active state
+  document.querySelectorAll('.subject-tab').forEach(t => {
+    t.classList.toggle('active', t.textContent.startsWith(q.subject));
+  });
+
+  updatePaletteHighlight();
+  saveExamState();
+}
+
+function selectOption(index) {
+  const q = state.questions[state.currentQuestionIndex];
+  if (!q) return;
+  state.answers[q.id] = index;
+  const cur = state.questionStatus[q.id];
+  if (cur === 'marked') state.questionStatus[q.id] = 'marked-answered';
+  else state.questionStatus[q.id] = 'answered';
+
+  // Re-render options
+  document.querySelectorAll('.option-item').forEach((el,i) => {
+    el.classList.toggle('selected', i===index);
+    el.querySelector('.option-label').style.background = i===index ? 'var(--primary)' : '';
+    el.querySelector('.option-label').style.color = i===index ? 'white' : '';
+    el.querySelector('.option-label').style.borderColor = i===index ? 'var(--primary)' : '';
+  });
+  updatePaletteHighlight();
+  saveExamState();
+}
+
+function prevQuestion() {
+  if (state.currentQuestionIndex > 0) {
+    state.currentQuestionIndex--;
+    renderQuestion();
+    buildPalette();
+  }
+}
+
+function saveAndNext() {
+  if (state.currentQuestionIndex < state.questions.length - 1) {
+    state.currentQuestionIndex++;
+    renderQuestion();
+    buildPalette();
+  } else {
+    toast('You are at the last question!', 'info');
+  }
+}
+
+function markForReview() {
+  const q = state.questions[state.currentQuestionIndex];
+  if (!q) return;
+  const cur = state.questionStatus[q.id];
+  if (cur === 'answered' || cur === 'marked-answered') {
+    state.questionStatus[q.id] = 'marked-answered';
+  } else {
+    state.questionStatus[q.id] = 'marked';
+  }
+  toast('Question marked for review', 'info');
+  buildPalette();
+  saveExamState();
+}
+
+function clearResponse() {
+  const q = state.questions[state.currentQuestionIndex];
+  if (!q) return;
+  delete state.answers[q.id];
+  const cur = state.questionStatus[q.id];
+  state.questionStatus[q.id] = cur==='marked-answered'?'marked':'not-answered';
+  renderQuestion();
+  toast('Response cleared', 'warning');
+}
+
+function goToQuestion(index) {
+  state.currentQuestionIndex = index;
+  renderQuestion();
+  buildPalette();
+}
+
+/* ============================================================
+   PALETTE
+   ============================================================ */
+function buildPalette() {
+  const grid = document.getElementById('palette-grid');
+  if (!grid) return;
+
+  grid.innerHTML = state.questions.map((q,i) => {
+    const status = state.questionStatus[q.id] || 'not-visited';
+    const isCurrent = i === state.currentQuestionIndex;
+    const classMap = {
+      'not-visited':'not-visited',
+      'answered':'answered',
+      'not-answered':'not-answered',
+      'marked':'marked',
+      'marked-answered':'marked-answered',
+    };
+    return `<button class="palette-btn ${classMap[status]} ${isCurrent?'current':''}" onclick="goToQuestion(${i})" title="Q.${i+1} - ${q.subject}">${i+1}</button>`;
+  }).join('');
+
+  updatePaletteSummary();
+}
+
+function updatePaletteHighlight() {
+  document.querySelectorAll('.palette-btn').forEach((btn,i) => {
+    btn.classList.toggle('current', i===state.currentQuestionIndex);
+  });
+}
+
+function updatePaletteSummary() {
+  const counts = {answered:0,'not-answered':0,marked:0,'marked-answered':0,'not-visited':0};
+  Object.values(state.questionStatus).forEach(s => { if(counts[s]!==undefined) counts[s]++; });
+  const el = document.getElementById('palette-summary');
+  if (!el) return;
+  el.innerHTML = `
+    <div class="ps-item"><div class="palette-dot-mini ans" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${counts.answered}</span>&nbsp;Answered</div>
+    <div class="ps-item"><div class="palette-dot-mini na" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${counts['not-answered']}</span>&nbsp;Not Ans</div>
+    <div class="ps-item"><div class="palette-dot-mini mr" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${counts.marked+counts['marked-answered']}</span>&nbsp;Marked</div>
+    <div class="ps-item"><div class="palette-dot-mini nv" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${counts['not-visited']}</span>&nbsp;Not Visited</div>
+  `;
+}
+
+/* ============================================================
+   TIMER
+   ============================================================ */
+function startTimer() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  updateTimerDisplay();
+  state.timerInterval = setInterval(() => {
+    state.timeLeft--;
+    updateTimerDisplay();
+    checkTimeWarnings();
+    if (state.timeLeft <= 0) {
+      clearInterval(state.timerInterval);
+      toast('Time Up! Auto-submitting...', 'warning');
+      setTimeout(submitExam, 1500);
+    }
+    if (state.timeLeft % 30 === 0) saveExamState();
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const h = Math.floor(state.timeLeft/3600);
+  const m = Math.floor((state.timeLeft%3600)/60);
+  const s = state.timeLeft%60;
+  const str = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const el = document.getElementById('exam-timer');
+  if (!el) return;
+  el.textContent = str;
+  const isDanger = state.timeLeft <= 600;
+  el.classList.toggle('danger', isDanger);
+}
+
+function checkTimeWarnings() {
+  const minsLeft = Math.floor(state.timeLeft/60);
+  if (minsLeft===30 && !state.warningShown[30]) {
+    state.warningShown[30] = true;
+    showTimeWarning(30);
+  }
+  if (minsLeft===10 && !state.warningShown[10]) {
+    state.warningShown[10] = true;
+    showTimeWarning(10);
+  }
+  if (minsLeft===5 && !state.warningShown[5]) {
+    state.warningShown[5] = true;
+    showTimeWarning(5);
+  }
+}
+
+function showTimeWarning(mins) {
+  const el = document.getElementById('time-warning-text');
+  if(el) el.textContent = `Only ${mins} minute${mins>1?'s':''} remaining! Please review your answers and submit before the time runs out.`;
+  openModal('time-warning-modal');
+}
+
+/* ============================================================
+   SUBMIT
+   ============================================================ */
+function openSubmitModal() {
+  const counts = {answered:0,'not-answered':0,marked:0,'marked-answered':0,'not-visited':0};
+  Object.values(state.questionStatus).forEach(s => { if(counts[s]!==undefined) counts[s]++; });
+
+  const ssa = document.getElementById('ss-answered'); if(ssa) ssa.textContent = counts.answered+counts['marked-answered'];
+  const ssna = document.getElementById('ss-not-answered'); if(ssna) ssna.textContent = counts['not-answered']+counts['not-visited'];
+  const ssm = document.getElementById('ss-marked'); if(ssm) ssm.textContent = counts.marked+counts['marked-answered'];
+  openModal('submit-modal');
+}
+
+function submitExam() {
+  closeModal('submit-modal');
+  clearInterval(state.timerInterval);
+  clearExamState();
+
+  // Calculate result
+  let correct=0, wrong=0, unattempted=0;
+  const subjectData = {};
+  const allQ = loadQuestions();
+  const qmap = {};
+  allQ.forEach(q=>qmap[q.id]=q);
+
+  state.questions.forEach(q => {
+    const fullQ = qmap[q.id] || q;
+    const subj = fullQ.subject;
+    if (!subjectData[subj]) subjectData[subj] = {correct:0,wrong:0,total:0,attempted:0};
+    subjectData[subj].total++;
+
+    const ans = state.answers[q.id];
+    if (ans === undefined || ans === null) {
+      unattempted++;
+    } else if (ans === fullQ.correctAnswer) {
+      correct++;
+      subjectData[subj].correct++;
+      subjectData[subj].attempted++;
+    } else {
+      wrong++;
+      subjectData[subj].wrong++;
+      subjectData[subj].attempted++;
+    }
+  });
+
+  const score = correct*3 - wrong;
+  const maxScore = state.questions.length*3;
+  const accuracy = correct+wrong > 0 ? Math.round((correct/(correct+wrong))*100) : 0;
+  const timeUsed = (state.testType==='full'?7200:state.testType==='physics'?3600:1800) - state.timeLeft;
+  const testName = {full:'Full Mock Test 1',physics:'Physics Subject Test',mini:'Quick Mini Test'}[state.testType]||'Mock Test';
+
+  // Subject accuracy
+  const subjectScores = {};
+  Object.entries(subjectData).forEach(([s,d]) => {
+    subjectScores[s] = {
+      score: d.correct*3 - d.wrong,
+      maxScore: d.total*3,
+      correct: d.correct,
+      wrong: d.wrong,
+      total: d.total,
+      accuracy: d.attempted>0?Math.round((d.correct/d.attempted)*100):0,
+    };
+  });
+
+  // Save to history
+  const histEntry = {
+    userId: state.user?.id,
+    testName, date: Date.now(), score, maxScore, accuracy,
+    correct, wrong, unattempted, timeUsed, subjectScores,
+    violations: state.proctoring.violations, tabSwitches: state.proctoring.tabSwitches
+  };
+  const history = loadHistory();
+  history.push(histEntry);
+  saveHistory(history);
+
+  // Render result page
+  renderResult(histEntry);
+  showPage('page-result');
+
+  // Exit fullscreen
+  try { document.exitFullscreen && document.exitFullscreen(); } catch(e){}
+  stopProctoring();
+}
+
+/* ============================================================
+   RESULT
+   ============================================================ */
+function renderResult(data) {
+  const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  set('r-score', data.score);
+  set('r-correct', data.correct);
+  set('r-wrong', data.wrong);
+  set('r-skip', data.unattempted);
+  set('r-accuracy', data.accuracy+'%');
+
+  const mins = Math.floor(data.timeUsed/60);
+  const secs = data.timeUsed%60;
+  set('r-time', `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`);
+  set('r-candidate-line', `${state.user?.name||'Candidate'} · ${data.testName}`);
+
+  const rank = predictRank(data.score, data.maxScore);
+  const percentile = Math.round((1 - rank/100000)*100*10)/10;
+  set('r-rank', '#'+rank.toLocaleString());
+  set('r-percentile', percentile+'th');
+  set('r-cat-rank', '#'+Math.floor(rank/3).toLocaleString());
+
+  set('pr-violations', data.tabSwitches||0);
+  set('pr-fs', state.proctoring.fsExits||0);
+  const prStatus = document.getElementById('pr-status');
+  if(prStatus) {
+    const isOk = (data.tabSwitches||0) < 3;
+    prStatus.textContent = isOk?'CLEAR':'FLAGGED';
+    prStatus.style.color = isOk?'var(--success)':'var(--danger)';
+  }
+
+  // Score donut
+  setTimeout(() => drawScoreDonut(data.score, data.maxScore), 100);
+
+  // Subject results
+  const container = document.getElementById('subject-results');
+  if (container && data.subjectScores) {
+    container.innerHTML = Object.entries(data.subjectScores).map(([s,d]) => {
+      const pct = Math.round((d.score/Math.max(d.maxScore,1))*100);
+      const colors = {Physics:'#3b82f6',Chemistry:'#10b981',Mathematics:'#8b5cf6',Aptitude:'#f59e0b'};
+      const icons = {Physics:'⚛️',Chemistry:'🧪',Mathematics:'📐',Aptitude:'🧠'};
+      return `<div class="subject-result-card">
+        <div class="src-header">
+          <div class="src-title">${icons[s]||'📚'} ${s}</div>
+          <div class="src-score">${d.score}/${d.maxScore}</div>
+        </div>
+        <div class="src-bar"><div class="src-bar-fill" style="width:${Math.max(pct,0)}%;background:${colors[s]||'var(--primary)'};"></div></div>
+        <div class="src-details">
+          <div class="src-detail">✅ Correct: <strong>${d.correct}</strong></div>
+          <div class="src-detail">❌ Wrong: <strong>${d.wrong}</strong></div>
+          <div class="src-detail">⏭️ Skipped: <strong>${d.total-d.correct-d.wrong}</strong></div>
+          <div class="src-detail">🎯 Accuracy: <strong>${d.accuracy}%</strong></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Subject bar chart
+  setTimeout(() => drawSubjectChart(data.subjectScores), 150);
+}
+
+function drawScoreDonut(score, maxScore) {
+  const canvas = document.getElementById('score-donut');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cx = 80, cy = 80, r = 65;
+  ctx.clearRect(0,0,160,160);
+  const pct = Math.max(0, score/maxScore);
+
+  // Background arc
+  ctx.beginPath();
+  ctx.arc(cx,cy,r,0,2*Math.PI);
+  ctx.strokeStyle='rgba(255,255,255,.15)';
+  ctx.lineWidth=14;
+  ctx.stroke();
+
+  // Fill arc
+  ctx.beginPath();
+  ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+2*Math.PI*pct);
+  ctx.strokeStyle='#e8a020';
+  ctx.lineWidth=14;
+  ctx.lineCap='round';
+  ctx.stroke();
+}
+
+function drawSubjectChart(subjectScores) {
+  const canvas = document.getElementById('subject-chart');
+  if (!canvas || !subjectScores) return;
+  const ctx = canvas.getContext('2d');
+  const subjects = Object.keys(subjectScores);
+  const colors = {'Physics':'#3b82f6','Chemistry':'#10b981','Mathematics':'#8b5cf6','Aptitude':'#f59e0b'};
+  const W=canvas.width, H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const barWidth = 50, gap = (W - subjects.length*barWidth)/(subjects.length+1);
+  const maxH = H - 50;
+
+  subjects.forEach((s,i) => {
+    const d = subjectScores[s];
+    const pct = Math.max(0, d.score/d.maxScore);
+    const x = gap + i*(barWidth+gap);
+    const h = pct*maxH;
+    const y = maxH - h + 10;
+
+    // Bar
+    const gradient = ctx.createLinearGradient(0,y,0,maxH+10);
+    gradient.addColorStop(0,colors[s]||'#3b82f6');
+    gradient.addColorStop(1,(colors[s]||'#3b82f6')+'44');
+    ctx.fillStyle=gradient;
+    ctx.beginPath();
+    ctx.roundRect(x, y, barWidth, h, [6,6,0,0]);
+    ctx.fill();
+
+    // Label
+    ctx.fillStyle='#64748b';
+    ctx.font='11px IBM Plex Sans, sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText(s.substring(0,4), x+barWidth/2, H-5);
+
+    // Value
+    ctx.fillStyle=colors[s]||'#3b82f6';
+    ctx.font='bold 12px IBM Plex Sans, sans-serif';
+    ctx.fillText(d.score, x+barWidth/2, y-5);
+  });
+}
+
+/* ============================================================
+   PROCTORING
+   ============================================================ */
+async function requestProctoring() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+    const video = document.getElementById('proctor-video');
+    if (video) { video.srcObject=stream; }
+    state.proctoring.camActive = true;
+    state.proctoring.micActive = true;
+    document.getElementById('proctor-video-wrap').classList.remove('hidden');
+    updateProctorStatus();
+    toast('Camera and microphone activated', 'success');
+  } catch(e) {
+    state.proctoring.camActive = false;
+    state.proctoring.micActive = false;
+    updateProctorStatus();
+    toast('Camera/microphone not available (proctoring limited)', 'warning');
+  }
+}
+
+function stopProctoring() {
+  const video = document.getElementById('proctor-video');
+  if (video && video.srcObject) {
+    video.srcObject.getTracks().forEach(t=>t.stop());
+    video.srcObject = null;
+  }
+  document.getElementById('proctor-video-wrap').classList.add('hidden');
+}
+
+function updateProctorStatus() {
+  const camDot = document.getElementById('cam-dot');
+  const micDot = document.getElementById('mic-dot');
+  if (camDot) camDot.className = `proctor-dot${state.proctoring.camActive?'':' off'}`;
+  if (micDot) micDot.className = `proctor-dot${state.proctoring.micActive?'':' off'}`;
+
+  const psEl = document.getElementById('proctor-status');
+  if (psEl) {
+    psEl.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.4rem;">
+        <div class="proctor-dot${state.proctoring.camActive?'':' off'}" style="width:6px;height:6px;"></div>
+        <span style="color:rgba(255,255,255,.6)">Camera</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.4rem;">
+        <div class="proctor-dot${state.proctoring.micActive?'':' off'}" style="width:6px;height:6px;"></div>
+        <span style="color:rgba(255,255,255,.6)">Mic</span>
+      </div>
+    `;
+  }
+}
+
+function setupProctoringListeners() {
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  window.addEventListener('blur', onWindowBlur);
+}
+
+function onVisibilityChange() {
+  if (state.currentPage !== 'page-exam') return;
+  if (document.hidden) {
+    state.proctoring.tabSwitches++;
+    state.proctoring.violations++;
+    logProctoringEvent('Tab switch detected');
+    showViolationWarning('Tab Switch Detected', 'You have switched to another tab or window. This activity has been recorded and flagged.');
+  }
+}
+
+function onFullscreenChange() {
+  if (state.currentPage !== 'page-exam') return;
+  if (!document.fullscreenElement) {
+    state.proctoring.fsExits++;
+    state.proctoring.violations++;
+    logProctoringEvent('Fullscreen exit');
+    showViolationWarning('Fullscreen Exited', 'You have exited fullscreen mode. Please return to fullscreen to continue your examination.');
+  }
+}
+
+function onWindowBlur() {
+  if (state.currentPage !== 'page-exam') return;
+  logProctoringEvent('Window focus lost');
+}
+
+function logProctoringEvent(msg) {
+  const ts = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  state.proctoring.log.push({ts, msg});
+  const logEl = document.getElementById('activity-log');
+  if (logEl) {
+    logEl.innerHTML = state.proctoring.log.slice(-5).map(e =>
+      `<div class="activity-log-entry"><span class="ts">[${e.ts}]</span> ${e.msg}</div>`
+    ).join('');
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+  const vcEl = document.getElementById('violation-count');
+  if(vcEl) vcEl.textContent = `Violations: ${state.proctoring.violations}`;
+}
+
+function showViolationWarning(title, text) {
+  document.getElementById('warning-title').textContent = title;
+  document.getElementById('warning-text').textContent = text;
+  document.getElementById('warning-count').textContent = `Total Violations: ${state.proctoring.violations}`;
+  document.getElementById('warning-overlay').classList.remove('hidden');
+}
+
+function dismissWarning() {
+  document.getElementById('warning-overlay').classList.add('hidden');
+  // Re-enter fullscreen
+  try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); } catch(e){}
+}
+
+/* ============================================================
+   ADMIN
+   ============================================================ */
+function openAdminModal() { openModal('admin-login-modal'); }
+
+function checkAdminLogin() {
+  const pass = document.getElementById('admin-password-input').value;
+  if (pass === 'admin123') {
+    closeModal('admin-login-modal');
+    document.getElementById('admin-password-input').value = '';
+    showPage('page-admin');
+    renderAdminQuestions();
+    renderAdminStats();
+    showAdminExport();
+  } else {
+    toast('Incorrect admin password', 'error');
+  }
+}
+
+function adminNav(section, el) {
+  document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(n=>n.classList.remove('active'));
+  const sec = document.getElementById('admin-sec-'+section);
+  if(sec) sec.classList.add('active');
+  if(el && typeof el === 'object') el.classList.add('active');
+  else document.querySelectorAll('.admin-nav-item').forEach(n=>{
+    if(n.textContent.toLowerCase().includes(section.toLowerCase().substring(0,4))) n.classList.add('active');
+  });
+
+  if(section==='questions') renderAdminQuestions();
+  if(section==='export') showAdminExport();
+  if(section==='stats') renderAdminStats();
+}
+
+function renderAdminQuestions() {
+  const questions = loadQuestions();
+  const search = (document.getElementById('q-search')?.value||'').toLowerCase();
+  const subject = document.getElementById('q-filter-subject')?.value||'';
+
+  const filtered = questions.filter(q =>
+    (!subject || q.subject===subject) &&
+    (!search || q.question.toLowerCase().includes(search) || q.chapter.toLowerCase().includes(search))
+  );
+
+  const container = document.getElementById('admin-question-list');
+  if (!container) return;
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--gray-400);">No questions found.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(q => `
+    <div class="question-list-item">
+      <div class="qli-id">#${q.id}</div>
+      <div class="qli-body">
+        <div class="qli-text">${q.question}</div>
+        <div class="qli-meta">
+          <span class="badge badge-primary">${q.subject}</span>
+          <span class="badge badge-gray">${q.chapter}</span>
+          <span class="badge badge-${q.difficulty==='Easy'?'success':q.difficulty==='Medium'?'warning':'danger'}">${q.difficulty}</span>
+        </div>
+      </div>
+      <div class="qli-actions">
+        <button class="btn btn-outline btn-sm" onclick="editQuestion(${q.id})">✏️ Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteQuestion(${q.id})">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function editQuestion(id) {
+  const questions = loadQuestions();
+  const q = questions.find(q=>q.id===id);
+  if (!q) return;
+  state.adminEditId = id;
+
+  const setVal = (eid,val) => { const el=document.getElementById(eid); if(el) el.value=val; };
+  setVal('af-subject',q.subject);
+  setVal('af-chapter',q.chapter);
+  setVal('af-difficulty',q.difficulty);
+  setVal('af-correct',q.correctAnswer);
+  setVal('af-question',q.question);
+  setVal('af-a',q.options[0]||'');
+  setVal('af-b',q.options[1]||'');
+  setVal('af-c',q.options[2]||'');
+  setVal('af-d',q.options[3]||'');
+  setVal('af-edit-id',id);
+
+  adminNav('add', null);
+  toast('Question loaded for editing', 'info');
+}
+
+function adminAddQuestion() {
+  const getVal = id => document.getElementById(id)?.value?.trim()||'';
+  const editId = parseInt(document.getElementById('af-edit-id')?.value||0);
+
+  const qData = {
+    subject: getVal('af-subject'),
+    chapter: getVal('af-chapter'),
+    difficulty: getVal('af-difficulty'),
+    question: getVal('af-question'),
+    options: [getVal('af-a'),getVal('af-b'),getVal('af-c'),getVal('af-d')],
+    correctAnswer: parseInt(getVal('af-correct')),
+  };
+
+  if (!qData.question || qData.options.some(o=>!o)) {
+    toast('Please fill all fields', 'error'); return;
+  }
+
+  const questions = loadQuestions();
+  if (editId) {
+    const idx = questions.findIndex(q=>q.id===editId);
+    if (idx!==-1) { questions[idx]={...questions[idx],...qData}; }
+    toast('Question updated!', 'success');
+    document.getElementById('af-edit-id').value='';
+  } else {
+    const maxId = Math.max(...questions.map(q=>q.id),0);
+    questions.push({id:maxId+1,...qData});
+    toast('Question added!', 'success');
+  }
+
+  saveQuestions(questions);
+  ['af-question','af-a','af-b','af-c','af-d','af-chapter'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  renderAdminQuestions();
+}
+
+function deleteQuestion(id) {
+  if (!confirm(`Delete question #${id}?`)) return;
+  const questions = loadQuestions().filter(q=>q.id!==id);
+  saveQuestions(questions);
+  renderAdminQuestions();
+  toast('Question deleted', 'success');
+}
+
+function importQuestions() {
+  try {
+    const raw = document.getElementById('import-json').value.trim();
+    const imported = JSON.parse(raw);
+    if (!Array.isArray(imported)) throw new Error('Must be an array');
+
+    const questions = loadQuestions();
+    const maxId = Math.max(...questions.map(q=>q.id),0);
+    let count = 0;
+
+    imported.forEach((q,i) => {
+      if (!q.question || !q.options || !Array.isArray(q.options)) return;
+      questions.push({
+        id: maxId+i+1,
+        subject: q.subject||'Physics',
+        chapter: q.chapter||'General',
+        difficulty: q.difficulty||'Medium',
+        question: q.question,
+        options: q.options.slice(0,4),
+        correctAnswer: parseInt(q.correctAnswer)||0,
+      });
+      count++;
+    });
+
+    saveQuestions(questions);
+    toast(`${count} questions imported successfully!`, 'success');
+    document.getElementById('import-json').value = '';
+    renderAdminQuestions();
+  } catch(e) {
+    toast('Invalid JSON: '+e.message, 'error');
+  }
+}
+
+function showAdminExport() {
+  const questions = loadQuestions();
+  const preview = document.getElementById('export-preview');
+  if (preview) preview.textContent = JSON.stringify(questions.slice(0,3), null, 2) + '\n... ('+questions.length+' total)';
+}
+
+function exportQuestions() {
+  const questions = loadQuestions();
+  const json = JSON.stringify(questions, null, 2);
+  const blob = new Blob([json], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='questions.json'; a.click();
+  URL.revokeObjectURL(url);
+  toast('questions.json downloaded!', 'success');
+}
+
+function copyQuestionsJSON() {
+  const questions = loadQuestions();
+  navigator.clipboard.writeText(JSON.stringify(questions, null, 2)).then(()=>{
+    toast('Copied to clipboard!', 'success');
+  }).catch(()=>{
+    toast('Could not copy to clipboard', 'error');
+  });
+}
+
+function renderAdminStats() {
+  const questions = loadQuestions();
+  const subjects = {};
+  const difficulties = {Easy:0,Medium:0,Hard:0};
+  questions.forEach(q=>{
+    subjects[q.subject]=(subjects[q.subject]||0)+1;
+    difficulties[q.difficulty]=(difficulties[q.difficulty]||0)+1;
+  });
+
+  const container = document.getElementById('admin-stats-grid');
+  if (!container) return;
+  container.innerHTML = `
+    ${Object.entries(subjects).map(([s,c])=>`
+      <div class="stat-card">
+        <div class="stat-card-value">${c}</div>
+        <div class="stat-card-label">${s} Questions</div>
+      </div>
+    `).join('')}
+    <div class="stat-card">
+      <div class="stat-card-value">${questions.length}</div>
+      <div class="stat-card-label">Total Questions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-value text-success">${difficulties.Easy}</div>
+      <div class="stat-card-label">Easy Questions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-value" style="color:var(--accent);">${difficulties.Medium}</div>
+      <div class="stat-card-label">Medium Questions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-value text-danger">${difficulties.Hard}</div>
+      <div class="stat-card-label">Hard Questions</div>
+    </div>
+  `;
+}
+
+/* ============================================================
+   INITIALIZATION
+   ============================================================ */
+window.addEventListener('DOMContentLoaded', () => {
+  const prefs = loadUserPrefs();
+  if (prefs.darkMode) {
+    state.darkMode = true;
+    document.body.classList.add('dark');
+    document.getElementById('dark-toggle').textContent = '☀️';
+  }
+
+  // Loading sequence
+  const messages = ['Initializing examination system...','Loading question database...','Setting up proctoring module...','Calibrating interface...','Ready!'];
+  let mi = 0;
+  const lt = document.getElementById('loading-text');
+  const msgInterval = setInterval(()=>{
+    mi++;
+    if(mi<messages.length && lt) lt.textContent=messages[mi];
+  }, 360);
+
+  setTimeout(()=>{
+    clearInterval(msgInterval);
+    document.getElementById('loading-screen').classList.add('hidden');
+    showPage('page-login');
+  }, 1900);
+
+  // Keyboard shortcuts (exam)
+  document.addEventListener('keydown', e => {
+    if (state.currentPage !== 'page-exam') return;
+    if (e.key==='ArrowRight' || e.key==='Enter') saveAndNext();
+    if (e.key==='ArrowLeft') prevQuestion();
+    if (e.key==='m' || e.key==='M') markForReview();
+    if (e.key>='1' && e.key<='4') selectOption(parseInt(e.key)-1);
+  });
+});
+</script>
+</body>
+</html>
