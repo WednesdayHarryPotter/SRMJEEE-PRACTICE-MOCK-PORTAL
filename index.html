@@ -1546,7 +1546,7 @@ body.dark .proctor-bar { background: #0a0f1a; }
       <button class="modal-close" onclick="closeModal('submit-modal')">×</button>
     </div>
     <div class="modal-body">
-      <p style="color:var(--gray-600);font-size:.9rem;margin-bottom:1rem;">Once submitted, you cannot modify your answers. Please review your responses before submitting.</p>
+      <p style="color:var(--gray-600);font-size:.9rem;margin-bottom:1rem;">Once submitted, you cannot modify your answers. Remember: <strong>no negative marking</strong> — attempt all questions!</p>
       <div class="submit-summary" id="submit-summary">
         <div class="submit-summary-item">
           <div class="submit-summary-value text-success" id="ss-answered">0</div>
@@ -1562,6 +1562,9 @@ body.dark .proctor-bar { background: #0a0f1a; }
         </div>
       </div>
     </div>
+            <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:var(--radius-md);padding:.75rem 1rem;font-size:.82rem;color:#166534;margin-top:.75rem;">
+        💡 <strong>SRMJEEE 2026: No negative marking!</strong> Unanswered = 0. Always attempt every question.
+      </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('submit-modal')">Continue Exam</button>
       <button class="btn btn-danger" onclick="submitExam()">Submit Now</button>
@@ -1685,8 +1688,8 @@ body.dark .proctor-bar { background: #0a0f1a; }
       <h1>SRM<span>JEEE</span><br>Practice Portal</h1>
       <p>Experience the real examination environment before your actual SRMJEEE exam. Practice with authentic question patterns, timed sessions, and detailed performance analytics.</p>
       <div class="login-features">
-        <div class="login-feature"><div class="login-feature-icon">📚</div> 125+ curated questions across 4 subjects</div>
-        <div class="login-feature"><div class="login-feature-icon">⏱️</div> Authentic 2-hour timed exam environment</div>
+        <div class="login-feature"><div class="login-feature-icon">📚</div> 210+ questions — 5 Full Mocks · 4 Subject Tests</div>
+        <div class="login-feature"><div class="login-feature-icon">⏱️</div> 2.5-hour (150 min) official SRMJEEE 2026 duration</div>
         <div class="login-feature"><div class="login-feature-icon">📊</div> Detailed performance analytics & rank prediction</div>
         <div class="login-feature"><div class="login-feature-icon">🔒</div> Proctoring simulation with activity monitoring</div>
         <div class="login-feature"><div class="login-feature-icon">📱</div> Works completely offline in your browser</div>
@@ -1810,37 +1813,85 @@ body.dark .proctor-bar { background: #0a0f1a; }
       <div>
         <div class="dash-section-title">
           <span>📝 Available Mock Tests</span>
-          <span class="badge badge-primary">3 Tests</span>
+          <span class="badge badge-primary">5 Full Tests + 4 Subject Tests</span>
         </div>
-        <div class="test-card" onclick="goToInstructions('full')">
+
+        <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin-bottom:.5rem;">FULL MOCK TESTS — Official 2026 Pattern (130Q · 150 min · +1/0)</div>
+
+        <div class="test-card" onclick="goToInstructions('mock1')">
           <div class="test-icon full">📋</div>
           <div class="test-meta">
-            <div class="test-name">SRMJEEE Full Mock Test 1</div>
-            <div class="test-info">125 Questions · 4 Subjects · 2 Hours · −1 Negative Marking</div>
+            <div class="test-name">SRMJEEE 2026 — Full Mock Test 1</div>
+            <div class="test-info">130 Questions · 150 Minutes · Phy(35)+Chem(35)+Math(40)+Eng&Apt(20)</div>
             <div style="margin-top:.4rem;display:flex;gap:.4rem;">
-              <span class="badge badge-purple">RECOMMENDED</span>
-              <span class="badge badge-gray">PHYSICS + CHEM + MATH + APTITUDE</span>
+              <span class="badge badge-purple">PHASE 1 PATTERN</span><span class="badge badge-success">+1 / 0 No Negative</span>
             </div>
           </div>
           <div class="test-action"><button class="btn btn-primary btn-sm">Start →</button></div>
         </div>
-        <div class="test-card" onclick="goToInstructions('physics')">
-          <div class="test-icon physics">⚛️</div>
+        <div class="test-card" onclick="goToInstructions('mock2')">
+          <div class="test-icon full">📋</div>
           <div class="test-meta">
-            <div class="test-name">Physics Subject Test</div>
-            <div class="test-info">35 Questions · 1 Hour · Physics Only</div>
-            <div style="margin-top:.4rem;"><span class="badge badge-primary">SUBJECT FOCUS</span></div>
+            <div class="test-name">SRMJEEE 2026 — Full Mock Test 2</div>
+            <div class="test-info">130 Questions · 150 Minutes · Moderate Difficulty</div>
+            <div style="margin-top:.4rem;display:flex;gap:.4rem;">
+              <span class="badge badge-purple">PHASE 2 PATTERN</span><span class="badge badge-success">+1 / 0 No Negative</span>
+            </div>
           </div>
-          <div class="test-action"><button class="btn btn-outline btn-sm">Start →</button></div>
+          <div class="test-action"><button class="btn btn-primary btn-sm">Start →</button></div>
         </div>
-        <div class="test-card" onclick="goToInstructions('mini')">
-          <div class="test-icon mini">⚡</div>
+        <div class="test-card" onclick="goToInstructions('mock3')">
+          <div class="test-icon full">📋</div>
           <div class="test-meta">
-            <div class="test-name">Quick Mini Test</div>
-            <div class="test-info">30 Questions · 30 Minutes · Mixed Subjects</div>
-            <div style="margin-top:.4rem;"><span class="badge badge-success">QUICK PRACTICE</span></div>
+            <div class="test-name">SRMJEEE 2026 — Full Mock Test 3</div>
+            <div class="test-info">130 Questions · 150 Minutes · Higher Difficulty</div>
+            <div style="margin-top:.4rem;display:flex;gap:.4rem;">
+              <span class="badge badge-danger">PHASE 3 PATTERN</span><span class="badge badge-success">+1 / 0 No Negative</span>
+            </div>
           </div>
-          <div class="test-action"><button class="btn btn-outline btn-sm">Start →</button></div>
+          <div class="test-action"><button class="btn btn-primary btn-sm">Start →</button></div>
+        </div>
+        <div class="test-card" onclick="goToInstructions('mock4')">
+          <div class="test-icon full">📋</div>
+          <div class="test-meta">
+            <div class="test-name">SRMJEEE 2026 — Full Mock Test 4</div>
+            <div class="test-info">130 Questions · 150 Minutes · Previous Year Style</div>
+            <div style="margin-top:.4rem;display:flex;gap:.4rem;">
+              <span class="badge badge-warning">PYQ STYLE</span><span class="badge badge-success">+1 / 0 No Negative</span>
+            </div>
+          </div>
+          <div class="test-action"><button class="btn btn-primary btn-sm">Start →</button></div>
+        </div>
+        <div class="test-card" onclick="goToInstructions('mock5')">
+          <div class="test-icon full" style="background:linear-gradient(135deg,#ede9fe,#dbeafe);">🏆</div>
+          <div class="test-meta">
+            <div class="test-name">SRMJEEE 2026 — Full Mock Test 5 (Grand Revision)</div>
+            <div class="test-info">130 Questions · 150 Minutes · Mixed Difficulty — Final Revision</div>
+            <div style="margin-top:.4rem;display:flex;gap:.4rem;">
+              <span class="badge badge-primary">GRAND REVISION</span><span class="badge badge-success">+1 / 0 No Negative</span>
+            </div>
+          </div>
+          <div class="test-action"><button class="btn btn-accent btn-sm">Start →</button></div>
+        </div>
+
+        <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400);margin:.75rem 0 .5rem;">SUBJECT-WISE TESTS</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem;">
+          <div class="test-card" style="margin-bottom:0;" onclick="goToInstructions('physics')">
+            <div class="test-icon subject" style="width:38px;height:38px;font-size:1.1rem;">⚛️</div>
+            <div class="test-meta"><div class="test-name" style="font-size:.88rem;">Physics Only</div><div class="test-info">35Q · 45 min</div></div>
+          </div>
+          <div class="test-card" style="margin-bottom:0;" onclick="goToInstructions('chemistry')">
+            <div class="test-icon subject" style="width:38px;height:38px;font-size:1.1rem;background:#f0fdf4;">🧪</div>
+            <div class="test-meta"><div class="test-name" style="font-size:.88rem;">Chemistry Only</div><div class="test-info">35Q · 45 min</div></div>
+          </div>
+          <div class="test-card" style="margin-bottom:0;" onclick="goToInstructions('maths')">
+            <div class="test-icon subject" style="width:38px;height:38px;font-size:1.1rem;background:#ede9fe;">📐</div>
+            <div class="test-meta"><div class="test-name" style="font-size:.88rem;">Mathematics Only</div><div class="test-info">40Q · 50 min</div></div>
+          </div>
+          <div class="test-card" style="margin-bottom:0;" onclick="goToInstructions('english')">
+            <div class="test-icon subject" style="width:38px;height:38px;font-size:1.1rem;background:#fef9c3;">📝</div>
+            <div class="test-meta"><div class="test-name" style="font-size:.88rem;">English & Aptitude</div><div class="test-info">20Q · 25 min</div></div>
+          </div>
         </div>
         <div class="sep"></div>
         <div class="dash-section-title">📈 Test History</div>
@@ -1848,7 +1899,7 @@ body.dark .proctor-bar { background: #0a0f1a; }
           <table class="history-table" style="width:100%;">
             <thead>
               <tr>
-                <th>Test</th><th>Date</th><th>Score</th><th>Accuracy</th><th>Rank</th>
+                <th>Test</th><th>Date</th><th>Score /130</th><th>Accuracy</th><th>Rank</th>
               </tr>
             </thead>
             <tbody id="history-tbody">
@@ -1888,10 +1939,10 @@ body.dark .proctor-bar { background: #0a0f1a; }
         <div class="instruction-section">
           <h2>General Instructions</h2>
           <ul class="instruction-list">
-            <li><span class="num">1</span>This is a Computer Based Test (CBT) examination. The exam duration is <strong>2 hours (120 minutes)</strong>.</li>
-            <li><span class="num">2</span>The examination consists of <strong>125 questions</strong> from Physics, Chemistry, Mathematics, and Aptitude.</li>
-            <li><span class="num">3</span>Each correct answer carries <strong>+3 marks</strong>. Each wrong answer carries <strong>-1 mark</strong>. Unattempted questions carry <strong>0 marks</strong>.</li>
-            <li><span class="num">4</span>Maximum marks: <strong>375 marks</strong>.</li>
+            <li><span class="num">1</span>This is a Computer Based Test (CBT) examination. The exam duration is <strong>2 hours 30 minutes (150 minutes)</strong>.</li>
+            <li><span class="num">2</span>The examination consists of <strong>130 questions</strong> from Physics, Chemistry, Mathematics, and English &amp; Aptitude.</li>
+            <li><span class="num">3</span>Each correct answer carries <strong>+1 mark</strong>. Each wrong/unattempted answer carries <strong>0 marks</strong> (NO negative marking). Unattempted questions carry <strong>0 marks</strong>.</li>
+            <li><span class="num">4</span>Maximum marks: <strong>130 marks</strong>.</li>
             <li><span class="num">5</span>You can navigate between questions freely using the question palette or Previous/Next buttons.</li>
             <li><span class="num">6</span>Do not close or refresh the browser during the examination. Your responses are auto-saved.</li>
             <li><span class="num">7</span>The exam will <strong>auto-submit</strong> when the timer reaches zero.</li>
@@ -1901,7 +1952,7 @@ body.dark .proctor-bar { background: #0a0f1a; }
           <h2>Marking Scheme</h2>
           <div class="marking-scheme">
             <div class="marking-item correct"><div class="marking-item-value">+3</div><div class="marking-item-label">For every correct answer</div></div>
-            <div class="marking-item wrong"><div class="marking-item-value">−1</div><div class="marking-item-label">For every wrong answer</div></div>
+            <div class="marking-item wrong" style="border-color:#e2e8f0;background:#f8fafc;"><div class="marking-item-value" style="color:var(--gray-500);">0</div><div class="marking-item-label">For wrong answer (NO deduction — SRMJEEE 2026)</div></div>
             <div class="marking-item unmarked" style="grid-column:1/-1"><div class="marking-item-value">0</div><div class="marking-item-label">For unattempted / skipped questions</div></div>
           </div>
         </div>
@@ -1954,7 +2005,7 @@ body.dark .proctor-bar { background: #0a0f1a; }
       <div class="instructions-footer">
         <label class="agreement-check">
           <input type="checkbox" id="agree-checkbox">
-          <span>I have read and understood all the examination instructions and agree to abide by the rules.</span>
+          <span>I have read all SRMJEEE 2026 instructions (130Q, 150 min, +1/0 marking) and agree to comply.</span>
         </label>
         <button class="btn btn-accent btn-lg" id="start-exam-btn" onclick="startExam()" disabled>Start Examination →</button>
       </div>
@@ -1976,7 +2027,7 @@ body.dark .proctor-bar { background: #0a0f1a; }
       <div id="proctor-status" style="display:flex;gap:1rem;font-size:.72rem;"></div>
       <div>
         <div style="font-size:.65rem;color:rgba(255,255,255,.5);text-align:center;margin-bottom:.1rem;">TIME REMAINING</div>
-        <div class="exam-timer" id="exam-timer">02:00:00</div>
+        <div class="exam-timer" id="exam-timer">02:30:00</div>
       </div>
       <button class="btn btn-danger btn-sm" onclick="openSubmitModal()">Submit Test</button>
     </div>
@@ -2077,7 +2128,7 @@ body.dark .proctor-bar { background: #0a0f1a; }
         <canvas id="score-donut" width="160" height="160"></canvas>
         <div class="score-center">
           <div class="big" id="r-score">0</div>
-          <div class="sub">/ 375</div>
+          <div class="sub">/ 130</div>
         </div>
       </div>
       <div class="result-hero-info">
@@ -2266,1306 +2317,666 @@ body.dark .proctor-bar { background: #0a0f1a; }
 ════════════════════════════════════════════ -->
 <script>
 /* ============================================================
-   QUESTION DATABASE (125+ questions)
+   SRMJEEE 2026 OFFICIAL PATTERN
+   130 Questions: Physics(35) + Chemistry(35) + Mathematics(40) + English&Aptitude(20)
+   Duration: 150 minutes | +1 correct, 0 wrong/unattempted | NO negative marking
    ============================================================ */
+
+/* ---------- QUESTION BANK (210+ questions across 5 pools) ---------- */
 const QUESTIONS_DEFAULT = [
-  // ───── PHYSICS ─────
-  {id:1,subject:"Physics",chapter:"Kinematics",difficulty:"Easy",question:"A particle starts from rest and accelerates uniformly at 4 m/s². What is its velocity after 5 seconds?",options:["10 m/s","20 m/s","25 m/s","40 m/s"],correctAnswer:1},
-  {id:2,subject:"Physics",chapter:"Kinematics",difficulty:"Medium",question:"A ball is thrown vertically upward with velocity 20 m/s. The maximum height reached (g = 10 m/s²) is:",options:["10 m","20 m","30 m","40 m"],correctAnswer:1},
-  {id:3,subject:"Physics",chapter:"Laws of Motion",difficulty:"Easy",question:"A force of 50 N acts on a body of mass 10 kg. The acceleration produced is:",options:["0.5 m/s²","5 m/s²","500 m/s²","5000 m/s²"],correctAnswer:1},
-  {id:4,subject:"Physics",chapter:"Laws of Motion",difficulty:"Medium",question:"The coefficient of static friction between two surfaces is 0.4. If the normal reaction is 100 N, the maximum static friction force is:",options:["20 N","40 N","60 N","80 N"],correctAnswer:1},
-  {id:5,subject:"Physics",chapter:"Work Energy Power",difficulty:"Medium",question:"A body of mass 5 kg is moving with velocity 4 m/s. Its kinetic energy is:",options:["10 J","20 J","40 J","80 J"],correctAnswer:2},
-  {id:6,subject:"Physics",chapter:"Work Energy Power",difficulty:"Hard",question:"A spring of spring constant 1000 N/m is compressed by 5 cm. The potential energy stored is:",options:["1.25 J","2.5 J","0.625 J","5 J"],correctAnswer:0},
-  {id:7,subject:"Physics",chapter:"Gravitation",difficulty:"Easy",question:"The acceleration due to gravity on the surface of the earth is approximately:",options:["8.9 m/s²","9.8 m/s²","10.8 m/s²","11.2 m/s²"],correctAnswer:1},
-  {id:8,subject:"Physics",chapter:"Gravitation",difficulty:"Medium",question:"The escape velocity from Earth's surface is approximately:",options:["7.9 km/s","11.2 km/s","25 km/s","3 km/s"],correctAnswer:1},
-  {id:9,subject:"Physics",chapter:"Waves",difficulty:"Medium",question:"The speed of sound in air at 0°C is 332 m/s. At 20°C it will be approximately:",options:["340 m/s","343 m/s","350 m/s","360 m/s"],correctAnswer:1},
-  {id:10,subject:"Physics",chapter:"Waves",difficulty:"Hard",question:"Two waves of wavelengths 1 m and 1.01 m produce beats. If the speed is 340 m/s, the beat frequency is approximately:",options:["3.36 Hz","2.5 Hz","4 Hz","5 Hz"],correctAnswer:0},
-  {id:11,subject:"Physics",chapter:"Optics",difficulty:"Easy",question:"The focal length of a convex lens is 20 cm. Its power is:",options:["+2 D","+5 D","+10 D","+0.2 D"],correctAnswer:1},
-  {id:12,subject:"Physics",chapter:"Optics",difficulty:"Medium",question:"A ray of light goes from water (n=1.33) to glass (n=1.5). The critical angle exists:",options:["No critical angle","At 62.4°","At 48.6°","At 90°"],correctAnswer:0},
-  {id:13,subject:"Physics",chapter:"Electrostatics",difficulty:"Medium",question:"Two charges of +4 μC and −4 μC are separated by 10 cm. The electric force between them (k=9×10⁹) is:",options:["14.4 N","1.44 N","0.144 N","144 N"],correctAnswer:0},
-  {id:14,subject:"Physics",chapter:"Electrostatics",difficulty:"Hard",question:"A parallel plate capacitor has plate area 0.01 m² and separation 1 mm. Its capacitance (ε₀=8.85×10⁻¹² F/m) is:",options:["88.5 pF","8.85 pF","885 pF","0.885 pF"],correctAnswer:0},
-  {id:15,subject:"Physics",chapter:"Current Electricity",difficulty:"Easy",question:"In a series circuit with resistors 2Ω, 3Ω, and 5Ω, the equivalent resistance is:",options:["0.97 Ω","10 Ω","30 Ω","1.02 Ω"],correctAnswer:1},
-  {id:16,subject:"Physics",chapter:"Current Electricity",difficulty:"Medium",question:"A 60W bulb and 40W bulb are connected in series to 220V. Which bulb glows brighter?",options:["60W bulb","40W bulb","Both equally","Neither"],correctAnswer:1},
-  {id:17,subject:"Physics",chapter:"Magnetism",difficulty:"Medium",question:"A proton moving with velocity v in a magnetic field B perpendicular to it experiences a force:",options:["evB","ev/B","eB/v","ev²B"],correctAnswer:0},
-  {id:18,subject:"Physics",chapter:"Magnetism",difficulty:"Hard",question:"A solenoid has 100 turns, length 10 cm, and carries 2A current. The magnetic field inside (μ₀=4π×10⁻⁷) is approximately:",options:["2.51 mT","0.251 mT","25.1 mT","0.025 mT"],correctAnswer:0},
-  {id:19,subject:"Physics",chapter:"Modern Physics",difficulty:"Medium",question:"The photoelectric effect proves the quantum nature of:",options:["Electrons","Light","Matter","Space"],correctAnswer:1},
-  {id:20,subject:"Physics",chapter:"Modern Physics",difficulty:"Hard",question:"The de Broglie wavelength of an electron accelerated through 100V is approximately:",options:["0.123 nm","1.23 nm","12.3 nm","0.0123 nm"],correctAnswer:0},
-  {id:21,subject:"Physics",chapter:"Nuclear Physics",difficulty:"Medium",question:"In nuclear fission, the energy released per reaction is approximately:",options:["1 eV","1 keV","200 MeV","1 GeV"],correctAnswer:2},
-  {id:22,subject:"Physics",chapter:"Thermodynamics",difficulty:"Medium",question:"For an ideal gas, the work done in isothermal expansion from V₁ to V₂ is:",options:["nRT ln(V₂/V₁)","nRT(V₂-V₁)","P(V₂-V₁)","nCV(T₂-T₁)"],correctAnswer:0},
-  {id:23,subject:"Physics",chapter:"Thermodynamics",difficulty:"Easy",question:"The efficiency of a Carnot engine operating between 400K and 300K is:",options:["25%","33%","75%","50%"],correctAnswer:0},
-  {id:24,subject:"Physics",chapter:"Rotational Motion",difficulty:"Medium",question:"The moment of inertia of a solid sphere of mass M and radius R about its diameter is:",options:["MR²","(2/5)MR²","(2/3)MR²","(1/2)MR²"],correctAnswer:1},
-  {id:25,subject:"Physics",chapter:"Rotational Motion",difficulty:"Hard",question:"A disc of radius R rolls without slipping on a horizontal surface with angular velocity ω. The velocity of the topmost point is:",options:["ωR","2ωR","0","(3/2)ωR"],correctAnswer:1},
-  {id:26,subject:"Physics",chapter:"Fluid Mechanics",difficulty:"Medium",question:"Bernoulli's theorem is essentially a statement of conservation of:",options:["Mass","Momentum","Energy","Angular momentum"],correctAnswer:2},
-  {id:27,subject:"Physics",chapter:"Electromagnetic Induction",difficulty:"Medium",question:"A coil of N turns and area A is rotated with angular velocity ω in a magnetic field B. The maximum EMF induced is:",options:["NBAω","NBA/ω","NAω/B","NBA²ω"],correctAnswer:0},
-  {id:28,subject:"Physics",chapter:"Semiconductors",difficulty:"Easy",question:"In a p-type semiconductor, majority charge carriers are:",options:["Electrons","Holes","Protons","Neutrons"],correctAnswer:1},
-  {id:29,subject:"Physics",chapter:"Semiconductors",difficulty:"Medium",question:"The forward bias voltage for a silicon diode is approximately:",options:["0.3 V","0.7 V","1.1 V","1.5 V"],correctAnswer:1},
-  {id:30,subject:"Physics",chapter:"Communication",difficulty:"Easy",question:"Modulation in communication means:",options:["Amplifying signal","Superimposing message on carrier","Filtering noise","Digitizing signal"],correctAnswer:1},
-  {id:31,subject:"Physics",chapter:"Kinematics",difficulty:"Medium",question:"A projectile is thrown at 30° to horizontal with speed 40 m/s. Its range (g=10) is:",options:["80 m","138.6 m","160 m","120 m"],correctAnswer:1},
-  {id:32,subject:"Physics",chapter:"Optics",difficulty:"Medium",question:"In Young's double slit experiment, fringe width β = λD/d. If the distance D is doubled, fringe width:",options:["Halves","Doubles","Stays same","Quadruples"],correctAnswer:1},
-  {id:33,subject:"Physics",chapter:"Electrostatics",difficulty:"Easy",question:"The unit of electric potential is:",options:["Joule","Coulomb","Volt","Ampere"],correctAnswer:2},
-  {id:34,subject:"Physics",chapter:"Modern Physics",difficulty:"Medium",question:"The half-life of a radioactive substance is 20 days. After 60 days, the fraction remaining is:",options:["1/8","1/4","1/2","1/6"],correctAnswer:0},
-  {id:35,subject:"Physics",chapter:"Waves",difficulty:"Hard",question:"The frequency of the second overtone of an open organ pipe of length 1m (speed of sound = 340 m/s) is:",options:["170 Hz","340 Hz","510 Hz","680 Hz"],correctAnswer:2},
+// ═══ PHYSICS (Pool A - 35 core) ═══
+{id:1,subject:"Physics",chapter:"Units & Measurement",difficulty:"Easy",question:"The SI unit of electric charge is:",options:["Ampere","Coulomb","Farad","Weber"],correctAnswer:1},
+{id:2,subject:"Physics",chapter:"Kinematics",difficulty:"Easy",question:"A particle starts from rest with uniform acceleration 5 m/s². Its velocity after 4 s is:",options:["5 m/s","10 m/s","20 m/s","40 m/s"],correctAnswer:2},
+{id:3,subject:"Physics",chapter:"Kinematics",difficulty:"Medium",question:"A ball is thrown vertically upward at 30 m/s (g=10 m/s²). Time to reach maximum height:",options:["1.5 s","2 s","3 s","6 s"],correctAnswer:2},
+{id:4,subject:"Physics",chapter:"Kinematics",difficulty:"Medium",question:"Horizontal range of projectile at 45° with speed 20 m/s (g=10):",options:["20 m","40 m","80 m","10 m"],correctAnswer:1},
+{id:5,subject:"Physics",chapter:"Laws of Motion",difficulty:"Easy",question:"Newton's second law: net force equals:",options:["mass × distance","mass × velocity","mass × acceleration","mass × time"],correctAnswer:2},
+{id:6,subject:"Physics",chapter:"Laws of Motion",difficulty:"Medium",question:"Body of mass 4 kg, μ=0.5 (g=10 m/s²). Friction force is:",options:["2 N","10 N","20 N","40 N"],correctAnswer:2},
+{id:7,subject:"Physics",chapter:"Work Energy Power",difficulty:"Easy",question:"Kinetic energy of 2 kg body at 6 m/s is:",options:["6 J","12 J","18 J","36 J"],correctAnswer:3},
+{id:8,subject:"Physics",chapter:"Work Energy Power",difficulty:"Medium",question:"Spring (k=500 N/m) compressed 10 cm stores PE:",options:["2.5 J","0.25 J","25 J","5 J"],correctAnswer:0},
+{id:9,subject:"Physics",chapter:"Gravitation",difficulty:"Easy",question:"Escape velocity from Earth's surface is approximately:",options:["7.9 km/s","11.2 km/s","25 km/s","3.2 km/s"],correctAnswer:1},
+{id:10,subject:"Physics",chapter:"Gravitation",difficulty:"Medium",question:"At height equal to Earth's radius R, g becomes:",options:["g/2","g/4","g/8","g/16"],correctAnswer:1},
+{id:11,subject:"Physics",chapter:"Thermodynamics",difficulty:"Easy",question:"Carnot efficiency between 500 K and 300 K:",options:["30%","40%","50%","60%"],correctAnswer:1},
+{id:12,subject:"Physics",chapter:"Thermodynamics",difficulty:"Medium",question:"For an adiabatic process:",options:["ΔQ=0","ΔT=0","ΔP=0","ΔV=0"],correctAnswer:0},
+{id:13,subject:"Physics",chapter:"Waves",difficulty:"Easy",question:"Speed of sound in air at 0°C is 332 m/s. At 20°C it is approximately:",options:["340 m/s","343 m/s","350 m/s","360 m/s"],correctAnswer:1},
+{id:14,subject:"Physics",chapter:"Waves",difficulty:"Medium",question:"Frequency 50 Hz, wavelength 10 m. Wave speed:",options:["5 m/s","0.2 m/s","500 m/s","60 m/s"],correctAnswer:2},
+{id:15,subject:"Physics",chapter:"Optics",difficulty:"Easy",question:"Convex lens of focal length 25 cm has power:",options:["+2 D","+4 D","+5 D","+10 D"],correctAnswer:1},
+{id:16,subject:"Physics",chapter:"Optics",difficulty:"Medium",question:"In Young's double slit, doubling D doubles:",options:["Fringe width","Amplitude","Intensity","Wavelength"],correctAnswer:0},
+{id:17,subject:"Physics",chapter:"Electrostatics",difficulty:"Easy",question:"Force between two charges F. Both charges doubled, distance doubled. New force:",options:["F","F/2","2F","4F"],correctAnswer:0},
+{id:18,subject:"Physics",chapter:"Electrostatics",difficulty:"Medium",question:"Electric potential 100 V. Work to bring 2C from infinity:",options:["50 J","100 J","200 J","400 J"],correctAnswer:2},
+{id:19,subject:"Physics",chapter:"Current Electricity",difficulty:"Easy",question:"3Ω, 6Ω, 9Ω in parallel. Equivalent resistance approximately:",options:["1.64 Ω","18 Ω","6 Ω","2 Ω"],correctAnswer:0},
+{id:20,subject:"Physics",chapter:"Current Electricity",difficulty:"Medium",question:"Wheatstone bridge: balanced when P/Q equals:",options:["R+S","R−S","R/S","R×S"],correctAnswer:2},
+{id:21,subject:"Physics",chapter:"Magnetism",difficulty:"Medium",question:"Charged particle moving perpendicular to B follows:",options:["Straight line","Parabola","Circle","Spiral"],correctAnswer:2},
+{id:22,subject:"Physics",chapter:"Electromagnetic Induction",difficulty:"Medium",question:"Faraday's law: induced EMF is proportional to:",options:["Magnetic flux","Rate of change of flux","Coil resistance","Current"],correctAnswer:1},
+{id:23,subject:"Physics",chapter:"Electromagnetic Induction",difficulty:"Hard",question:"Coil: 100 turns, area 0.01 m², B=0.5 T, ω=50 rad/s. Peak EMF:",options:["25 V","50 V","75 V","250 V"],correctAnswer:1},
+{id:24,subject:"Physics",chapter:"Modern Physics",difficulty:"Easy",question:"Photoelectric effect was explained by:",options:["Bohr","Einstein","Planck","Rutherford"],correctAnswer:1},
+{id:25,subject:"Physics",chapter:"Modern Physics",difficulty:"Medium",question:"Work function 2 eV. Threshold frequency (h=6.6×10⁻³⁴):",options:["4.8×10¹⁴ Hz","3.2×10¹⁴ Hz","6.6×10¹⁴ Hz","9.6×10¹⁴ Hz"],correctAnswer:0},
+{id:26,subject:"Physics",chapter:"Nuclear Physics",difficulty:"Easy",question:"Energy in nuclear fission is due to:",options:["Mass excess","Mass defect","Charge conservation","Momentum conservation"],correctAnswer:1},
+{id:27,subject:"Physics",chapter:"Nuclear Physics",difficulty:"Medium",question:"Half-life 5 years. Fraction remaining after 20 years:",options:["1/16","1/8","1/4","1/2"],correctAnswer:0},
+{id:28,subject:"Physics",chapter:"Semiconductors",difficulty:"Easy",question:"In n-type semiconductor, majority carriers are:",options:["Holes","Electrons","Protons","Positrons"],correctAnswer:1},
+{id:29,subject:"Physics",chapter:"Semiconductors",difficulty:"Medium",question:"Reverse bias on p-n junction causes:",options:["Large current","Small leakage current","No current ever","Immediate breakdown"],correctAnswer:1},
+{id:30,subject:"Physics",chapter:"Communication",difficulty:"Easy",question:"AM radio uses:",options:["Frequency modulation","Amplitude modulation","Phase modulation","Pulse modulation"],correctAnswer:1},
+{id:31,subject:"Physics",chapter:"Rotational Motion",difficulty:"Medium",question:"Moment of inertia of solid cylinder (mass M, radius R) about axis:",options:["MR²","½MR²","⅔MR²","¼MR²"],correctAnswer:1},
+{id:32,subject:"Physics",chapter:"Fluid Mechanics",difficulty:"Easy",question:"Pascal's law: pressure in enclosed fluid is transmitted:",options:["Only upward","Only downward","Equally in all directions","Only horizontally"],correctAnswer:2},
+{id:33,subject:"Physics",chapter:"Oscillations",difficulty:"Medium",question:"Time period of simple pendulum L=1m, g=10 m/s²:",options:["1 s","2 s","3 s","0.5 s"],correctAnswer:1},
+{id:34,subject:"Physics",chapter:"Heat Transfer",difficulty:"Easy",question:"Stefan-Boltzmann: energy radiated proportional to:",options:["T","T²","T³","T⁴"],correctAnswer:3},
+{id:35,subject:"Physics",chapter:"Optics",difficulty:"Hard",question:"Critical angle for glass (n=1.5) to air is approximately:",options:["41.8°","48.6°","60°","33.6°"],correctAnswer:0},
 
-  // ───── CHEMISTRY ─────
-  {id:36,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Easy",question:"The number of electrons in the outermost shell of sodium (Na, Z=11) is:",options:["1","2","3","4"],correctAnswer:0},
-  {id:37,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Medium",question:"Which quantum number determines the shape of an orbital?",options:["Principal (n)","Azimuthal (l)","Magnetic (m)","Spin (s)"],correctAnswer:1},
-  {id:38,subject:"Chemistry",chapter:"Chemical Bonding",difficulty:"Easy",question:"The type of bond present in NaCl crystal is:",options:["Covalent","Ionic","Metallic","Hydrogen"],correctAnswer:1},
-  {id:39,subject:"Chemistry",chapter:"Chemical Bonding",difficulty:"Medium",question:"The geometry of BF₃ molecule (hybridization of B) is:",options:["Linear","Trigonal planar","Tetrahedral","Pyramidal"],correctAnswer:1},
-  {id:40,subject:"Chemistry",chapter:"Thermodynamics",difficulty:"Medium",question:"For a spontaneous process at constant T and P:",options:["ΔG > 0","ΔG = 0","ΔG < 0","ΔS < 0"],correctAnswer:2},
-  {id:41,subject:"Chemistry",chapter:"Thermodynamics",difficulty:"Hard",question:"If ΔH = −500 kJ and ΔS = −200 J/K at 300 K, ΔG equals:",options:["−440 kJ","−560 kJ","440 kJ","560 kJ"],correctAnswer:0},
-  {id:42,subject:"Chemistry",chapter:"Equilibrium",difficulty:"Medium",question:"For the reaction N₂ + 3H₂ ⇌ 2NH₃, Kc = 1.8 × 10⁻⁵. The reaction at equilibrium favors:",options:["Reactants","Products","Neither","Cannot determine"],correctAnswer:0},
-  {id:43,subject:"Chemistry",chapter:"Equilibrium",difficulty:"Easy",question:"The pH of a 0.01 M HCl solution is:",options:["1","2","3","4"],correctAnswer:1},
-  {id:44,subject:"Chemistry",chapter:"Redox Reactions",difficulty:"Medium",question:"In the reaction: MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O, manganese undergoes:",options:["Oxidation","Reduction","Disproportionation","None"],correctAnswer:1},
-  {id:45,subject:"Chemistry",chapter:"Electrochemistry",difficulty:"Medium",question:"Standard electrode potential of zinc is −0.76 V and copper is +0.34 V. EMF of Zn-Cu cell is:",options:["0.42 V","1.10 V","0.38 V","1.52 V"],correctAnswer:1},
-  {id:46,subject:"Chemistry",chapter:"Chemical Kinetics",difficulty:"Medium",question:"A first-order reaction has rate constant k = 0.693 min⁻¹. Its half-life is:",options:["0.693 min","1 min","2 min","1.386 min"],correctAnswer:1},
-  {id:47,subject:"Chemistry",chapter:"Chemical Kinetics",difficulty:"Hard",question:"For a zero-order reaction, the rate depends on:",options:["Concentration of reactant","Square of concentration","Cube of concentration","None of the above"],correctAnswer:3},
-  {id:48,subject:"Chemistry",chapter:"Surface Chemistry",difficulty:"Easy",question:"The process of adsorption of a gas on a solid surface involves:",options:["Positive ΔH always","Negative ΔH always","Zero ΔH","Positive ΔS"],correctAnswer:1},
-  {id:49,subject:"Chemistry",chapter:"Periodic Table",difficulty:"Easy",question:"The element with highest electronegativity is:",options:["Oxygen","Nitrogen","Chlorine","Fluorine"],correctAnswer:3},
-  {id:50,subject:"Chemistry",chapter:"Periodic Table",difficulty:"Medium",question:"The first ionization energy is highest for:",options:["Na","Mg","Al","Ne"],correctAnswer:3},
-  {id:51,subject:"Chemistry",chapter:"s-block Elements",difficulty:"Easy",question:"Sodium reacts with water to form:",options:["NaOH + O₂","NaOH + H₂","Na₂O + H₂O","Na₂O₂ + H₂"],correctAnswer:1},
-  {id:52,subject:"Chemistry",chapter:"p-block Elements",difficulty:"Medium",question:"Which of the following is the most acidic oxide?",options:["N₂O","NO","N₂O₃","N₂O₅"],correctAnswer:3},
-  {id:53,subject:"Chemistry",chapter:"d-block Elements",difficulty:"Medium",question:"The highest oxidation state of Mn is:",options:["+4","+6","+7","+8"],correctAnswer:2},
-  {id:54,subject:"Chemistry",chapter:"Coordination Chemistry",difficulty:"Hard",question:"The IUPAC name of [Cu(NH₃)₄]²⁺ is:",options:["Tetraaminocopper(II)","Tetraaminocuprate(II)","Tetraamminecopper(II) ion","Cupric ammonia"],correctAnswer:2},
-  {id:55,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Easy",question:"The IUPAC name of CH₃−CH₂−OH is:",options:["Methanol","Ethanol","Propanol","Butanol"],correctAnswer:1},
-  {id:56,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Medium",question:"Markovnikov's rule predicts that in addition of HBr to propene, the product is:",options:["1-bromopropane","2-bromopropane","1,2-dibromopropane","None"],correctAnswer:1},
-  {id:57,subject:"Chemistry",chapter:"Alcohols",difficulty:"Medium",question:"The oxidation of primary alcohol with mild oxidizing agent gives:",options:["Carboxylic acid","Aldehyde","Ketone","Ester"],correctAnswer:1},
-  {id:58,subject:"Chemistry",chapter:"Carbonyl Compounds",difficulty:"Medium",question:"Tollen's test is used to distinguish between:",options:["Aldehyde and ketone","Aldehyde and alcohol","Ketone and carboxylic acid","Alcohol and ether"],correctAnswer:0},
-  {id:59,subject:"Chemistry",chapter:"Polymers",difficulty:"Easy",question:"Nylon-6,6 is an example of:",options:["Addition polymer","Condensation polymer","Natural polymer","Biopolymer"],correctAnswer:1},
-  {id:60,subject:"Chemistry",chapter:"Biomolecules",difficulty:"Easy",question:"DNA differs from RNA in that DNA contains:",options:["Ribose sugar","Uracil","Thymine","Adenine"],correctAnswer:2},
-  {id:61,subject:"Chemistry",chapter:"Environmental Chemistry",difficulty:"Easy",question:"The major cause of acid rain is:",options:["CO₂","SO₂","NO₂","Both SO₂ and NO₂"],correctAnswer:3},
-  {id:62,subject:"Chemistry",chapter:"Solutions",difficulty:"Medium",question:"A solution that has higher osmotic pressure than blood is called:",options:["Isotonic","Hypotonic","Hypertonic","None"],correctAnswer:2},
-  {id:63,subject:"Chemistry",chapter:"Solutions",difficulty:"Hard",question:"The van't Hoff factor for K₂SO₄ (fully dissociated) in dilute solution is:",options:["1","2","3","4"],correctAnswer:2},
-  {id:64,subject:"Chemistry",chapter:"Haloalkanes",difficulty:"Medium",question:"SN2 reaction occurs preferentially with:",options:["Tertiary halides","Secondary halides","Primary halides","None"],correctAnswer:2},
-  {id:65,subject:"Chemistry",chapter:"Amines",difficulty:"Medium",question:"Which amine is the strongest base?",options:["NH₃","Methylamine","Dimethylamine","Aniline"],correctAnswer:2},
-  {id:66,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Hard",question:"The product of reaction between acetaldehyde and excess HCN followed by hydrolysis is:",options:["Lactic acid","Pyruvic acid","Acetic acid","Acetaldehyde cyanohydrin"],correctAnswer:0},
-  {id:67,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Hard",question:"The number of radial nodes in 3p orbital is:",options:["0","1","2","3"],correctAnswer:1},
-  {id:68,subject:"Chemistry",chapter:"Gaseous State",difficulty:"Medium",question:"For an ideal gas, PV = nRT. Which of these does NOT affect the behavior of ideal gas?",options:["Temperature","Pressure","Intermolecular forces","Volume"],correctAnswer:2},
-  {id:69,subject:"Chemistry",chapter:"Solid State",difficulty:"Medium",question:"In an FCC lattice, the number of atoms per unit cell is:",options:["1","2","4","6"],correctAnswer:2},
-  {id:70,subject:"Chemistry",chapter:"Nuclear Chemistry",difficulty:"Easy",question:"Alpha decay results in:",options:["A increases by 4, Z increases by 2","A decreases by 4, Z decreases by 2","A decreases by 2, Z decreases by 1","A stays same, Z increases by 1"],correctAnswer:1},
+// ═══ CHEMISTRY (Pool A - 35 core) ═══
+{id:36,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Easy",question:"Atomic number of an element represents number of:",options:["Neutrons","Protons","Nucleons","Electrons in nucleus"],correctAnswer:1},
+{id:37,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Medium",question:"Which quantum number determines orbital orientation in space?",options:["Principal (n)","Azimuthal (l)","Magnetic (ml)","Spin (ms)"],correctAnswer:2},
+{id:38,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Medium",question:"Electronic configuration of Fe (Z=26):",options:["[Ar]3d⁶4s²","[Ar]3d⁵4s²","[Ar]3d⁸","[Kr]3d⁶4s²"],correctAnswer:0},
+{id:39,subject:"Chemistry",chapter:"Chemical Bonding",difficulty:"Easy",question:"Shape of water molecule (H₂O):",options:["Linear","Trigonal planar","Bent/V-shaped","Tetrahedral"],correctAnswer:2},
+{id:40,subject:"Chemistry",chapter:"Chemical Bonding",difficulty:"Medium",question:"Hybridization of carbon in CH₄:",options:["sp","sp²","sp³","sp³d"],correctAnswer:2},
+{id:41,subject:"Chemistry",chapter:"Chemical Bonding",difficulty:"Medium",question:"Highest bond energy among:",options:["C−C","C=C","C≡C","All equal"],correctAnswer:2},
+{id:42,subject:"Chemistry",chapter:"States of Matter",difficulty:"Easy",question:"At constant T, PV=constant is:",options:["Charles' Law","Gay-Lussac's Law","Boyle's Law","Avogadro's Law"],correctAnswer:2},
+{id:43,subject:"Chemistry",chapter:"Thermodynamics",difficulty:"Medium",question:"For spontaneous process at constant T and P:",options:["ΔG>0","ΔG<0","ΔG=0","ΔH=0"],correctAnswer:1},
+{id:44,subject:"Chemistry",chapter:"Equilibrium",difficulty:"Easy",question:"Le Chatelier's principle deals with:",options:["Reaction rates","Effect of changing conditions on equilibrium","Acid ionisation","Energy of reactions"],correctAnswer:1},
+{id:45,subject:"Chemistry",chapter:"Equilibrium",difficulty:"Medium",question:"pH of 0.001 M NaOH solution:",options:["3","8","11","13"],correctAnswer:2},
+{id:46,subject:"Chemistry",chapter:"Redox Reactions",difficulty:"Medium",question:"Oxidation state of Cr in K₂Cr₂O₇:",options:["+3","+4","+6","+7"],correctAnswer:2},
+{id:47,subject:"Chemistry",chapter:"Electrochemistry",difficulty:"Medium",question:"EMF of Daniell cell (E°Zn=−0.76V, E°Cu=+0.34V):",options:["0.42 V","1.10 V","0.38 V","1.52 V"],correctAnswer:1},
+{id:48,subject:"Chemistry",chapter:"Chemical Kinetics",difficulty:"Easy",question:"Rate increases with temperature because:",options:["Activation energy decreases","Effective collision frequency increases","Concentration increases","Product stability decreases"],correctAnswer:1},
+{id:49,subject:"Chemistry",chapter:"Chemical Kinetics",difficulty:"Medium",question:"First order reaction t½=693 s. Rate constant k:",options:["10⁻³ s⁻¹","10⁻² s⁻¹","10³ s⁻¹","693 s⁻¹"],correctAnswer:0},
+{id:50,subject:"Chemistry",chapter:"Periodic Table",difficulty:"Easy",question:"Highest electronegativity on Pauling scale:",options:["Oxygen","Chlorine","Nitrogen","Fluorine"],correctAnswer:3},
+{id:51,subject:"Chemistry",chapter:"Periodic Table",difficulty:"Medium",question:"First ionization energy highest for noble gas:",options:["He","Ne","Ar","Kr"],correctAnswer:0},
+{id:52,subject:"Chemistry",chapter:"s-block Elements",difficulty:"Easy",question:"Sodium reacts with water producing:",options:["Na₂O + H₂","NaOH + H₂","NaH + O₂","Na₂O₂ + H₂O"],correctAnswer:1},
+{id:53,subject:"Chemistry",chapter:"p-block Elements",difficulty:"Medium",question:"Most acidic nitrogen oxide:",options:["N₂O","NO","N₂O₃","N₂O₅"],correctAnswer:3},
+{id:54,subject:"Chemistry",chapter:"d-block Elements",difficulty:"Medium",question:"Color of KMnO₄ is due to:",options:["d-d transition","Charge transfer O→Mn","Charge transfer Mn→O","Unpaired electrons only"],correctAnswer:1},
+{id:55,subject:"Chemistry",chapter:"Coordination Chemistry",difficulty:"Medium",question:"IUPAC name of [Co(NH₃)₆]³⁺:",options:["Hexaminocobalt(III)","Hexaamminecobalt(III) ion","Triamminecobalt(II)","Cobalt hexammine"],correctAnswer:1},
+{id:56,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Easy",question:"IUPAC name of CH₃CH₂CH₂OH:",options:["Methanol","Ethanol","1-Propanol","2-Propanol"],correctAnswer:2},
+{id:57,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Medium",question:"Markovnikov: HBr addition to propene gives mainly:",options:["1-bromopropane","2-bromopropane","1,2-dibromopropane","Propene oxide"],correctAnswer:1},
+{id:58,subject:"Chemistry",chapter:"Alcohols & Ethers",difficulty:"Medium",question:"Lucas test differentiates between:",options:["Aldehyde and ketone","Primary, secondary, tertiary alcohols","Alcohols and phenols","Ethers and alcohols"],correctAnswer:1},
+{id:59,subject:"Chemistry",chapter:"Carbonyl Compounds",difficulty:"Medium",question:"Tollen's reagent (silver mirror test) works with:",options:["Ketones only","Aldehydes only","Both aldehydes and ketones","Carboxylic acids"],correctAnswer:1},
+{id:60,subject:"Chemistry",chapter:"Solutions",difficulty:"Medium",question:"Molarity of 4g NaOH (MW=40) in 500 mL:",options:["0.1 M","0.2 M","0.5 M","1.0 M"],correctAnswer:1},
+{id:61,subject:"Chemistry",chapter:"Solutions",difficulty:"Hard",question:"Van't Hoff factor for Na₂SO₄ (fully dissociated):",options:["1","2","3","4"],correctAnswer:2},
+{id:62,subject:"Chemistry",chapter:"Solid State",difficulty:"Medium",question:"Atoms per unit cell in FCC lattice:",options:["1","2","4","6"],correctAnswer:2},
+{id:63,subject:"Chemistry",chapter:"Polymers",difficulty:"Easy",question:"PVC is an example of:",options:["Addition polymer","Condensation polymer","Copolymer","Natural polymer"],correctAnswer:0},
+{id:64,subject:"Chemistry",chapter:"Biomolecules",difficulty:"Easy",question:"NOT a monosaccharide:",options:["Glucose","Fructose","Sucrose","Galactose"],correctAnswer:2},
+{id:65,subject:"Chemistry",chapter:"Environmental Chemistry",difficulty:"Easy",question:"Ozone layer depletion mainly caused by:",options:["CO₂","SO₂","CFCs","NO₂"],correctAnswer:2},
+{id:66,subject:"Chemistry",chapter:"Surface Chemistry",difficulty:"Medium",question:"Tyndall effect is shown by:",options:["True solutions","Colloidal solutions","Supersaturated solutions","Ionic solutions"],correctAnswer:1},
+{id:67,subject:"Chemistry",chapter:"Nuclear Chemistry",difficulty:"Easy",question:"Beta emission: neutron converts to:",options:["Proton only","Proton + electron","Proton + positron","Alpha particle"],correctAnswer:1},
+{id:68,subject:"Chemistry",chapter:"Haloalkanes",difficulty:"Medium",question:"SN2 reaction leads to:",options:["Retention of configuration","Inversion of configuration","Racemization","No change"],correctAnswer:1},
+{id:69,subject:"Chemistry",chapter:"Amines",difficulty:"Medium",question:"Aniline less basic than methylamine because:",options:["Lone pair on N delocalised into ring","Inductive effect","Ring electron donating","Steric effect"],correctAnswer:0},
+{id:70,subject:"Chemistry",chapter:"Gaseous State",difficulty:"Easy",question:"Volume of 1 mole ideal gas at STP:",options:["11.2 L","22.4 L","44.8 L","2.24 L"],correctAnswer:1},
 
-  // ───── MATHEMATICS ─────
-  {id:71,subject:"Mathematics",chapter:"Algebra",difficulty:"Easy",question:"If x² − 5x + 6 = 0, the roots are:",options:["2 and 3","1 and 6","−2 and −3","3 and 4"],correctAnswer:0},
-  {id:72,subject:"Mathematics",chapter:"Algebra",difficulty:"Medium",question:"The sum of infinite GP with first term 1 and common ratio 1/2 is:",options:["1","2","3","Infinity"],correctAnswer:1},
-  {id:73,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Easy",question:"The value of sin 30° + cos 60° is:",options:["1","√2","1/2","√3/2"],correctAnswer:0},
-  {id:74,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Medium",question:"If sin θ = 3/5, then cos θ (for acute θ) is:",options:["4/5","3/4","5/4","5/3"],correctAnswer:0},
-  {id:75,subject:"Mathematics",chapter:"Calculus",difficulty:"Medium",question:"The derivative of x³ − 3x² + 2x − 1 at x = 2 is:",options:["2","4","6","8"],correctAnswer:0},
-  {id:76,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"∫₀¹ x² dx equals:",options:["1/2","1/3","1/4","1"],correctAnswer:1},
-  {id:77,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Easy",question:"The slope of the line joining (2,3) and (4,7) is:",options:["1","2","3","4"],correctAnswer:1},
-  {id:78,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Medium",question:"The equation of a circle with center (2,−3) and radius 5 is:",options:["(x-2)²+(y+3)²=25","(x+2)²+(y-3)²=25","(x-2)²+(y+3)²=5","(x-2)²+(y-3)²=25"],correctAnswer:0},
-  {id:79,subject:"Mathematics",chapter:"Matrices",difficulty:"Easy",question:"The determinant of matrix [[3,1],[2,4]] is:",options:["10","−10","14","−14"],correctAnswer:0},
-  {id:80,subject:"Mathematics",chapter:"Matrices",difficulty:"Medium",question:"If A = [[1,2],[3,4]], then A + Aᵀ is:",options:["[[2,5],[5,8]]","[[0,1],[3,0]]","[[1,1],[1,1]]","[[2,2],[2,2]]"],correctAnswer:0},
-  {id:81,subject:"Mathematics",chapter:"Probability",difficulty:"Medium",question:"A bag contains 3 red and 4 blue balls. The probability of drawing 2 red balls in succession (without replacement) is:",options:["1/7","2/7","3/14","1/14"],correctAnswer:0},
-  {id:82,subject:"Mathematics",chapter:"Probability",difficulty:"Hard",question:"P(A) = 0.3, P(B) = 0.4, P(A∩B) = 0.12. A and B are:",options:["Independent","Mutually exclusive","Dependent","Exhaustive"],correctAnswer:0},
-  {id:83,subject:"Mathematics",chapter:"Vectors",difficulty:"Medium",question:"If |a⃗| = 3, |b⃗| = 4, and a⃗ ⊥ b⃗, then |a⃗ + b⃗| is:",options:["1","5","7","√7"],correctAnswer:1},
-  {id:84,subject:"Mathematics",chapter:"Vectors",difficulty:"Hard",question:"The dot product of vectors 2î + 3ĵ − k̂ and î − 2ĵ + 4k̂ is:",options:["−8","−4","8","4"],correctAnswer:0},
-  {id:85,subject:"Mathematics",chapter:"Complex Numbers",difficulty:"Medium",question:"The modulus of complex number 3 + 4i is:",options:["3","4","5","7"],correctAnswer:2},
-  {id:86,subject:"Mathematics",chapter:"Complex Numbers",difficulty:"Hard",question:"The argument (principal) of −1 − i is:",options:["π/4","−3π/4","3π/4","−π/4"],correctAnswer:1},
-  {id:87,subject:"Mathematics",chapter:"3D Geometry",difficulty:"Medium",question:"The distance from point (1,2,3) to the origin is:",options:["√6","√14","√10","6"],correctAnswer:1},
-  {id:88,subject:"Mathematics",chapter:"3D Geometry",difficulty:"Hard",question:"The equation of the plane through (1,0,0), (0,1,0), (0,0,1) is:",options:["x+y+z=0","x+y+z=1","x−y+z=1","2x+y+z=1"],correctAnswer:1},
-  {id:89,subject:"Mathematics",chapter:"Binomial Theorem",difficulty:"Medium",question:"The middle term in the expansion of (x+1)⁸ is the:",options:["4th term","5th term","6th term","7th term"],correctAnswer:1},
-  {id:90,subject:"Mathematics",chapter:"Binomial Theorem",difficulty:"Hard",question:"The coefficient of x³ in the expansion of (1+x)⁶ is:",options:["15","20","6","10"],correctAnswer:1},
-  {id:91,subject:"Mathematics",chapter:"Sequences and Series",difficulty:"Medium",question:"The 10th term of AP: 3, 7, 11, 15, ... is:",options:["39","41","43","45"],correctAnswer:0},
-  {id:92,subject:"Mathematics",chapter:"Sequences and Series",difficulty:"Hard",question:"Sum of first 20 terms of AP with first term 5 and common difference 3 is:",options:["670","680","690","700"],correctAnswer:1},
-  {id:93,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"The area bounded by y = x², x = 0, x = 2, and y = 0 is:",options:["4/3","8/3","4","8"],correctAnswer:1},
-  {id:94,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Hard",question:"cos 15° equals:",options:["(√6+√2)/4","(√6−√2)/4","(√3+1)/2√2","(√3−1)/2√2"],correctAnswer:0},
-  {id:95,subject:"Mathematics",chapter:"Statistics",difficulty:"Medium",question:"The mean of 5 numbers is 10. If each number is multiplied by 2, the new mean is:",options:["10","12","15","20"],correctAnswer:3},
-  {id:96,subject:"Mathematics",chapter:"Sets and Functions",difficulty:"Easy",question:"If A = {1,2,3,4} and B = {3,4,5,6}, then A∩B is:",options:["{1,2}","{5,6}","{3,4}","{1,2,5,6}"],correctAnswer:2},
-  {id:97,subject:"Mathematics",chapter:"Permutations and Combinations",difficulty:"Medium",question:"The number of ways to arrange the letters of the word 'EXAM' is:",options:["12","16","24","48"],correctAnswer:2},
-  {id:98,subject:"Mathematics",chapter:"Permutations and Combinations",difficulty:"Hard",question:"From 8 students, a committee of 3 is to be formed. The number of ways is:",options:["56","24","168","336"],correctAnswer:0},
-  {id:99,subject:"Mathematics",chapter:"Quadratic Equations",difficulty:"Medium",question:"The discriminant of x² + 4x + 4 = 0 is:",options:["0","4","8","16"],correctAnswer:0},
-  {id:100,subject:"Mathematics",chapter:"Logarithms",difficulty:"Medium",question:"log₂ 32 equals:",options:["4","5","6","8"],correctAnswer:1},
-  {id:101,subject:"Mathematics",chapter:"Inequalities",difficulty:"Medium",question:"Solution of |2x − 3| < 5 is:",options:["x < 4","−1 < x < 4","x > −1","1 < x < 4"],correctAnswer:1},
-  {id:102,subject:"Mathematics",chapter:"Limits",difficulty:"Hard",question:"lim(x→0) (sin x)/x equals:",options:["0","∞","1","Undefined"],correctAnswer:2},
-  {id:103,subject:"Mathematics",chapter:"Differentiation",difficulty:"Hard",question:"If y = sin(x²), then dy/dx is:",options:["cos(x²)","2x·cos(x²)","x·cos(x²)","−2x·cos(x²)"],correctAnswer:1},
-  {id:104,subject:"Mathematics",chapter:"Applications of Derivatives",difficulty:"Hard",question:"The function f(x) = x³ − 3x has a local minimum at:",options:["x = −1","x = 0","x = 1","x = 2"],correctAnswer:2},
-  {id:105,subject:"Mathematics",chapter:"Integration",difficulty:"Hard",question:"∫ e^x dx is:",options:["xe^x + C","e^x + C","e^x/x + C","ln(x)e^x + C"],correctAnswer:1},
-  {id:106,subject:"Mathematics",chapter:"Differential Equations",difficulty:"Hard",question:"The order of the differential equation d²y/dx² + dy/dx + y = 0 is:",options:["1","2","3","0"],correctAnswer:1},
-  {id:107,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Hard",question:"The eccentricity of ellipse x²/9 + y²/4 = 1 is:",options:["√5/3","√5/2","2/3","5/9"],correctAnswer:0},
-  {id:108,subject:"Mathematics",chapter:"Mathematical Reasoning",difficulty:"Easy",question:"The contrapositive of 'If p then q' is:",options:["If q then p","If ¬q then ¬p","If ¬p then ¬q","If p then ¬q"],correctAnswer:1},
-  {id:109,subject:"Mathematics",chapter:"Linear Programming",difficulty:"Medium",question:"In linear programming, the optimal solution (if exists) always occurs at a:",options:["Boundary point","Corner (vertex) point","Interior point","Any feasible point"],correctAnswer:1},
-  {id:110,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Medium",question:"The general solution of sin θ = 1/2 is:",options:["θ = nπ ± π/6","θ = nπ + (−1)ⁿπ/6","θ = 2nπ ± π/6","θ = nπ/6"],correctAnswer:1},
+// ═══ MATHEMATICS (Pool A - 40 core) ═══
+{id:71,subject:"Mathematics",chapter:"Algebra",difficulty:"Easy",question:"Roots of x² − 7x + 12 = 0 are:",options:["3 and 4","2 and 6","1 and 12","−3 and −4"],correctAnswer:0},
+{id:72,subject:"Mathematics",chapter:"Algebra",difficulty:"Medium",question:"Sum of infinite GP: 1 + 1/3 + 1/9 + ...",options:["3/2","2/3","1/2","3"],correctAnswer:0},
+{id:73,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Easy",question:"sin²30° + cos²30° equals:",options:["0","½","1","√3/2"],correctAnswer:2},
+{id:74,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Medium",question:"If sin θ = 5/13, cos θ (first quadrant) is:",options:["12/13","5/12","13/12","8/13"],correctAnswer:0},
+{id:75,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Hard",question:"cos 15° equals:",options:["(√6+√2)/4","(√6−√2)/4","(√3+1)/2","√3/2"],correctAnswer:0},
+{id:76,subject:"Mathematics",chapter:"Calculus",difficulty:"Medium",question:"Derivative of x⁴ − 3x² + 2x at x=1:",options:["3","4","5","6"],correctAnswer:0},
+{id:77,subject:"Mathematics",chapter:"Calculus",difficulty:"Medium",question:"∫₀² x³ dx equals:",options:["2","4","6","8"],correctAnswer:1},
+{id:78,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"Area bounded by y=x², x=0, x=3, y=0:",options:["3","6","9","27"],correctAnswer:2},
+{id:79,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Easy",question:"Distance between (−3,4) and (3,−4):",options:["8","10","14","√50"],correctAnswer:1},
+{id:80,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Medium",question:"Circle with centre (0,0), radius 5:",options:["x+y=5","x²+y²=5","x²+y²=25","x²+y²=10"],correctAnswer:2},
+{id:81,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Hard",question:"Eccentricity of ellipse x²/16 + y²/9 = 1:",options:["√7/4","√5/4","3/4","7/16"],correctAnswer:0},
+{id:82,subject:"Mathematics",chapter:"Matrices",difficulty:"Easy",question:"Determinant of [[2,3],[1,4]]:",options:["5","8","11","−5"],correctAnswer:0},
+{id:83,subject:"Mathematics",chapter:"Matrices",difficulty:"Medium",question:"If |A|=4 for 3×3 matrix, |2A| is:",options:["8","16","32","64"],correctAnswer:2},
+{id:84,subject:"Mathematics",chapter:"Probability",difficulty:"Medium",question:"Two dice thrown. P(sum = 7) is:",options:["1/6","1/4","5/36","7/36"],correctAnswer:0},
+{id:85,subject:"Mathematics",chapter:"Probability",difficulty:"Hard",question:"P(A)=0.4, P(B)=0.3, P(A∩B)=0.1. P(A∪B):",options:["0.5","0.6","0.7","1.0"],correctAnswer:1},
+{id:86,subject:"Mathematics",chapter:"Vectors",difficulty:"Medium",question:"|a⃗|=4, |b⃗|=3, angle=60°. a⃗·b⃗ equals:",options:["6","12","4√3","3√3"],correctAnswer:0},
+{id:87,subject:"Mathematics",chapter:"Vectors",difficulty:"Hard",question:"(2î+3ĵ) × (î−ĵ+k̂) equals:",options:["3î−2ĵ−5k̂","3î+2ĵ−5k̂","−5k̂ only","3î+5k̂"],correctAnswer:0},
+{id:88,subject:"Mathematics",chapter:"Complex Numbers",difficulty:"Medium",question:"Modulus of (3+4i)(1+2i):",options:["5√5","10","5","√5"],correctAnswer:0},
+{id:89,subject:"Mathematics",chapter:"Complex Numbers",difficulty:"Hard",question:"Argument of (−1+i):",options:["π/4","3π/4","−3π/4","−π/4"],correctAnswer:1},
+{id:90,subject:"Mathematics",chapter:"3D Geometry",difficulty:"Medium",question:"Direction cosines of 2î−3ĵ+6k̂:",options:["2/7, −3/7, 6/7","2/√13, −3/√13, 6/√13","1/7, −3/7, 6/7","2, −3, 6"],correctAnswer:0},
+{id:91,subject:"Mathematics",chapter:"Binomial Theorem",difficulty:"Medium",question:"Coefficient of x³ in (1+x)⁷:",options:["21","35","15","28"],correctAnswer:1},
+{id:92,subject:"Mathematics",chapter:"Sequences and Series",difficulty:"Easy",question:"10th term of AP: 5, 8, 11, 14,...:",options:["29","32","35","38"],correctAnswer:1},
+{id:93,subject:"Mathematics",chapter:"Sequences and Series",difficulty:"Medium",question:"Sum of first 15 terms: a=3, d=4:",options:["465","480","435","495"],correctAnswer:0},
+{id:94,subject:"Mathematics",chapter:"Sets and Functions",difficulty:"Easy",question:"n(A)=10, n(B)=8, n(A∩B)=3. n(A∪B):",options:["15","18","21","25"],correctAnswer:0},
+{id:95,subject:"Mathematics",chapter:"Permutations and Combinations",difficulty:"Medium",question:"Choosing 4 from 10 students (ⁱ⁰C₄):",options:["210","252","120","840"],correctAnswer:0},
+{id:96,subject:"Mathematics",chapter:"Permutations and Combinations",difficulty:"Hard",question:"Arrangements of letters in 'ARRANGE':",options:["1260","2520","5040","840"],correctAnswer:0},
+{id:97,subject:"Mathematics",chapter:"Statistics",difficulty:"Easy",question:"Mean of {2,4,6,8,10}:",options:["5","6","7","8"],correctAnswer:1},
+{id:98,subject:"Mathematics",chapter:"Quadratic Equations",difficulty:"Medium",question:"Equal roots condition (b²−4ac):",options:["1","−1","0","Cannot determine"],correctAnswer:2},
+{id:99,subject:"Mathematics",chapter:"Logarithms",difficulty:"Easy",question:"log₃ 81 equals:",options:["2","3","4","8"],correctAnswer:2},
+{id:100,subject:"Mathematics",chapter:"Limits",difficulty:"Hard",question:"lim(x→0) (tan x)/x:",options:["0","1","∞","tan 1"],correctAnswer:1},
+{id:101,subject:"Mathematics",chapter:"Differentiation",difficulty:"Hard",question:"y = e^(sin x), dy/dx:",options:["e^(sin x) cos x","e^(sin x)","cos x","sin x · e^(sin x)"],correctAnswer:0},
+{id:102,subject:"Mathematics",chapter:"Integration",difficulty:"Medium",question:"∫ (1/x) dx:",options:["1/x² + C","−1/x + C","ln|x| + C","ln x² + C"],correctAnswer:2},
+{id:103,subject:"Mathematics",chapter:"Mathematical Reasoning",difficulty:"Easy",question:"Negation of 'All triangles are equilateral':",options:["No triangle is equilateral","Some triangles are not equilateral","All triangles are not equilateral","None"],correctAnswer:1},
+{id:104,subject:"Mathematics",chapter:"Linear Programming",difficulty:"Medium",question:"Optimal solution of LPP always occurs at a:",options:["Boundary point","Corner (vertex) point","Interior point","Any feasible point"],correctAnswer:1},
+{id:105,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Medium",question:"General solution of cos θ = 0:",options:["θ=nπ","θ=(2n+1)π/2","θ=2nπ","θ=nπ/2"],correctAnswer:1},
+{id:106,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Medium",question:"Slope perpendicular to y=3x+5:",options:["3","−3","1/3","−1/3"],correctAnswer:3},
+{id:107,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"f(x)=x³−6x²+9x. Local minimum at x=",options:["1","2","3","0"],correctAnswer:2},
+{id:108,subject:"Mathematics",chapter:"Differential Equations",difficulty:"Hard",question:"Solution of dy/dx = y:",options:["y=x+C","y=Ce^x","y=e^x+C","y=ln x+C"],correctAnswer:1},
+{id:109,subject:"Mathematics",chapter:"Algebra",difficulty:"Medium",question:"Solution of |x−3| ≤ 5:",options:["−2 ≤ x ≤ 8","x ≥ −2","x ≤ 8","−8 ≤ x ≤ 2"],correctAnswer:0},
+{id:110,subject:"Mathematics",chapter:"Vectors",difficulty:"Medium",question:"Unit vector in direction of 3î+4ĵ:",options:["(3î+4ĵ)/5","(3î+4ĵ)/7","(3î+4ĵ)/25","3î+4ĵ"],correctAnswer:0},
 
-  // ───── APTITUDE ─────
-  {id:111,subject:"Aptitude",chapter:"Number System",difficulty:"Easy",question:"What is the LCM of 12, 18, and 24?",options:["36","48","72","96"],correctAnswer:2},
-  {id:112,subject:"Aptitude",chapter:"Percentages",difficulty:"Easy",question:"What is 25% of 240?",options:["40","60","80","100"],correctAnswer:1},
-  {id:113,subject:"Aptitude",chapter:"Ratio and Proportion",difficulty:"Medium",question:"If A:B = 3:4 and B:C = 5:6, then A:B:C is:",options:["3:4:6","15:20:24","12:16:20","9:12:16"],correctAnswer:1},
-  {id:114,subject:"Aptitude",chapter:"Speed Time Distance",difficulty:"Medium",question:"A train 200m long passes a pole in 10 seconds. Its speed is:",options:["18 km/h","36 km/h","54 km/h","72 km/h"],correctAnswer:3},
-  {id:115,subject:"Aptitude",chapter:"Logical Reasoning",difficulty:"Medium",question:"If all As are Bs, and no Bs are Cs, then:",options:["No As are Cs","Some As are Cs","All Cs are As","Some Cs are As"],correctAnswer:0},
-  {id:116,subject:"Aptitude",chapter:"Data Interpretation",difficulty:"Hard",question:"Sales in Jan=100, Feb=120, Mar=90, Apr=150. Average monthly sale is:",options:["110","112.5","115","120"],correctAnswer:1},
-  {id:117,subject:"Aptitude",chapter:"Series Completion",difficulty:"Medium",question:"Next term in series: 2, 6, 12, 20, 30, ?",options:["40","42","44","48"],correctAnswer:1},
-  {id:118,subject:"Aptitude",chapter:"Coding Decoding",difficulty:"Easy",question:"If APPLE is coded as BQQMF, then MANGO is coded as:",options:["NBOHO","NBOHP","NBOIP","NCOHO"],correctAnswer:1},
-  {id:119,subject:"Aptitude",chapter:"Number System",difficulty:"Hard",question:"How many prime numbers are there between 1 and 50?",options:["13","14","15","16"],correctAnswer:2},
-  {id:120,subject:"Aptitude",chapter:"Geometry",difficulty:"Medium",question:"The area of a rhombus with diagonals 10 cm and 24 cm is:",options:["120 cm²","240 cm²","60 cm²","48 cm²"],correctAnswer:0},
-  {id:121,subject:"Aptitude",chapter:"Profit and Loss",difficulty:"Easy",question:"A shopkeeper buys an article for ₹800 and sells for ₹1000. Profit percentage is:",options:["20%","25%","30%","40%"],correctAnswer:1},
-  {id:122,subject:"Aptitude",chapter:"Ages",difficulty:"Medium",question:"The ratio of ages of A and B is 5:3. After 6 years, ratio becomes 7:5. Present age of A is:",options:["15 years","18 years","20 years","25 years"],correctAnswer:0},
-  {id:123,subject:"Aptitude",chapter:"Permutation Combination",difficulty:"Hard",question:"In how many ways can 3 boys and 3 girls be seated in a row so that no two girls sit together?",options:["144","72","48","36"],correctAnswer:0},
-  {id:124,subject:"Aptitude",chapter:"Blood Relations",difficulty:"Medium",question:"A is B's brother. C is A's mother. D is C's father. E is D's mother. How is A related to D?",options:["Grandson","Son","Great-grandson","None"],correctAnswer:0},
-  {id:125,subject:"Aptitude",chapter:"Directions",difficulty:"Easy",question:"A person walks 10m north, turns right and walks 15m, then turns right and walks 10m. He is now facing:",options:["North","South","East","West"],correctAnswer:1},
-  {id:126,subject:"Aptitude",chapter:"Simple Interest",difficulty:"Easy",question:"Simple interest on ₹5000 at 8% per annum for 3 years is:",options:["₹1000","₹1200","₹1500","₹2400"],correctAnswer:1},
-  {id:127,subject:"Aptitude",chapter:"Compound Interest",difficulty:"Medium",question:"Compound interest on ₹10000 at 10% for 2 years (compounded annually) is:",options:["₹2000","₹2100","₹2200","₹2500"],correctAnswer:1},
-  {id:128,subject:"Aptitude",chapter:"Mensuration",difficulty:"Medium",question:"Volume of a cylinder with radius 7 cm and height 10 cm (π=22/7) is:",options:["1540 cm³","1440 cm³","1640 cm³","1240 cm³"],correctAnswer:0},
-  {id:129,subject:"Aptitude",chapter:"Clock Problems",difficulty:"Medium",question:"At 3:30, the angle between hour and minute hands of a clock is:",options:["45°","60°","75°","90°"],correctAnswer:2},
-  {id:130,subject:"Aptitude",chapter:"Number System",difficulty:"Medium",question:"What is the remainder when 2¹⁰⁰ is divided by 7?",options:["1","2","4","6"],correctAnswer:0},
+// ═══ ENGLISH & APTITUDE (Pool A - 20 core) ═══
+{id:111,subject:"English & Aptitude",chapter:"Grammar",difficulty:"Easy",question:"Choose the correct sentence:",options:["She don't know the answer","She doesn't knows the answer","She doesn't know the answer","She not know the answer"],correctAnswer:2},
+{id:112,subject:"English & Aptitude",chapter:"Vocabulary",difficulty:"Easy",question:"Antonym of 'AFFLUENT':",options:["Rich","Wealthy","Destitute","Prosperous"],correctAnswer:2},
+{id:113,subject:"English & Aptitude",chapter:"Grammar",difficulty:"Medium",question:"'Effect' used correctly:",options:["The drug effected his recovery","His actions had no effect","She effected the changes","The medicine effected well"],correctAnswer:1},
+{id:114,subject:"English & Aptitude",chapter:"Grammar",difficulty:"Medium",question:"'Neither the students nor the teacher ___ present.'",options:["were","are","was","have been"],correctAnswer:2},
+{id:115,subject:"English & Aptitude",chapter:"Vocabulary",difficulty:"Easy",question:"Synonym of 'BENEVOLENT':",options:["Cruel","Kind","Selfish","Strict"],correctAnswer:1},
+{id:116,subject:"English & Aptitude",chapter:"Number System",difficulty:"Easy",question:"LCM of 12, 18, 24:",options:["36","48","72","96"],correctAnswer:2},
+{id:117,subject:"English & Aptitude",chapter:"Percentages",difficulty:"Easy",question:"15% of 400:",options:["40","60","75","80"],correctAnswer:1},
+{id:118,subject:"English & Aptitude",chapter:"Ratio & Proportion",difficulty:"Medium",question:"A:B=2:3, B:C=4:5. A:C is:",options:["8:15","2:5","10:12","6:10"],correctAnswer:0},
+{id:119,subject:"English & Aptitude",chapter:"Speed Time Distance",difficulty:"Medium",question:"Train 300m long passes signal in 15s. Speed in km/h:",options:["60","72","80","90"],correctAnswer:1},
+{id:120,subject:"English & Aptitude",chapter:"Logical Reasoning",difficulty:"Medium",question:"Series: 3, 6, 12, 24, 48, ?",options:["72","96","84","100"],correctAnswer:1},
+{id:121,subject:"English & Aptitude",chapter:"Logical Reasoning",difficulty:"Medium",question:"DELHI coded as EFMIJ. INDIA coded as:",options:["JOEJB","HMCHZ","JODIE","INEJA"],correctAnswer:0},
+{id:122,subject:"English & Aptitude",chapter:"Data Interpretation",difficulty:"Hard",question:"Sales: Jan=200, Feb=250, Mar=180, Apr=300. Average:",options:["232.5","230","235","240"],correctAnswer:0},
+{id:123,subject:"English & Aptitude",chapter:"Geometry",difficulty:"Medium",question:"Area of triangle: base=10cm, height=8cm:",options:["40 cm²","80 cm²","20 cm²","160 cm²"],correctAnswer:0},
+{id:124,subject:"English & Aptitude",chapter:"Profit & Loss",difficulty:"Easy",question:"CP=₹800, SP=₹1000. Profit%:",options:["15%","20%","25%","30%"],correctAnswer:2},
+{id:125,subject:"English & Aptitude",chapter:"Blood Relations",difficulty:"Medium",question:"A's mother is B's daughter. A related to B:",options:["Son","Grandson","Daughter","Granddaughter"],correctAnswer:1},
+{id:126,subject:"English & Aptitude",chapter:"Directions",difficulty:"Easy",question:"Facing East, turn left 90°, then left 180°. Facing:",options:["North","South","East","West"],correctAnswer:3},
+{id:127,subject:"English & Aptitude",chapter:"Ages",difficulty:"Medium",question:"A:B age ratio=3:4. After 8 years=5:6. Present age of A:",options:["12","15","18","24"],correctAnswer:0},
+{id:128,subject:"English & Aptitude",chapter:"Compound Interest",difficulty:"Medium",question:"CI on ₹10000 at 10% p.a. for 2 years (annual):",options:["₹2000","₹2100","₹1900","₹2200"],correctAnswer:1},
+{id:129,subject:"English & Aptitude",chapter:"Vocabulary",difficulty:"Medium",question:"Closest meaning to 'EPHEMERAL':",options:["Eternal","Transient","Substantial","Permanent"],correctAnswer:1},
+{id:130,subject:"English & Aptitude",chapter:"Grammar",difficulty:"Medium",question:"Passive of 'She is writing a letter':",options:["A letter is being written by her","A letter was written by her","A letter has been written by her","A letter will be written by her"],correctAnswer:0},
+
+// ═══ POOL B — Extra questions for Mock Tests 2-5 ═══
+// Physics B
+{id:131,subject:"Physics",chapter:"Kinematics",difficulty:"Medium",question:"Body thrown horizontally from 80m height (g=10). Time to hit ground:",options:["2 s","3 s","4 s","8 s"],correctAnswer:2},
+{id:132,subject:"Physics",chapter:"Laws of Motion",difficulty:"Hard",question:"m₁=3kg, m₂=5kg connected on frictionless surface, F=16N. String tension:",options:["6 N","8 N","10 N","12 N"],correctAnswer:0},
+{id:133,subject:"Physics",chapter:"Thermodynamics",difficulty:"Hard",question:"1 mol ideal gas at 300K, isothermal expansion V→2V. Work done (R=8.314):",options:["1728 J","863 J","3456 J","432 J"],correctAnswer:0},
+{id:134,subject:"Physics",chapter:"Electrostatics",difficulty:"Hard",question:"Capacitor: A=0.02m², d=2mm, ε₀=8.85×10⁻¹². Capacitance:",options:["88.5 pF","8.85 pF","177 pF","44.25 pF"],correctAnswer:0},
+{id:135,subject:"Physics",chapter:"Magnetism",difficulty:"Hard",question:"Solenoid: n=1000/m, I=2A, μ₀=4π×10⁻⁷. Field inside (mT):",options:["0.8π mT","2.5 mT","8π mT","4π mT"],correctAnswer:0},
+{id:136,subject:"Physics",chapter:"Waves",difficulty:"Hard",question:"Fundamental frequency of closed pipe L=0.5m (v=340 m/s):",options:["85 Hz","170 Hz","340 Hz","510 Hz"],correctAnswer:1},
+{id:137,subject:"Physics",chapter:"Modern Physics",difficulty:"Hard",question:"de Broglie wavelength of electron through 100V:",options:["1.23 Å","12.3 Å","0.123 Å","123 Å"],correctAnswer:0},
+{id:138,subject:"Physics",chapter:"Optics",difficulty:"Hard",question:"Convex mirror f=20cm, object at 60cm. Image distance:",options:["15 cm behind","15 cm front","30 cm behind","20 cm behind"],correctAnswer:0},
+{id:139,subject:"Physics",chapter:"Rotational Motion",difficulty:"Hard",question:"Disc: m=2kg, r=0.5m, rolling at v=4m/s. Total KE:",options:["8 J","12 J","16 J","4 J"],correctAnswer:1},
+{id:140,subject:"Physics",chapter:"Units & Measurement",difficulty:"Medium",question:"Dimensional formula of Planck's constant h:",options:["[ML²T⁻¹]","[ML²T⁻²]","[MLT⁻¹]","[M²L²T⁻¹]"],correctAnswer:0},
+// Chemistry B
+{id:141,subject:"Chemistry",chapter:"Thermodynamics",difficulty:"Hard",question:"ΔH=−100kJ, ΔS=−200J/K. Spontaneous below temperature:",options:["200 K","500 K","1000 K","100 K"],correctAnswer:1},
+{id:142,subject:"Chemistry",chapter:"Electrochemistry",difficulty:"Hard",question:"Electrolysis of dilute H₂SO₄. At cathode:",options:["O₂ liberated","H₂ liberated","SO₄²⁻ deposited","HSO₄⁻ forms"],correctAnswer:1},
+{id:143,subject:"Chemistry",chapter:"Surface Chemistry",difficulty:"Medium",question:"Brownian motion in colloids caused by:",options:["Gravity","Bombardment by dispersion medium molecules","Electrostatic attraction","Temperature gradient"],correctAnswer:1},
+{id:144,subject:"Chemistry",chapter:"Coordination Chemistry",difficulty:"Hard",question:"Which complex shows geometrical isomerism?",options:["[Co(NH₃)₆]³⁺","[Pt(NH₃)₄]²⁺","[Pt(NH₃)₂Cl₂]","[NiCl₄]²⁻"],correctAnswer:2},
+{id:145,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Hard",question:"Hofmann bromamide reaction converts primary amide to:",options:["Amine with same carbon","Amine with one fewer carbon","Carboxylic acid","Alcohol"],correctAnswer:1},
+{id:146,subject:"Chemistry",chapter:"Polymers",difficulty:"Medium",question:"Bakelite is formed by condensation of:",options:["Phenol and formaldehyde","Urea and formaldehyde","Ethylene and propylene","Adipic acid and hexamethylenediamine"],correctAnswer:0},
+{id:147,subject:"Chemistry",chapter:"Biomolecules",difficulty:"Medium",question:"Secondary protein structure maintained by:",options:["Peptide bonds","Hydrogen bonds","Ionic bonds","Disulfide bonds"],correctAnswer:1},
+{id:148,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Hard",question:"Number of angular nodes in 3d orbital:",options:["0","1","2","3"],correctAnswer:2},
+{id:149,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Hard",question:"Carbylamine reaction is test for:",options:["Secondary amines","Primary amines","Tertiary amines","Quaternary ammonium"],correctAnswer:1},
+{id:150,subject:"Chemistry",chapter:"Solutions",difficulty:"Hard",question:"Osmotic pressure of 0.1M glucose at 27°C (R=0.0821 L·atm/mol·K):",options:["2.46 atm","0.82 atm","1.64 atm","4.92 atm"],correctAnswer:0},
+// Mathematics B
+{id:151,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"∫₀^(π/2) sin²x dx:",options:["π/4","π/2","1","0"],correctAnswer:0},
+{id:152,subject:"Mathematics",chapter:"Algebra",difficulty:"Hard",question:"1³+2³+3³+...+10³ equals:",options:["3025","2025","1025","4025"],correctAnswer:0},
+{id:153,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Hard",question:"Value of sin 18°:",options:["(√5−1)/4","(√5+1)/4","√(10−2√5)/4","(√5−1)/2"],correctAnswer:0},
+{id:154,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Hard",question:"Locus of point equidistant from (2,3) and (4,1):",options:["x−y+1=0","x−y−1=0","x+y=5","x−y=0"],correctAnswer:0},
+{id:155,subject:"Mathematics",chapter:"Vectors",difficulty:"Hard",question:"If |a⃗+b⃗|=|a⃗−b⃗|, then a⃗ and b⃗ are:",options:["Parallel","Perpendicular","Equal","Anti-parallel"],correctAnswer:1},
+{id:156,subject:"Mathematics",chapter:"Probability",difficulty:"Hard",question:"P(at least one head in 4 tosses of fair coin):",options:["15/16","1/16","7/8","3/4"],correctAnswer:0},
+{id:157,subject:"Mathematics",chapter:"Sequences and Series",difficulty:"Hard",question:"Sum: 1·2+2·3+3·4+...+n(n+1):",options:["n(n+1)(n+2)/3","n(n+1)/2","n²(n+1)/2","n(n+1)(2n+1)/6"],correctAnswer:0},
+{id:158,subject:"Mathematics",chapter:"Differential Equations",difficulty:"Hard",question:"Order and degree of (d²y/dx²)³+(dy/dx)²=x⁵:",options:["2 and 3","3 and 2","2 and 2","3 and 3"],correctAnswer:0},
+{id:159,subject:"Mathematics",chapter:"Integration",difficulty:"Hard",question:"∫ x·eˣ dx:",options:["eˣ(x−1)+C","eˣ(x+1)+C","xeˣ+C","eˣ/x+C"],correctAnswer:0},
+{id:160,subject:"Mathematics",chapter:"Coordinate Geometry",difficulty:"Hard",question:"Length of latus rectum of parabola y²=8x:",options:["4","8","16","2"],correctAnswer:1},
+// English & Aptitude B
+{id:161,subject:"English & Aptitude",chapter:"Number System",difficulty:"Medium",question:"Prime numbers between 1 and 30:",options:["8","9","10","11"],correctAnswer:2},
+{id:162,subject:"English & Aptitude",chapter:"Logical Reasoning",difficulty:"Medium",question:"1, 4, 9, 16, 25, ? Next term:",options:["30","36","32","49"],correctAnswer:1},
+{id:163,subject:"English & Aptitude",chapter:"Geometry",difficulty:"Medium",question:"Volume of sphere r=7cm (π=22/7):",options:["1437.3 cm³","718.7 cm³","4312 cm³","2156 cm³"],correctAnswer:0},
+{id:164,subject:"English & Aptitude",chapter:"Grammar",difficulty:"Medium",question:"Correctly punctuated sentence:",options:["Its a beautiful day","Its' a beautiful day","It's a beautiful day","It's' a beautiful day"],correctAnswer:2},
+{id:165,subject:"English & Aptitude",chapter:"Vocabulary",difficulty:"Medium",question:"Most similar meaning to 'VERBOSE':",options:["Concise","Wordy","Silent","Eloquent"],correctAnswer:1},
+{id:166,subject:"English & Aptitude",chapter:"Number System",difficulty:"Hard",question:"Remainder when 17²³ is divided by 16:",options:["0","1","15","17"],correctAnswer:1},
+{id:167,subject:"English & Aptitude",chapter:"Speed Time Distance",difficulty:"Hard",question:"A and B from opposite ends (120km). A at 30km/h, B at 40km/h. First meeting from A:",options:["51.4 km","60 km","48 km","72 km"],correctAnswer:0},
+{id:168,subject:"English & Aptitude",chapter:"Logical Reasoning",difficulty:"Hard",question:"All roses are flowers. Some flowers fade. Then:",options:["All roses fade","Some roses fade","No roses fade","Roses may or may not fade"],correctAnswer:3},
+{id:169,subject:"English & Aptitude",chapter:"Percentages",difficulty:"Medium",question:"A score increased from 80 to 100. % increase:",options:["20%","25%","15%","10%"],correctAnswer:1},
+{id:170,subject:"English & Aptitude",chapter:"Grammar",difficulty:"Easy",question:"Correctly spelled word:",options:["Accomodation","Acommodation","Accommodation","Acomodation"],correctAnswer:2},
+
+// ═══ POOL C — Mock Tests 3, 4, 5 additional ═══
+{id:171,subject:"Physics",chapter:"Kinematics",difficulty:"Hard",question:"River 100m wide, river speed 5m/s, swimmer speed 10m/s ⊥ bank. Drift:",options:["50 m","100 m","25 m","75 m"],correctAnswer:0},
+{id:172,subject:"Physics",chapter:"Laws of Motion",difficulty:"Medium",question:"Impulse equals:",options:["F·a","F·t","F·v","F·d"],correctAnswer:1},
+{id:173,subject:"Physics",chapter:"Gravitation",difficulty:"Hard",question:"Orbital velocity of satellite at height R above Earth (g=10, R=6400km) ≈",options:["5.6 km/s","7.9 km/s","11.2 km/s","4.0 km/s"],correctAnswer:0},
+{id:174,subject:"Physics",chapter:"Electrostatics",difficulty:"Hard",question:"Energy stored in capacitor C at voltage V:",options:["CV","CV²","½CV²","2CV²"],correctAnswer:2},
+{id:175,subject:"Physics",chapter:"Waves",difficulty:"Medium",question:"Doppler: source moves toward observer at 0.5v_s. f_o/f_s ratio:",options:["2","1.5","0.5","3"],correctAnswer:0},
+{id:176,subject:"Physics",chapter:"Optics",difficulty:"Medium",question:"Resolving power of microscope increases when:",options:["Wavelength increases","Wavelength decreases","Focal length increases","Aperture decreases"],correctAnswer:1},
+{id:177,subject:"Physics",chapter:"Modern Physics",difficulty:"Medium",question:"In Bohr model, radius of nth orbit proportional to:",options:["n","n²","1/n","1/n²"],correctAnswer:1},
+{id:178,subject:"Physics",chapter:"Nuclear Physics",difficulty:"Hard",question:"Minimum photon energy for pair production:",options:["0.51 MeV","1.02 MeV","0.255 MeV","2.04 MeV"],correctAnswer:1},
+{id:179,subject:"Physics",chapter:"Semiconductors",difficulty:"Hard",question:"Full-wave rectifier (no filter) output frequency:",options:["Same as input","Half of input","Double of input","Zero"],correctAnswer:2},
+{id:180,subject:"Physics",chapter:"Current Electricity",difficulty:"Hard",question:"Potentiometer: null at 60cm for 1.5V. EMF for null at 80cm:",options:["1.5 V","2.0 V","1.8 V","2.5 V"],correctAnswer:1},
+{id:181,subject:"Chemistry",chapter:"Chemical Bonding",difficulty:"Hard",question:"Maximum bond angle among:",options:["NH₃","H₂O","CH₄","H₂S"],correctAnswer:2},
+{id:182,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Hard",question:"Aldehyde + excess HCN → hydrolysis gives:",options:["Lactic acid (from HCHO)","α-hydroxy acid","Pyruvic acid","Acetaldehyde"],correctAnswer:1},
+{id:183,subject:"Chemistry",chapter:"Electrochemistry",difficulty:"Medium",question:"Faraday's laws of electrolysis relate to:",options:["Rate of reaction","Amount of substance deposited","Electrode potential","Cell resistance"],correctAnswer:1},
+{id:184,subject:"Chemistry",chapter:"Chemical Kinetics",difficulty:"Hard",question:"[A] decreases 0.5M→0.25M in 50s. First order k:",options:["0.0138 s⁻¹","0.00693 s⁻¹","0.025 s⁻¹","0.1 s⁻¹"],correctAnswer:0},
+{id:185,subject:"Chemistry",chapter:"Solid State",difficulty:"Hard",question:"NaCl structure. Coordination numbers of Na⁺ and Cl⁻:",options:["4 and 4","6 and 6","8 and 8","4 and 6"],correctAnswer:1},
+{id:186,subject:"Chemistry",chapter:"Atomic Structure",difficulty:"Hard",question:"Heisenberg uncertainty principle:",options:["ΔE·Δt ≥ h/4π","Δx·Δp ≥ h/4π","Δm·Δv ≥ h","ΔE·Δx ≥ h"],correctAnswer:1},
+{id:187,subject:"Chemistry",chapter:"p-block Elements",difficulty:"Hard",question:"Which is NOT property of SF₆?",options:["Octahedral geometry","sp³d² hybridization","Acidic nature","Very stable compound"],correctAnswer:2},
+{id:188,subject:"Chemistry",chapter:"d-block Elements",difficulty:"Hard",question:"Diamagnetic transition metal ion:",options:["Fe²⁺","Cu²⁺","Zn²⁺","Mn²⁺"],correctAnswer:2},
+{id:189,subject:"Chemistry",chapter:"Organic Chemistry",difficulty:"Medium",question:"Reaction of alcohol with SOCl₂ gives:",options:["Alcohol → ether","Alcohol → alkyl chloride with inversion","Alcohol → alkyl chloride with retention","Alcohol → aldehyde"],correctAnswer:1},
+{id:190,subject:"Chemistry",chapter:"Periodic Table",difficulty:"Hard",question:"Anomalous behaviour of Li (vs Group 1) due to:",options:["High nuclear charge","Small ionic radius/high charge density","High electron affinity","Large atomic size"],correctAnswer:1},
+{id:191,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"lim(x→∞) (1 + 1/x)^x:",options:["1","e","e²","∞"],correctAnswer:1},
+{id:192,subject:"Mathematics",chapter:"Algebra",difficulty:"Hard",question:"Solutions of |x−1| + |x−2| = 3:",options:["0","1","2","Infinite"],correctAnswer:3},
+{id:193,subject:"Mathematics",chapter:"Statistics",difficulty:"Medium",question:"Variance of {2,4,6,8,10}:",options:["6","8","10","4"],correctAnswer:1},
+{id:194,subject:"Mathematics",chapter:"Calculus",difficulty:"Hard",question:"∫ x·eˣ dx (integration by parts):",options:["eˣ(x−1)+C","eˣ(x+1)+C","xeˣ+C","eˣ+C"],correctAnswer:0},
+{id:195,subject:"Mathematics",chapter:"Matrices",difficulty:"Hard",question:"If A=[[1,2],[3,4]], then A⁻¹ is:",options:["[[-2,1],[3/2,-1/2]]","[[4,-2],[-3,1]]","[[2,-1],[-3/2,1/2]]","Does not exist"],correctAnswer:0},
+{id:196,subject:"Mathematics",chapter:"Complex Numbers",difficulty:"Hard",question:"If z=(1+i)/(1−i), then z⁴:",options:["1","−1","i","−i"],correctAnswer:0},
+{id:197,subject:"Mathematics",chapter:"Binomial Theorem",difficulty:"Hard",question:"Middle term (5th) in (2x − 1/x)¹⁰:",options:["−8064x⁰","8064x⁰","−8064x²","8064x⁻²"],correctAnswer:0},
+{id:198,subject:"Mathematics",chapter:"3D Geometry",difficulty:"Hard",question:"Equation of plane through (1,0,0), (0,1,0), (0,0,1):",options:["x+y+z=0","x+y+z=1","x−y+z=1","2x+y+z=1"],correctAnswer:1},
+{id:199,subject:"Mathematics",chapter:"Trigonometry",difficulty:"Hard",question:"sin²A+sin²B+sin²C=2(1+cosA·cosB·cosC) holds:",options:["Only A=B=C=60°","Only A=90°","Only A=B=45°","Always when A+B+C=π"],correctAnswer:3},
+{id:200,subject:"Mathematics",chapter:"Calculus",difficulty:"Medium",question:"Derivative of ln(sin x):",options:["cot x","−cot x","tan x","cos x"],correctAnswer:0},
+{id:201,subject:"English & Aptitude",chapter:"Data Interpretation",difficulty:"Hard",question:"Marks: Phy=75(wt3), Chem=80(wt3), Math=90(wt4), Eng=70(wt1), Apt=85(wt1). Weighted avg:",options:["79","80.25","78.75","81"],correctAnswer:1},
+{id:202,subject:"English & Aptitude",chapter:"Logical Reasoning",difficulty:"Hard",question:"All As are Bs. Some Bs are Cs. No Cs are Ds. Valid conclusion:",options:["Some As are Cs","No As are Ds","Some As not Ds","Cannot conclude definitively"],correctAnswer:3},
+{id:203,subject:"English & Aptitude",chapter:"Number System",difficulty:"Hard",question:"Remainder when 2¹⁰⁰ divided by 7:",options:["1","2","4","6"],correctAnswer:2},
+{id:204,subject:"English & Aptitude",chapter:"Mensuration",difficulty:"Medium",question:"Volume of cylinder: r=7cm, h=10cm (π=22/7):",options:["1540 cm³","1440 cm³","1640 cm³","1240 cm³"],correctAnswer:0},
+{id:205,subject:"English & Aptitude",chapter:"Clock Problems",difficulty:"Medium",question:"Angle between hands at 3:30:",options:["45°","60°","75°","90°"],correctAnswer:2},
+{id:206,subject:"English & Aptitude",chapter:"Ratio & Proportion",difficulty:"Hard",question:"Gold:Silver ratio=3:2 in 100g alloy. Gold added to make ratio 5:2. Gold added:",options:["20 g","40 g","30 g","60 g"],correctAnswer:1},
+{id:207,subject:"English & Aptitude",chapter:"Vocabulary",difficulty:"Medium",question:"Word opposite to 'GREGARIOUS':",options:["Sociable","Lively","Solitary","Cheerful"],correctAnswer:2},
+{id:208,subject:"English & Aptitude",chapter:"Grammar",difficulty:"Hard",question:"Identify error: 'The committee have decided to postpone their meeting.'",options:["committee","have","postpone","No error (British English)"],correctAnswer:3},
+{id:209,subject:"English & Aptitude",chapter:"Simple Interest",difficulty:"Easy",question:"SI on ₹5000 at 8% p.a. for 3 years:",options:["₹1000","₹1200","₹1500","₹2400"],correctAnswer:1},
+{id:210,subject:"English & Aptitude",chapter:"Permutation Combination",difficulty:"Hard",question:"5 distinct balls into 3 distinct boxes (empty allowed):",options:["243","125","150","215"],correctAnswer:0},
 ];
+
+/* ============================================================
+   SRMJEEE 2026 TEST CONFIGURATIONS
+   Official: 130Q, 150min, +1/0
+   ============================================================ */
+const TEST_CONFIGS = {
+  mock1: {name:"SRMJEEE 2026 Full Mock Test 1 (Phase 1)", timeSeconds:9000, label:"Full Mock Test 1 — Phase 1 Pattern"},
+  mock2: {name:"SRMJEEE 2026 Full Mock Test 2 (Phase 2)", timeSeconds:9000, label:"Full Mock Test 2 — Phase 2 Pattern"},
+  mock3: {name:"SRMJEEE 2026 Full Mock Test 3 (Phase 3)", timeSeconds:9000, label:"Full Mock Test 3 — Phase 3 Pattern"},
+  mock4: {name:"SRMJEEE 2026 Full Mock Test 4 (PYQ Style)", timeSeconds:9000, label:"Full Mock Test 4 — Previous Year Style"},
+  mock5: {name:"SRMJEEE 2026 Full Mock Test 5 (Grand Revision)", timeSeconds:9000, label:"Full Mock Test 5 — Grand Revision"},
+  physics: {name:"Physics Subject Test", timeSeconds:2700, label:"Physics Only — 35 Questions", mode:'subject', subject:'Physics'},
+  chemistry:{name:"Chemistry Subject Test", timeSeconds:2700, label:"Chemistry Only — 35 Questions", mode:'subject', subject:'Chemistry'},
+  maths: {name:"Mathematics Subject Test", timeSeconds:3000, label:"Mathematics Only — 40 Questions", mode:'subject', subject:'Mathematics'},
+  english:{name:"English & Aptitude Test", timeSeconds:1500, label:"English & Aptitude — 20 Questions", mode:'subject', subject:'English & Aptitude'},
+};
+
+/* ============================================================
+   QUESTION BUILDER — balanced 130Q paper per mock test
+   Each mock shuffles the full pool differently
+   ============================================================ */
+function buildFullTest() {
+  const all = loadQuestions();
+  const shuffle = arr => [...arr].sort(() => Math.random() - .5);
+  const phy = shuffle(all.filter(q => q.subject === 'Physics')).slice(0, 35);
+  const che = shuffle(all.filter(q => q.subject === 'Chemistry')).slice(0, 35);
+  const mat = shuffle(all.filter(q => q.subject === 'Mathematics')).slice(0, 40);
+  const eng = shuffle(all.filter(q => q.subject === 'English & Aptitude')).slice(0, 20);
+  return [...phy, ...che, ...mat, ...eng];
+}
 
 /* ============================================================
    APP STATE
    ============================================================ */
 let state = {
-  currentPage: 'page-login',
-  user: null,
-  testType: 'full',
-  questions: [],
-  currentQuestionIndex: 0,
-  answers: {}, // questionId -> optionIndex
-  questionStatus: {}, // questionId -> 'not-visited'|'answered'|'not-answered'|'marked'|'marked-answered'
-  timeLeft: 7200, // seconds
-  timerInterval: null,
-  examStartTime: null,
-  proctoring: { camActive: false, micActive: false, violations: 0, tabSwitches: 0, fsExits: 0, log: [] },
-  warningShown: { 30: false, 10: false, 5: false },
-  currentSubject: null,
-  adminEditId: null,
-  darkMode: false,
+  currentPage: 'page-login', user: null, testType: 'mock1',
+  questions: [], currentQuestionIndex: 0, answers: {}, questionStatus: {},
+  timeLeft: 9000, timerInterval: null, examStartTime: null,
+  proctoring: {camActive:false, micActive:false, violations:0, tabSwitches:0, fsExits:0, log:[]},
+  warningShown: {60:false, 30:false, 10:false, 5:false},
+  currentSubject: null, darkMode: false,
 };
 
 /* ============================================================
    STORAGE HELPERS
    ============================================================ */
-function loadQuestions() {
-  try {
-    const stored = localStorage.getItem('srm_questions');
-    if (stored) return JSON.parse(stored);
-  } catch(e) {}
-  return [...QUESTIONS_DEFAULT];
-}
-function saveQuestions(q) { localStorage.setItem('srm_questions', JSON.stringify(q)); }
-function loadHistory() {
-  try { return JSON.parse(localStorage.getItem('srm_history') || '[]'); } catch(e) { return []; }
-}
-function saveHistory(h) { localStorage.setItem('srm_history', JSON.stringify(h)); }
-function loadExamState() {
-  try { return JSON.parse(localStorage.getItem('srm_exam_state')); } catch(e) { return null; }
-}
-function saveExamState() {
-  const es = {
-    questions: state.questions.map(q=>q.id),
-    currentQuestionIndex: state.currentQuestionIndex,
-    answers: state.answers,
-    questionStatus: state.questionStatus,
-    timeLeft: state.timeLeft,
-    testType: state.testType,
-    examStartTime: state.examStartTime,
-  };
-  localStorage.setItem('srm_exam_state', JSON.stringify(es));
-}
-function clearExamState() { localStorage.removeItem('srm_exam_state'); }
-function loadUserPrefs() {
-  try { return JSON.parse(localStorage.getItem('srm_prefs') || '{}'); } catch(e) { return {}; }
-}
-function saveUserPrefs(p) { localStorage.setItem('srm_prefs', JSON.stringify(p)); }
+function loadQuestions(){try{const s=localStorage.getItem('srm_q_2026');if(s)return JSON.parse(s);}catch(e){}return[...QUESTIONS_DEFAULT];}
+function saveQuestions(q){localStorage.setItem('srm_q_2026',JSON.stringify(q));}
+function loadHistory(){try{return JSON.parse(localStorage.getItem('srm_hist_2026')||'[]');}catch(e){return[];}}
+function saveHistory(h){localStorage.setItem('srm_hist_2026',JSON.stringify(h));}
+function loadExamState(){try{return JSON.parse(localStorage.getItem('srm_exam_2026'));}catch(e){return null;}}
+function saveExamState(){localStorage.setItem('srm_exam_2026',JSON.stringify({questions:state.questions.map(q=>q.id),currentQuestionIndex:state.currentQuestionIndex,answers:state.answers,questionStatus:state.questionStatus,timeLeft:state.timeLeft,testType:state.testType,examStartTime:state.examStartTime}));}
+function clearExamState(){localStorage.removeItem('srm_exam_2026');}
+function loadUserPrefs(){try{return JSON.parse(localStorage.getItem('srm_prefs_2026')||'{}');}catch(e){return{};}}
+function saveUserPrefs(p){localStorage.setItem('srm_prefs_2026',JSON.stringify(p));}
 
 /* ============================================================
-   PAGE NAVIGATION
+   UI HELPERS
    ============================================================ */
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  state.currentPage = id;
-  if (id !== 'page-exam') document.getElementById('dark-toggle').style.display = 'flex';
-  else document.getElementById('dark-toggle').style.display = 'none';
-}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');state.currentPage=id;document.getElementById('dark-toggle').style.display=id!=='page-exam'?'flex':'none';}
+function toast(msg,type='info',dur=3000){const ic={success:'✅',error:'❌',warning:'⚠️',info:'ℹ️'};const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span>${ic[type]||'ℹ️'}</span><span>${msg}</span>`;document.getElementById('toast-container').appendChild(el);setTimeout(()=>el.remove(),dur);}
+function openModal(id){document.getElementById(id).classList.remove('hidden');}
+function closeModal(id){document.getElementById(id).classList.add('hidden');}
+function toggleDarkMode(){state.darkMode=!state.darkMode;document.body.classList.toggle('dark',state.darkMode);document.getElementById('dark-toggle').textContent=state.darkMode?'☀️':'🌙';saveUserPrefs({...loadUserPrefs(),darkMode:state.darkMode});}
 
 /* ============================================================
-   TOAST
+   LOGIN / LOGOUT
    ============================================================ */
-function toast(msg, type='info', duration=3000) {
-  const icons = {success:'✅', error:'❌', warning:'⚠️', info:'ℹ️'};
-  const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  el.innerHTML = `<span>${icons[type]||'ℹ️'}</span><span>${msg}</span>`;
-  document.getElementById('toast-container').appendChild(el);
-  setTimeout(() => el.remove(), duration);
+function doLogin(){
+  const id=document.getElementById('login-id').value.trim();
+  const pass=document.getElementById('login-pass').value.trim();
+  if(!id||!pass){toast('Please enter Candidate ID and Password','error');return;}
+  if(id==='admin123'){openAdminModal();return;}
+  state.user={id,name:generateName(id),password:pass};
+  toast(`Welcome, ${state.user.name}!`,'success');
+  updateDashboard();showPage('page-dashboard');
 }
-
-/* ============================================================
-   MODAL HELPERS
-   ============================================================ */
-function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-/* ============================================================
-   DARK MODE
-   ============================================================ */
-function toggleDarkMode() {
-  state.darkMode = !state.darkMode;
-  document.body.classList.toggle('dark', state.darkMode);
-  document.getElementById('dark-toggle').textContent = state.darkMode ? '☀️' : '🌙';
-  saveUserPrefs({...loadUserPrefs(), darkMode: state.darkMode});
-}
-
-/* ============================================================
-   LOGIN
-   ============================================================ */
-function doLogin() {
-  const id = document.getElementById('login-id').value.trim();
-  const pass = document.getElementById('login-pass').value.trim();
-  if (!id || !pass) { toast('Please enter both Candidate ID and Password', 'error'); return; }
-  if (id === 'admin123') { openAdminModal(); return; }
-  // Accept any credentials for practice
-  state.user = {
-    id: id,
-    name: generateName(id),
-    password: pass,
-    dob: pass,
-  };
-  toast(`Welcome, ${state.user.name}! Login successful.`, 'success');
-  updateDashboard();
-  showPage('page-dashboard');
-}
-
-function generateName(id) {
-  const names = ['Arjun Sharma','Priya Menon','Rahul Verma','Sneha Iyer','Tejas Goel','Ananya Das','Karan Mehta','Divya Nair','Tejas Kumar','Riya Patel'];
-  let hash = 0; for (let c of id) hash += c.charCodeAt(0);
-  return names[hash % names.length];
-}
-
-function doLogout() {
-  clearExamState();
-  state.user = null;
-  if (state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; }
-  showPage('page-login');
-  toast('Logged out successfully', 'info');
-}
+function generateName(id){const n=['Arjun Sharma','Priya Menon','Rahul Verma','Sneha Iyer','Tejas Goel','Ananya Das','Karan Mehta','Divya Nair','Tejas Kumar','Riya Patel','Aarav Gupta','Sanya Reddy'];let h=0;for(const c of id)h+=c.charCodeAt(0);return n[h%n.length];}
+function doLogout(){clearExamState();state.user=null;if(state.timerInterval){clearInterval(state.timerInterval);state.timerInterval=null;}showPage('page-login');toast('Logged out','info');}
 
 /* ============================================================
    DASHBOARD
    ============================================================ */
-function updateDashboard() {
-  if (!state.user) return;
-  const name = state.user.name;
-  const id = state.user.id;
-  const initial = name[0];
-
-  ['dash-avatar','p-avatar'].forEach(i => { const el=document.getElementById(i); if(el) el.textContent=initial; });
-  const dnEl = document.getElementById('dash-username'); if(dnEl) dnEl.textContent = name;
-  const gnEl = document.getElementById('dash-greet-name'); if(gnEl) gnEl.textContent = name.split(' ')[0];
-  const pnEl = document.getElementById('p-name'); if(pnEl) pnEl.textContent = name;
-  const piEl = document.getElementById('p-id'); if(piEl) piEl.textContent = id;
-
-  updateDateTime();
-  setInterval(updateDateTime, 1000);
-
-  const history = loadHistory().filter(h => h.userId === state.user.id);
-  const testsEl = document.getElementById('ds-tests'); if(testsEl) testsEl.textContent = history.length;
-
-  if (history.length > 0) {
-    const scores = history.map(h=>h.score);
-    const best = Math.max(...scores);
-    const lastScore = history[history.length-1];
-    const avgAcc = Math.round(history.reduce((a,h)=>a+h.accuracy,0)/history.length);
-
-    const bestEl = document.getElementById('ds-best'); if(bestEl) bestEl.textContent = best;
-    const avgEl = document.getElementById('ds-avg'); if(avgEl) avgEl.textContent = avgAcc+'%';
-    const psEl = document.getElementById('ps-score'); if(psEl) psEl.textContent = lastScore.score+'/'+lastScore.maxScore;
-    const rankEl = document.getElementById('ps-rank'); if(rankEl) rankEl.textContent = '#'+predictRank(lastScore.score, lastScore.maxScore);
-    const streakEl = document.getElementById('ds-streak'); if(streakEl) streakEl.textContent = Math.min(history.length,5)+'🔥';
-
-    // Subject readiness
-    const subjectMap = {};
-    history.forEach(h => {
-      if (h.subjectScores) {
-        Object.entries(h.subjectScores).forEach(([subj,data]) => {
-          if (!subjectMap[subj]) subjectMap[subj] = [];
-          subjectMap[subj].push(data.accuracy);
-        });
-      }
-    });
-    const srEl = document.getElementById('subject-readiness');
-    if (srEl && Object.keys(subjectMap).length > 0) {
-      srEl.innerHTML = Object.entries(subjectMap).map(([s,accs]) => {
-        const avg = Math.round(accs.reduce((a,b)=>a+b,0)/accs.length);
-        const color = avg>=70?'var(--success)':avg>=50?'var(--accent)':'var(--danger)';
-        return `<div style="margin-bottom:.75rem;">
-          <div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem;">
-            <span style="font-weight:600;color:var(--gray-700);">${s}</span>
-            <span style="font-weight:700;color:${color};">${avg}%</span>
-          </div>
-          <div class="score-bar-wrap"><div class="score-bar" style="width:${avg}%;background:${color};"></div></div>
-        </div>`;
-      }).join('');
-    }
-
-    // Render history table
-    const tbody = document.getElementById('history-tbody');
-    if (tbody) {
-      tbody.innerHTML = history.slice().reverse().slice(0,5).map(h => `
-        <tr>
-          <td><strong>${h.testName||'Mock Test'}</strong></td>
-          <td>${new Date(h.date).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}</td>
-          <td><strong>${h.score}/${h.maxScore}</strong>
-            <div class="score-bar-wrap" style="margin-top:.3rem;"><div class="score-bar" style="width:${Math.round((h.score/h.maxScore)*100)}%;"></div></div>
-          </td>
-          <td><span class="badge badge-${h.accuracy>=70?'success':h.accuracy>=50?'warning':'danger'}">${h.accuracy}%</span></td>
-          <td>#${predictRank(h.score,h.maxScore)}</td>
-        </tr>
-      `).join('');
-    }
-  } else {
-    const streakEl = document.getElementById('ds-streak'); if(streakEl) streakEl.textContent = '0🔥';
-  }
+function updateDashboard(){
+  if(!state.user)return;
+  const {name,id}=state.user;const init=name[0];
+  document.querySelectorAll('#dash-avatar,#p-avatar').forEach(el=>{if(el)el.textContent=init;});
+  const du=document.getElementById('dash-username');if(du)du.textContent=name;
+  const dg=document.getElementById('dash-greet-name');if(dg)dg.textContent=name.split(' ')[0];
+  const pn=document.getElementById('p-name');if(pn)pn.textContent=name;
+  const pi=document.getElementById('p-id');if(pi)pi.textContent=id;
+  updateDateTime();setInterval(updateDateTime,1000);
+  const history=loadHistory().filter(h=>h.userId===state.user.id);
+  const tsEl=document.getElementById('ds-tests');if(tsEl)tsEl.textContent=history.length;
+  if(history.length>0){
+    const best=Math.max(...history.map(h=>h.score));
+    const last=history[history.length-1];
+    const avgAcc=Math.round(history.reduce((a,h)=>a+h.accuracy,0)/history.length);
+    const setT=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+    setT('ds-best',best+'/130');setT('ds-avg',avgAcc+'%');setT('ps-score',last.score+'/130');
+    setT('ps-rank','#'+predictRank(last.score));setT('ds-streak',Math.min(history.length,7)+'🔥');
+    const subM={};history.forEach(h=>{if(h.subjectScores)Object.entries(h.subjectScores).forEach(([s,d])=>{if(!subM[s])subM[s]=[];subM[s].push(d.accuracy);});});
+    const sr=document.getElementById('subject-readiness');
+    if(sr&&Object.keys(subM).length>0)sr.innerHTML=Object.entries(subM).map(([s,a])=>{const avg=Math.round(a.reduce((x,y)=>x+y,0)/a.length);const col=avg>=70?'var(--success)':avg>=50?'var(--accent)':'var(--danger)';return`<div style="margin-bottom:.75rem;"><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.3rem;"><span style="font-weight:600;color:var(--gray-700);">${s}</span><span style="font-weight:700;color:${col};">${avg}%</span></div><div class="score-bar-wrap"><div class="score-bar" style="width:${avg}%;background:${col};"></div></div></div>`;}).join('');
+    const tbody=document.getElementById('history-tbody');
+    if(tbody)tbody.innerHTML=history.slice().reverse().slice(0,7).map(h=>`<tr><td><strong>${h.testName||'Mock Test'}</strong></td><td>${new Date(h.date).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'})}</td><td><strong>${h.score}/130</strong><div class="score-bar-wrap" style="margin-top:.3rem;"><div class="score-bar" style="width:${Math.round((h.score/130)*100)}%;"></div></div></td><td><span class="badge badge-${h.accuracy>=70?'success':h.accuracy>=50?'warning':'danger'}">${h.accuracy}%</span></td><td>#${predictRank(h.score)}</td></tr>`).join('');
+  }else{const st=document.getElementById('ds-streak');if(st)st.textContent='0🔥';}
 }
-
-function updateDateTime() {
-  const el = document.getElementById('dash-datetime');
-  if (el) {
-    const now = new Date();
-    el.textContent = now.toLocaleDateString('en-IN',{weekday:'short',day:'2-digit',month:'short'}) + ' ' +
-      now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-  }
-}
-
-function predictRank(score, maxScore) {
-  const pct = (score/maxScore)*100;
-  if (pct>=95) return Math.floor(Math.random()*500)+1;
-  if (pct>=85) return Math.floor(Math.random()*2000)+500;
-  if (pct>=75) return Math.floor(Math.random()*5000)+2000;
-  if (pct>=65) return Math.floor(Math.random()*10000)+5000;
-  if (pct>=50) return Math.floor(Math.random()*20000)+10000;
-  return Math.floor(Math.random()*50000)+20000;
-}
+function updateDateTime(){const el=document.getElementById('dash-datetime');if(el){const n=new Date();el.textContent=n.toLocaleDateString('en-IN',{weekday:'short',day:'2-digit',month:'short'})+' '+n.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});}}
+function predictRank(score){const p=(score/130)*100;if(p>=95)return Math.floor(Math.random()*300)+1;if(p>=85)return Math.floor(Math.random()*1500)+300;if(p>=75)return Math.floor(Math.random()*4000)+1500;if(p>=65)return Math.floor(Math.random()*8000)+5000;if(p>=50)return Math.floor(Math.random()*20000)+13000;return Math.floor(Math.random()*50000)+33000;}
 
 /* ============================================================
    INSTRUCTIONS
    ============================================================ */
-function goToInstructions(type) {
-  state.testType = type || 'full';
-  // Update user info
-  if (state.user) {
-    const n = state.user.name;
-    const iavEl = document.getElementById('ins-avatar'); if(iavEl) iavEl.textContent = n[0];
-    const iunEl = document.getElementById('ins-username'); if(iunEl) iunEl.textContent = n;
-  }
-  document.getElementById('agree-checkbox').checked = false;
-  document.getElementById('start-exam-btn').disabled = true;
-  document.getElementById('agree-checkbox').addEventListener('change', function() {
-    document.getElementById('start-exam-btn').disabled = !this.checked;
-  });
+function goToInstructions(type){
+  state.testType=type||'mock1';
+  if(state.user){const n=state.user.name;const av=document.getElementById('ins-avatar');if(av)av.textContent=n[0];const un=document.getElementById('ins-username');if(un)un.textContent=n;}
+  const cb=document.getElementById('agree-checkbox');if(cb)cb.checked=false;
+  const sb=document.getElementById('start-exam-btn');if(sb)sb.disabled=true;
+  if(cb)cb.onchange=function(){const s=document.getElementById('start-exam-btn');if(s)s.disabled=!this.checked;};
   showPage('page-instructions');
 }
 
 /* ============================================================
-   EXAM INITIALIZATION
+   EXAM INIT
    ============================================================ */
-function startExam() {
-  requestProctoring();
-  initExam();
-  showPage('page-exam');
-  // Try fullscreen
-  try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); } catch(e) {}
+function startExam(){
+  requestProctoring();initExam();showPage('page-exam');
+  try{document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}catch(e){}
   setupProctoringListeners();
 }
 
-function initExam() {
-  const allQ = loadQuestions();
-  let filtered;
-  const type = state.testType;
+function initExam(){
+  const all=loadQuestions();
+  const cfg=TEST_CONFIGS[state.testType]||TEST_CONFIGS.mock1;
+  let questions;
 
-  if (type === 'physics') {
-    filtered = allQ.filter(q=>q.subject==='Physics');
-    state.timeLeft = 3600;
-  } else if (type === 'mini') {
-    // 30 random questions
-    const shuffled = [...allQ].sort(()=>Math.random()-.5);
-    filtered = shuffled.slice(0,30);
-    state.timeLeft = 1800;
-  } else {
-    // Full test: shuffle within subjects
-    const subjects = ['Physics','Chemistry','Mathematics','Aptitude'];
-    filtered = [];
-    subjects.forEach(s => {
-      const sq = allQ.filter(q=>q.subject===s).sort(()=>Math.random()-.5);
-      filtered.push(...sq);
-    });
-    state.timeLeft = 7200;
+  if(cfg.mode==='subject'){
+    questions=[...all.filter(q=>q.subject===cfg.subject)].sort(()=>Math.random()-.5);
+  }else{
+    questions=buildFullTest();
   }
 
-  // Restore state if exists
-  const saved = loadExamState();
-  if (saved && saved.testType === type) {
-    const allQmap = {};
-    allQ.forEach(q => allQmap[q.id] = q);
-    const restored = saved.questions.map(id=>allQmap[id]).filter(Boolean);
-    if (restored.length > 0) {
-      state.questions = restored;
-      state.currentQuestionIndex = saved.currentQuestionIndex || 0;
-      state.answers = saved.answers || {};
-      state.questionStatus = saved.questionStatus || {};
-      state.timeLeft = saved.timeLeft || state.timeLeft;
-      state.examStartTime = saved.examStartTime || Date.now();
-      buildExamUI();
-      startTimer();
-      toast('Exam session restored!', 'info');
-      return;
+  // Try restore session
+  const saved=loadExamState();
+  if(saved&&saved.testType===state.testType&&saved.questions&&saved.questions.length>0){
+    const qmap={};all.forEach(q=>qmap[q.id]=q);
+    const restored=saved.questions.map(id=>qmap[id]).filter(Boolean);
+    if(restored.length>0){
+      state.questions=restored;state.currentQuestionIndex=saved.currentQuestionIndex||0;
+      state.answers=saved.answers||{};state.questionStatus=saved.questionStatus||{};
+      state.timeLeft=saved.timeLeft||cfg.timeSeconds;state.examStartTime=saved.examStartTime||Date.now();
+      buildExamUI();startTimer();toast('Session restored!','info');
+      const lb=document.getElementById('exam-test-label');if(lb)lb.textContent=cfg.label;return;
     }
   }
 
-  state.questions = filtered;
-  state.currentQuestionIndex = 0;
-  state.answers = {};
-  state.questionStatus = {};
-  state.examStartTime = Date.now();
-  state.warningShown = { 30: false, 10: false, 5: false };
-  state.proctoring = { camActive: false, micActive: false, violations: 0, tabSwitches: 0, fsExits: 0, log: [] };
-
-  // Initialize all as not-visited
-  state.questions.forEach(q => { state.questionStatus[q.id] = 'not-visited'; });
-
-  buildExamUI();
-  startTimer();
-  saveExamState();
-
-  const labelMap = {full:'Full Mock Test 1', physics:'Physics Subject Test', mini:'Quick Mini Test'};
-  const labelEl = document.getElementById('exam-test-label');
-  if (labelEl) labelEl.textContent = labelMap[type]||'Mock Test';
+  state.questions=questions;state.currentQuestionIndex=0;state.answers={};state.questionStatus={};
+  state.examStartTime=Date.now();state.timeLeft=cfg.timeSeconds;
+  state.warningShown={60:false,30:false,10:false,5:false};
+  state.proctoring={camActive:false,micActive:false,violations:0,tabSwitches:0,fsExits:0,log:[]};
+  state.questions.forEach(q=>{state.questionStatus[q.id]='not-visited';});
+  buildExamUI();startTimer();saveExamState();
+  const lb=document.getElementById('exam-test-label');if(lb)lb.textContent=cfg.label;
 }
 
-function buildExamUI() {
-  buildSubjectTabs();
-  renderQuestion();
-  buildPalette();
-
-  if (state.user) {
-    const spnEl = document.getElementById('sp-name'); if(spnEl) spnEl.textContent = state.user.name;
-    const spiEl = document.getElementById('sp-id'); if(spiEl) spiEl.textContent = state.user.id;
+function buildExamUI(){
+  buildSubjectTabs();renderQuestion();buildPalette();
+  if(state.user){
+    const sn=document.getElementById('sp-name');if(sn)sn.textContent=state.user.name;
+    const si=document.getElementById('sp-id');if(si)si.textContent=state.user.id;
   }
 }
 
-function buildSubjectTabs() {
-  const subjects = [...new Set(state.questions.map(q=>q.subject))];
-  const container = document.getElementById('subject-tabs');
-  if (!container) return;
-
-  container.innerHTML = subjects.map(s => {
-    const count = state.questions.filter(q=>q.subject===s).length;
-    return `<div class="subject-tab ${s===subjects[0]?'active':''}" onclick="switchSubject('${s}',this)">${s} (${count})</div>`;
-  }).join('');
-  state.currentSubject = subjects[0];
+function buildSubjectTabs(){
+  const subjects=[...new Set(state.questions.map(q=>q.subject))];
+  const cont=document.getElementById('subject-tabs');if(!cont)return;
+  cont.innerHTML=subjects.map((s,i)=>{const c=state.questions.filter(q=>q.subject===s).length;return`<div class="subject-tab${i===0?' active':''}" onclick="switchSubject('${s}',this)">${s} (${c})</div>`;}).join('');
+  state.currentSubject=subjects[0];
 }
 
-function switchSubject(subject, el) {
-  state.currentSubject = subject;
+function switchSubject(subj,el){
+  state.currentSubject=subj;
   document.querySelectorAll('.subject-tab').forEach(t=>t.classList.remove('active'));
-  if(el) el.classList.add('active');
-
-  const firstIdx = state.questions.findIndex(q=>q.subject===subject);
-  if (firstIdx !== -1) {
-    state.currentQuestionIndex = firstIdx;
-    renderQuestion();
-    buildPalette();
-  }
+  if(el)el.classList.add('active');
+  const fi=state.questions.findIndex(q=>q.subject===subj);
+  if(fi!==-1){state.currentQuestionIndex=fi;renderQuestion();buildPalette();}
 }
 
 /* ============================================================
-   QUESTION RENDERING
+   QUESTION RENDER
    ============================================================ */
-function renderQuestion() {
-  const q = state.questions[state.currentQuestionIndex];
-  if (!q) return;
+function renderQuestion(){
+  const q=state.questions[state.currentQuestionIndex];if(!q)return;
+  if(state.questionStatus[q.id]==='not-visited')state.questionStatus[q.id]='not-answered';
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('q-num-badge',`Q.${state.currentQuestionIndex+1}`);
+  set('q-subject-label',q.subject);set('q-chapter-label',q.chapter);
+  set('question-text',q.question);
+  const db=document.getElementById('q-difficulty-badge');
+  if(db){db.textContent=q.difficulty;db.className=`badge badge-${q.difficulty==='Easy'?'success':q.difficulty==='Medium'?'warning':'danger'}`;}
+  const ol=document.getElementById('options-list');
+  if(ol){const lb=['A','B','C','D'];const sel=state.answers[q.id];ol.innerHTML=q.options.map((opt,i)=>`<div class="option-item${sel===i?' selected':''}" onclick="selectOption(${i})"><div class="option-label">${lb[i]}</div><div class="option-text">${opt}</div></div>`).join('');}
+  document.querySelectorAll('.subject-tab').forEach(t=>t.classList.toggle('active',t.textContent.startsWith(q.subject)));
+  updatePaletteHighlight();saveExamState();
+}
 
-  // Mark as visited if not-visited
-  if (state.questionStatus[q.id] === 'not-visited') {
-    state.questionStatus[q.id] = 'not-answered';
-  }
-
-  const numEl = document.getElementById('q-num-badge');
-  if(numEl) numEl.textContent = `Q.${state.currentQuestionIndex+1}`;
-
-  const subEl = document.getElementById('q-subject-label');
-  if(subEl) subEl.textContent = q.subject;
-
-  const diffEl = document.getElementById('q-difficulty-badge');
-  if(diffEl) {
-    diffEl.textContent = q.difficulty;
-    diffEl.className = `badge badge-${q.difficulty==='Easy'?'success':q.difficulty==='Medium'?'warning':'danger'}`;
-  }
-
-  const chapEl = document.getElementById('q-chapter-label');
-  if(chapEl) chapEl.textContent = q.chapter;
-
-  const textEl = document.getElementById('question-text');
-  if(textEl) textEl.textContent = q.question;
-
-  const optList = document.getElementById('options-list');
-  if(optList) {
-    const labels = ['A','B','C','D'];
-    const selected = state.answers[q.id];
-    optList.innerHTML = q.options.map((opt,i) => `
-      <div class="option-item ${selected===i?'selected':''}" onclick="selectOption(${i})">
-        <div class="option-label">${labels[i]}</div>
-        <div class="option-text">${opt}</div>
-      </div>
-    `).join('');
-  }
-
-  // Update subject tab active state
-  document.querySelectorAll('.subject-tab').forEach(t => {
-    t.classList.toggle('active', t.textContent.startsWith(q.subject));
+function selectOption(idx){
+  const q=state.questions[state.currentQuestionIndex];if(!q)return;
+  state.answers[q.id]=idx;
+  const cur=state.questionStatus[q.id];
+  state.questionStatus[q.id]=cur==='marked'?'marked-answered':'answered';
+  document.querySelectorAll('.option-item').forEach((el,i)=>{
+    el.classList.toggle('selected',i===idx);
+    const lb=el.querySelector('.option-label');
+    if(i===idx){lb.style.background='var(--primary)';lb.style.color='#fff';lb.style.borderColor='var(--primary)';}
+    else{lb.style.background='';lb.style.color='';lb.style.borderColor='';}
   });
-
-  updatePaletteHighlight();
-  saveExamState();
+  updatePaletteHighlight();saveExamState();
 }
 
-function selectOption(index) {
-  const q = state.questions[state.currentQuestionIndex];
-  if (!q) return;
-  state.answers[q.id] = index;
-  const cur = state.questionStatus[q.id];
-  if (cur === 'marked') state.questionStatus[q.id] = 'marked-answered';
-  else state.questionStatus[q.id] = 'answered';
-
-  // Re-render options
-  document.querySelectorAll('.option-item').forEach((el,i) => {
-    el.classList.toggle('selected', i===index);
-    el.querySelector('.option-label').style.background = i===index ? 'var(--primary)' : '';
-    el.querySelector('.option-label').style.color = i===index ? 'white' : '';
-    el.querySelector('.option-label').style.borderColor = i===index ? 'var(--primary)' : '';
-  });
-  updatePaletteHighlight();
-  saveExamState();
-}
-
-function prevQuestion() {
-  if (state.currentQuestionIndex > 0) {
-    state.currentQuestionIndex--;
-    renderQuestion();
-    buildPalette();
-  }
-}
-
-function saveAndNext() {
-  if (state.currentQuestionIndex < state.questions.length - 1) {
-    state.currentQuestionIndex++;
-    renderQuestion();
-    buildPalette();
-  } else {
-    toast('You are at the last question!', 'info');
-  }
-}
-
-function markForReview() {
-  const q = state.questions[state.currentQuestionIndex];
-  if (!q) return;
-  const cur = state.questionStatus[q.id];
-  if (cur === 'answered' || cur === 'marked-answered') {
-    state.questionStatus[q.id] = 'marked-answered';
-  } else {
-    state.questionStatus[q.id] = 'marked';
-  }
-  toast('Question marked for review', 'info');
-  buildPalette();
-  saveExamState();
-}
-
-function clearResponse() {
-  const q = state.questions[state.currentQuestionIndex];
-  if (!q) return;
-  delete state.answers[q.id];
-  const cur = state.questionStatus[q.id];
-  state.questionStatus[q.id] = cur==='marked-answered'?'marked':'not-answered';
-  renderQuestion();
-  toast('Response cleared', 'warning');
-}
-
-function goToQuestion(index) {
-  state.currentQuestionIndex = index;
-  renderQuestion();
-  buildPalette();
-}
+function prevQuestion(){if(state.currentQuestionIndex>0){state.currentQuestionIndex--;renderQuestion();buildPalette();}}
+function saveAndNext(){if(state.currentQuestionIndex<state.questions.length-1){state.currentQuestionIndex++;renderQuestion();buildPalette();}else toast('Last question!','info');}
+function markForReview(){const q=state.questions[state.currentQuestionIndex];if(!q)return;const c=state.questionStatus[q.id];state.questionStatus[q.id]=(c==='answered'||c==='marked-answered')?'marked-answered':'marked';toast('Marked for review','info');buildPalette();saveExamState();}
+function clearResponse(){const q=state.questions[state.currentQuestionIndex];if(!q)return;delete state.answers[q.id];const c=state.questionStatus[q.id];state.questionStatus[q.id]=c==='marked-answered'?'marked':'not-answered';renderQuestion();toast('Response cleared','warning');}
+function goToQuestion(i){state.currentQuestionIndex=i;renderQuestion();buildPalette();}
 
 /* ============================================================
    PALETTE
    ============================================================ */
-function buildPalette() {
-  const grid = document.getElementById('palette-grid');
-  if (!grid) return;
-
-  grid.innerHTML = state.questions.map((q,i) => {
-    const status = state.questionStatus[q.id] || 'not-visited';
-    const isCurrent = i === state.currentQuestionIndex;
-    const classMap = {
-      'not-visited':'not-visited',
-      'answered':'answered',
-      'not-answered':'not-answered',
-      'marked':'marked',
-      'marked-answered':'marked-answered',
-    };
-    return `<button class="palette-btn ${classMap[status]} ${isCurrent?'current':''}" onclick="goToQuestion(${i})" title="Q.${i+1} - ${q.subject}">${i+1}</button>`;
-  }).join('');
-
+function buildPalette(){
+  const g=document.getElementById('palette-grid');if(!g)return;
+  g.innerHTML=state.questions.map((q,i)=>{const s=state.questionStatus[q.id]||'not-visited';const cur=i===state.currentQuestionIndex;const cm={'not-visited':'not-visited','answered':'answered','not-answered':'not-answered','marked':'marked','marked-answered':'marked-answered'};return`<button class="palette-btn ${cm[s]}${cur?' current':''}" onclick="goToQuestion(${i})" title="Q.${i+1} ${q.subject}">${i+1}</button>`;}).join('');
   updatePaletteSummary();
 }
-
-function updatePaletteHighlight() {
-  document.querySelectorAll('.palette-btn').forEach((btn,i) => {
-    btn.classList.toggle('current', i===state.currentQuestionIndex);
-  });
-}
-
-function updatePaletteSummary() {
-  const counts = {answered:0,'not-answered':0,marked:0,'marked-answered':0,'not-visited':0};
-  Object.values(state.questionStatus).forEach(s => { if(counts[s]!==undefined) counts[s]++; });
-  const el = document.getElementById('palette-summary');
-  if (!el) return;
-  el.innerHTML = `
-    <div class="ps-item"><div class="palette-dot-mini ans" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${counts.answered}</span>&nbsp;Answered</div>
-    <div class="ps-item"><div class="palette-dot-mini na" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${counts['not-answered']}</span>&nbsp;Not Ans</div>
-    <div class="ps-item"><div class="palette-dot-mini mr" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${counts.marked+counts['marked-answered']}</span>&nbsp;Marked</div>
-    <div class="ps-item"><div class="palette-dot-mini nv" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${counts['not-visited']}</span>&nbsp;Not Visited</div>
-  `;
+function updatePaletteHighlight(){document.querySelectorAll('.palette-btn').forEach((b,i)=>b.classList.toggle('current',i===state.currentQuestionIndex));}
+function updatePaletteSummary(){
+  const c={answered:0,'not-answered':0,marked:0,'marked-answered':0,'not-visited':0};
+  Object.values(state.questionStatus).forEach(s=>{if(c[s]!==undefined)c[s]++;});
+  const el=document.getElementById('palette-summary');if(!el)return;
+  el.innerHTML=`<div class="ps-item"><div class="palette-dot-mini ans" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${c.answered+c['marked-answered']}</span>&nbsp;Ans</div><div class="ps-item"><div class="palette-dot-mini na" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${c['not-answered']}</span>&nbsp;N/A</div><div class="ps-item"><div class="palette-dot-mini mr" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${c.marked+c['marked-answered']}</span>&nbsp;Mkd</div><div class="ps-item"><div class="palette-dot-mini nv" style="width:10px;height:10px;border-radius:2px;"></div><span class="ps-count">${c['not-visited']}</span>&nbsp;N/V</div>`;
 }
 
 /* ============================================================
    TIMER
    ============================================================ */
-function startTimer() {
-  if (state.timerInterval) clearInterval(state.timerInterval);
+function startTimer(){
+  if(state.timerInterval)clearInterval(state.timerInterval);
   updateTimerDisplay();
-  state.timerInterval = setInterval(() => {
-    state.timeLeft--;
-    updateTimerDisplay();
-    checkTimeWarnings();
-    if (state.timeLeft <= 0) {
-      clearInterval(state.timerInterval);
-      toast('Time Up! Auto-submitting...', 'warning');
-      setTimeout(submitExam, 1500);
-    }
-    if (state.timeLeft % 30 === 0) saveExamState();
-  }, 1000);
+  state.timerInterval=setInterval(()=>{state.timeLeft--;updateTimerDisplay();checkTimeWarnings();if(state.timeLeft<=0){clearInterval(state.timerInterval);toast('Time Up! Submitting...','warning');setTimeout(submitExam,1500);}if(state.timeLeft%30===0)saveExamState();},1000);
 }
-
-function updateTimerDisplay() {
-  const h = Math.floor(state.timeLeft/3600);
-  const m = Math.floor((state.timeLeft%3600)/60);
-  const s = state.timeLeft%60;
-  const str = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  const el = document.getElementById('exam-timer');
-  if (!el) return;
-  el.textContent = str;
-  const isDanger = state.timeLeft <= 600;
-  el.classList.toggle('danger', isDanger);
+function updateTimerDisplay(){
+  const h=Math.floor(state.timeLeft/3600),m=Math.floor((state.timeLeft%3600)/60),s=state.timeLeft%60;
+  const el=document.getElementById('exam-timer');if(!el)return;
+  el.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.classList.toggle('danger',state.timeLeft<=600);
 }
-
-function checkTimeWarnings() {
-  const minsLeft = Math.floor(state.timeLeft/60);
-  if (minsLeft===30 && !state.warningShown[30]) {
-    state.warningShown[30] = true;
-    showTimeWarning(30);
-  }
-  if (minsLeft===10 && !state.warningShown[10]) {
-    state.warningShown[10] = true;
-    showTimeWarning(10);
-  }
-  if (minsLeft===5 && !state.warningShown[5]) {
-    state.warningShown[5] = true;
-    showTimeWarning(5);
-  }
+function checkTimeWarnings(){
+  const m=Math.floor(state.timeLeft/60);
+  if(m===60&&!state.warningShown[60]){state.warningShown[60]=true;showTimeWarning(60);}
+  if(m===30&&!state.warningShown[30]){state.warningShown[30]=true;showTimeWarning(30);}
+  if(m===10&&!state.warningShown[10]){state.warningShown[10]=true;showTimeWarning(10);}
+  if(m===5&&!state.warningShown[5]){state.warningShown[5]=true;showTimeWarning(5);}
 }
-
-function showTimeWarning(mins) {
-  const el = document.getElementById('time-warning-text');
-  if(el) el.textContent = `Only ${mins} minute${mins>1?'s':''} remaining! Please review your answers and submit before the time runs out.`;
+function showTimeWarning(mins){
+  const el=document.getElementById('time-warning-text');if(el)el.textContent=`Only ${mins} minute${mins>1?'s':''} remaining! No negative marking — attempt all questions before time runs out!`;
   openModal('time-warning-modal');
 }
 
 /* ============================================================
    SUBMIT
    ============================================================ */
-function openSubmitModal() {
-  const counts = {answered:0,'not-answered':0,marked:0,'marked-answered':0,'not-visited':0};
-  Object.values(state.questionStatus).forEach(s => { if(counts[s]!==undefined) counts[s]++; });
-
-  const ssa = document.getElementById('ss-answered'); if(ssa) ssa.textContent = counts.answered+counts['marked-answered'];
-  const ssna = document.getElementById('ss-not-answered'); if(ssna) ssna.textContent = counts['not-answered']+counts['not-visited'];
-  const ssm = document.getElementById('ss-marked'); if(ssm) ssm.textContent = counts.marked+counts['marked-answered'];
+function openSubmitModal(){
+  const c={answered:0,'not-answered':0,marked:0,'marked-answered':0,'not-visited':0};
+  Object.values(state.questionStatus).forEach(s=>{if(c[s]!==undefined)c[s]++;});
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('ss-answered',c.answered+c['marked-answered']);
+  set('ss-not-answered',c['not-answered']+c['not-visited']);
+  set('ss-marked',c.marked+c['marked-answered']);
   openModal('submit-modal');
 }
 
-function submitExam() {
-  closeModal('submit-modal');
-  clearInterval(state.timerInterval);
-  clearExamState();
-
-  // Calculate result
-  let correct=0, wrong=0, unattempted=0;
-  const subjectData = {};
-  const allQ = loadQuestions();
-  const qmap = {};
-  allQ.forEach(q=>qmap[q.id]=q);
-
-  state.questions.forEach(q => {
-    const fullQ = qmap[q.id] || q;
-    const subj = fullQ.subject;
-    if (!subjectData[subj]) subjectData[subj] = {correct:0,wrong:0,total:0,attempted:0};
-    subjectData[subj].total++;
-
-    const ans = state.answers[q.id];
-    if (ans === undefined || ans === null) {
-      unattempted++;
-    } else if (ans === fullQ.correctAnswer) {
-      correct++;
-      subjectData[subj].correct++;
-      subjectData[subj].attempted++;
-    } else {
-      wrong++;
-      subjectData[subj].wrong++;
-      subjectData[subj].attempted++;
-    }
+function submitExam(){
+  closeModal('submit-modal');clearInterval(state.timerInterval);clearExamState();
+  let correct=0,wrong=0,unattempted=0;const subData={};
+  const all=loadQuestions();const qmap={};all.forEach(q=>qmap[q.id]=q);
+  state.questions.forEach(q=>{
+    const fq=qmap[q.id]||q,subj=fq.subject;
+    if(!subData[subj])subData[subj]={correct:0,wrong:0,total:0,attempted:0};
+    subData[subj].total++;
+    const ans=state.answers[q.id];
+    if(ans===undefined||ans===null){unattempted++;}
+    else if(ans===fq.correctAnswer){correct++;subData[subj].correct++;subData[subj].attempted++;}
+    else{wrong++;subData[subj].wrong++;subData[subj].attempted++;}
   });
-
-  const score = correct*3 - wrong;
-  const maxScore = state.questions.length*3;
-  const accuracy = correct+wrong > 0 ? Math.round((correct/(correct+wrong))*100) : 0;
-  const timeUsed = (state.testType==='full'?7200:state.testType==='physics'?3600:1800) - state.timeLeft;
-  const testName = {full:'Full Mock Test 1',physics:'Physics Subject Test',mini:'Quick Mini Test'}[state.testType]||'Mock Test';
-
-  // Subject accuracy
-  const subjectScores = {};
-  Object.entries(subjectData).forEach(([s,d]) => {
-    subjectScores[s] = {
-      score: d.correct*3 - d.wrong,
-      maxScore: d.total*3,
-      correct: d.correct,
-      wrong: d.wrong,
-      total: d.total,
-      accuracy: d.attempted>0?Math.round((d.correct/d.attempted)*100):0,
-    };
-  });
-
-  // Save to history
-  const histEntry = {
-    userId: state.user?.id,
-    testName, date: Date.now(), score, maxScore, accuracy,
-    correct, wrong, unattempted, timeUsed, subjectScores,
-    violations: state.proctoring.violations, tabSwitches: state.proctoring.tabSwitches
-  };
-  const history = loadHistory();
-  history.push(histEntry);
-  saveHistory(history);
-
-  // Render result page
-  renderResult(histEntry);
-  showPage('page-result');
-
-  // Exit fullscreen
-  try { document.exitFullscreen && document.exitFullscreen(); } catch(e){}
+  // SRMJEEE 2026: +1 correct, 0 wrong — score = number of correct answers
+  const score=correct,maxScore=130;
+  const accuracy=correct+wrong>0?Math.round((correct/(correct+wrong))*100):0;
+  const cfg=TEST_CONFIGS[state.testType]||TEST_CONFIGS.mock1;
+  const timeUsed=cfg.timeSeconds-state.timeLeft;
+  const subjectScores={};
+  Object.entries(subData).forEach(([s,d])=>{subjectScores[s]={score:d.correct,maxScore:d.total,correct:d.correct,wrong:d.wrong,total:d.total,accuracy:d.attempted>0?Math.round((d.correct/d.attempted)*100):0};});
+  const entry={userId:state.user?.id,testName:cfg.name,date:Date.now(),score,maxScore,accuracy,correct,wrong,unattempted,timeUsed,subjectScores,violations:state.proctoring.violations,tabSwitches:state.proctoring.tabSwitches,fsExits:state.proctoring.fsExits};
+  const hist=loadHistory();hist.push(entry);saveHistory(hist);
+  renderResult(entry);showPage('page-result');
+  try{document.exitFullscreen&&document.exitFullscreen();}catch(e){}
   stopProctoring();
 }
 
 /* ============================================================
    RESULT
    ============================================================ */
-function renderResult(data) {
-  const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
-  set('r-score', data.score);
-  set('r-correct', data.correct);
-  set('r-wrong', data.wrong);
-  set('r-skip', data.unattempted);
-  set('r-accuracy', data.accuracy+'%');
-
-  const mins = Math.floor(data.timeUsed/60);
-  const secs = data.timeUsed%60;
-  set('r-time', `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`);
-  set('r-candidate-line', `${state.user?.name||'Candidate'} · ${data.testName}`);
-
-  const rank = predictRank(data.score, data.maxScore);
-  const percentile = Math.round((1 - rank/100000)*100*10)/10;
-  set('r-rank', '#'+rank.toLocaleString());
-  set('r-percentile', percentile+'th');
-  set('r-cat-rank', '#'+Math.floor(rank/3).toLocaleString());
-
-  set('pr-violations', data.tabSwitches||0);
-  set('pr-fs', state.proctoring.fsExits||0);
-  const prStatus = document.getElementById('pr-status');
-  if(prStatus) {
-    const isOk = (data.tabSwitches||0) < 3;
-    prStatus.textContent = isOk?'CLEAR':'FLAGGED';
-    prStatus.style.color = isOk?'var(--success)':'var(--danger)';
-  }
-
-  // Score donut
-  setTimeout(() => drawScoreDonut(data.score, data.maxScore), 100);
-
-  // Subject results
-  const container = document.getElementById('subject-results');
-  if (container && data.subjectScores) {
-    container.innerHTML = Object.entries(data.subjectScores).map(([s,d]) => {
-      const pct = Math.round((d.score/Math.max(d.maxScore,1))*100);
-      const colors = {Physics:'#3b82f6',Chemistry:'#10b981',Mathematics:'#8b5cf6',Aptitude:'#f59e0b'};
-      const icons = {Physics:'⚛️',Chemistry:'🧪',Mathematics:'📐',Aptitude:'🧠'};
-      return `<div class="subject-result-card">
-        <div class="src-header">
-          <div class="src-title">${icons[s]||'📚'} ${s}</div>
-          <div class="src-score">${d.score}/${d.maxScore}</div>
-        </div>
-        <div class="src-bar"><div class="src-bar-fill" style="width:${Math.max(pct,0)}%;background:${colors[s]||'var(--primary)'};"></div></div>
-        <div class="src-details">
-          <div class="src-detail">✅ Correct: <strong>${d.correct}</strong></div>
-          <div class="src-detail">❌ Wrong: <strong>${d.wrong}</strong></div>
-          <div class="src-detail">⏭️ Skipped: <strong>${d.total-d.correct-d.wrong}</strong></div>
-          <div class="src-detail">🎯 Accuracy: <strong>${d.accuracy}%</strong></div>
-        </div>
-      </div>`;
-    }).join('');
-  }
-
-  // Subject bar chart
-  setTimeout(() => drawSubjectChart(data.subjectScores), 150);
+function renderResult(data){
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('r-score',data.score);set('r-correct',data.correct);set('r-wrong',data.wrong);set('r-skip',data.unattempted);
+  set('r-accuracy',data.accuracy+'%');
+  const m=Math.floor(data.timeUsed/60),s=data.timeUsed%60;
+  set('r-time',`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`);
+  set('r-candidate-line',`${state.user?.name||'Candidate'} · ${data.testName}`);
+  const rank=predictRank(data.score);const pct=Math.round((1-rank/150000)*1000)/10;
+  set('r-rank','#'+rank.toLocaleString());set('r-percentile',pct+'th');set('r-cat-rank','#'+Math.floor(rank/3).toLocaleString());
+  set('pr-violations',data.tabSwitches||0);set('pr-fs',data.fsExits||0);
+  const prs=document.getElementById('pr-status');if(prs){const ok=(data.tabSwitches||0)<3;prs.textContent=ok?'CLEAR':'FLAGGED';prs.style.color=ok?'var(--success)':'var(--danger)';}
+  setTimeout(()=>drawScoreDonut(data.score,130),100);
+  const cont=document.getElementById('subject-results');
+  const colors={Physics:'#3b82f6',Chemistry:'#10b981',Mathematics:'#8b5cf6','English & Aptitude':'#f59e0b'};
+  const icons={Physics:'⚛️',Chemistry:'🧪',Mathematics:'📐','English & Aptitude':'📝'};
+  if(cont&&data.subjectScores){cont.innerHTML=Object.entries(data.subjectScores).map(([s,d])=>{const pct=Math.max(0,Math.round((d.score/Math.max(d.maxScore,1))*100));return`<div class="subject-result-card"><div class="src-header"><div class="src-title">${icons[s]||'📚'} ${s}</div><div class="src-score">${d.score}/${d.maxScore}</div></div><div class="src-bar"><div class="src-bar-fill" style="width:${pct}%;background:${colors[s]||'var(--primary)'};"></div></div><div class="src-details"><div class="src-detail">✅ Correct: <strong>${d.correct}</strong></div><div class="src-detail">❌ Wrong: <strong>${d.wrong}</strong></div><div class="src-detail">⏭️ Skipped: <strong>${d.total-d.correct-d.wrong}</strong></div><div class="src-detail">🎯 Accuracy: <strong>${d.accuracy}%</strong></div></div></div>`;}).join('');}
+  setTimeout(()=>drawSubjectChart(data.subjectScores),150);
 }
 
-function drawScoreDonut(score, maxScore) {
-  const canvas = document.getElementById('score-donut');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const cx = 80, cy = 80, r = 65;
+function drawScoreDonut(score,max){
+  const canvas=document.getElementById('score-donut');if(!canvas)return;
+  const ctx=canvas.getContext('2d'),cx=80,cy=80,r=65,pct=Math.max(0,score/max);
   ctx.clearRect(0,0,160,160);
-  const pct = Math.max(0, score/maxScore);
-
-  // Background arc
-  ctx.beginPath();
-  ctx.arc(cx,cy,r,0,2*Math.PI);
-  ctx.strokeStyle='rgba(255,255,255,.15)';
-  ctx.lineWidth=14;
-  ctx.stroke();
-
-  // Fill arc
-  ctx.beginPath();
-  ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+2*Math.PI*pct);
-  ctx.strokeStyle='#e8a020';
-  ctx.lineWidth=14;
-  ctx.lineCap='round';
-  ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=14;ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+2*Math.PI*pct);ctx.strokeStyle='#e8a020';ctx.lineWidth=14;ctx.lineCap='round';ctx.stroke();
 }
 
-function drawSubjectChart(subjectScores) {
-  const canvas = document.getElementById('subject-chart');
-  if (!canvas || !subjectScores) return;
-  const ctx = canvas.getContext('2d');
-  const subjects = Object.keys(subjectScores);
-  const colors = {'Physics':'#3b82f6','Chemistry':'#10b981','Mathematics':'#8b5cf6','Aptitude':'#f59e0b'};
-  const W=canvas.width, H=canvas.height;
-  ctx.clearRect(0,0,W,H);
-
-  const barWidth = 50, gap = (W - subjects.length*barWidth)/(subjects.length+1);
-  const maxH = H - 50;
-
-  subjects.forEach((s,i) => {
-    const d = subjectScores[s];
-    const pct = Math.max(0, d.score/d.maxScore);
-    const x = gap + i*(barWidth+gap);
-    const h = pct*maxH;
-    const y = maxH - h + 10;
-
-    // Bar
-    const gradient = ctx.createLinearGradient(0,y,0,maxH+10);
-    gradient.addColorStop(0,colors[s]||'#3b82f6');
-    gradient.addColorStop(1,(colors[s]||'#3b82f6')+'44');
-    ctx.fillStyle=gradient;
-    ctx.beginPath();
-    ctx.roundRect(x, y, barWidth, h, [6,6,0,0]);
-    ctx.fill();
-
-    // Label
-    ctx.fillStyle='#64748b';
-    ctx.font='11px IBM Plex Sans, sans-serif';
-    ctx.textAlign='center';
-    ctx.fillText(s.substring(0,4), x+barWidth/2, H-5);
-
-    // Value
-    ctx.fillStyle=colors[s]||'#3b82f6';
-    ctx.font='bold 12px IBM Plex Sans, sans-serif';
-    ctx.fillText(d.score, x+barWidth/2, y-5);
+function drawSubjectChart(ss){
+  const canvas=document.getElementById('subject-chart');if(!canvas||!ss)return;
+  const ctx=canvas.getContext('2d'),subjects=Object.keys(ss);
+  const colors={Physics:'#3b82f6',Chemistry:'#10b981',Mathematics:'#8b5cf6','English & Aptitude':'#f59e0b'};
+  const W=canvas.width,H=canvas.height;ctx.clearRect(0,0,W,H);
+  const bw=50,gap=(W-subjects.length*bw)/(subjects.length+1),mh=H-50;
+  subjects.forEach((s,i)=>{
+    const d=ss[s],pct=Math.max(0,d.score/d.maxScore),x=gap+i*(bw+gap),h=pct*mh,y=mh-h+10;
+    const gr=ctx.createLinearGradient(0,y,0,mh+10);gr.addColorStop(0,colors[s]||'#3b82f6');gr.addColorStop(1,(colors[s]||'#3b82f6')+'44');
+    ctx.fillStyle=gr;ctx.beginPath();ctx.roundRect(x,y,bw,h,[6,6,0,0]);ctx.fill();
+    ctx.fillStyle='#64748b';ctx.font='11px IBM Plex Sans,sans-serif';ctx.textAlign='center';
+    const lbl=s==='English & Aptitude'?'Eng & Apt':s.substring(0,4);ctx.fillText(lbl,x+bw/2,H-5);
+    ctx.fillStyle=colors[s]||'#3b82f6';ctx.font='bold 12px IBM Plex Sans,sans-serif';ctx.fillText(d.score,x+bw/2,y-5);
   });
 }
 
 /* ============================================================
    PROCTORING
    ============================================================ */
-async function requestProctoring() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-    const video = document.getElementById('proctor-video');
-    if (video) { video.srcObject=stream; }
-    state.proctoring.camActive = true;
-    state.proctoring.micActive = true;
-    document.getElementById('proctor-video-wrap').classList.remove('hidden');
-    updateProctorStatus();
-    toast('Camera and microphone activated', 'success');
-  } catch(e) {
-    state.proctoring.camActive = false;
-    state.proctoring.micActive = false;
-    updateProctorStatus();
-    toast('Camera/microphone not available (proctoring limited)', 'warning');
-  }
+async function requestProctoring(){
+  try{const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});const v=document.getElementById('proctor-video');if(v)v.srcObject=stream;state.proctoring.camActive=true;state.proctoring.micActive=true;document.getElementById('proctor-video-wrap').classList.remove('hidden');updateProctorStatus();toast('RPOM active — Camera & Mic on','success');}
+  catch(e){state.proctoring.camActive=false;state.proctoring.micActive=false;updateProctorStatus();toast('Camera/mic unavailable','warning');}
 }
-
-function stopProctoring() {
-  const video = document.getElementById('proctor-video');
-  if (video && video.srcObject) {
-    video.srcObject.getTracks().forEach(t=>t.stop());
-    video.srcObject = null;
-  }
-  document.getElementById('proctor-video-wrap').classList.add('hidden');
+function stopProctoring(){const v=document.getElementById('proctor-video');if(v&&v.srcObject){v.srcObject.getTracks().forEach(t=>t.stop());v.srcObject=null;}document.getElementById('proctor-video-wrap').classList.add('hidden');}
+function updateProctorStatus(){
+  const cd=document.getElementById('cam-dot'),md=document.getElementById('mic-dot');
+  if(cd)cd.className=`proctor-dot${state.proctoring.camActive?'':' off'}`;
+  if(md)md.className=`proctor-dot${state.proctoring.micActive?'':' off'}`;
+  const ps=document.getElementById('proctor-status');
+  if(ps)ps.innerHTML=`<div style="display:flex;align-items:center;gap:.4rem;"><div class="proctor-dot${state.proctoring.camActive?'':' off'}" style="width:6px;height:6px;"></div><span style="color:rgba(255,255,255,.6)">Camera</span></div><div style="display:flex;align-items:center;gap:.4rem;"><div class="proctor-dot${state.proctoring.micActive?'':' off'}" style="width:6px;height:6px;"></div><span style="color:rgba(255,255,255,.6)">Mic</span></div>`;
 }
-
-function updateProctorStatus() {
-  const camDot = document.getElementById('cam-dot');
-  const micDot = document.getElementById('mic-dot');
-  if (camDot) camDot.className = `proctor-dot${state.proctoring.camActive?'':' off'}`;
-  if (micDot) micDot.className = `proctor-dot${state.proctoring.micActive?'':' off'}`;
-
-  const psEl = document.getElementById('proctor-status');
-  if (psEl) {
-    psEl.innerHTML = `
-      <div style="display:flex;align-items:center;gap:.4rem;">
-        <div class="proctor-dot${state.proctoring.camActive?'':' off'}" style="width:6px;height:6px;"></div>
-        <span style="color:rgba(255,255,255,.6)">Camera</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:.4rem;">
-        <div class="proctor-dot${state.proctoring.micActive?'':' off'}" style="width:6px;height:6px;"></div>
-        <span style="color:rgba(255,255,255,.6)">Mic</span>
-      </div>
-    `;
-  }
-}
-
-function setupProctoringListeners() {
-  document.addEventListener('visibilitychange', onVisibilityChange);
-  document.addEventListener('fullscreenchange', onFullscreenChange);
-  window.addEventListener('blur', onWindowBlur);
-}
-
-function onVisibilityChange() {
-  if (state.currentPage !== 'page-exam') return;
-  if (document.hidden) {
-    state.proctoring.tabSwitches++;
-    state.proctoring.violations++;
-    logProctoringEvent('Tab switch detected');
-    showViolationWarning('Tab Switch Detected', 'You have switched to another tab or window. This activity has been recorded and flagged.');
-  }
-}
-
-function onFullscreenChange() {
-  if (state.currentPage !== 'page-exam') return;
-  if (!document.fullscreenElement) {
-    state.proctoring.fsExits++;
-    state.proctoring.violations++;
-    logProctoringEvent('Fullscreen exit');
-    showViolationWarning('Fullscreen Exited', 'You have exited fullscreen mode. Please return to fullscreen to continue your examination.');
-  }
-}
-
-function onWindowBlur() {
-  if (state.currentPage !== 'page-exam') return;
-  logProctoringEvent('Window focus lost');
-}
-
-function logProctoringEvent(msg) {
-  const ts = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  state.proctoring.log.push({ts, msg});
-  const logEl = document.getElementById('activity-log');
-  if (logEl) {
-    logEl.innerHTML = state.proctoring.log.slice(-5).map(e =>
-      `<div class="activity-log-entry"><span class="ts">[${e.ts}]</span> ${e.msg}</div>`
-    ).join('');
-    logEl.scrollTop = logEl.scrollHeight;
-  }
-  const vcEl = document.getElementById('violation-count');
-  if(vcEl) vcEl.textContent = `Violations: ${state.proctoring.violations}`;
-}
-
-function showViolationWarning(title, text) {
-  document.getElementById('warning-title').textContent = title;
-  document.getElementById('warning-text').textContent = text;
-  document.getElementById('warning-count').textContent = `Total Violations: ${state.proctoring.violations}`;
-  document.getElementById('warning-overlay').classList.remove('hidden');
-}
-
-function dismissWarning() {
-  document.getElementById('warning-overlay').classList.add('hidden');
-  // Re-enter fullscreen
-  try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); } catch(e){}
-}
+function setupProctoringListeners(){document.addEventListener('visibilitychange',onVisibilityChange);document.addEventListener('fullscreenchange',onFullscreenChange);window.addEventListener('blur',onWindowBlur);}
+function onVisibilityChange(){if(state.currentPage!=='page-exam'||!document.hidden)return;state.proctoring.tabSwitches++;state.proctoring.violations++;logEvent('Tab switch detected');showViolationWarning('Tab Switch Detected','Switching tabs is a violation per SRMJEEE 2026 RPOM guidelines.');}
+function onFullscreenChange(){if(state.currentPage!=='page-exam'||document.fullscreenElement)return;state.proctoring.fsExits++;state.proctoring.violations++;logEvent('Fullscreen exit');showViolationWarning('Fullscreen Exited','SRMJEEE 2026 must be taken in fullscreen mode.');}
+function onWindowBlur(){if(state.currentPage!=='page-exam')return;logEvent('Window focus lost');}
+function logEvent(msg){const ts=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});state.proctoring.log.push({ts,msg});const le=document.getElementById('activity-log');if(le){le.innerHTML=state.proctoring.log.slice(-5).map(e=>`<div class="activity-log-entry"><span class="ts">[${e.ts}]</span> ${e.msg}</div>`).join('');le.scrollTop=le.scrollHeight;}const vc=document.getElementById('violation-count');if(vc)vc.textContent=`Violations: ${state.proctoring.violations}`;}
+function showViolationWarning(title,text){document.getElementById('warning-title').textContent=title;document.getElementById('warning-text').textContent=text;document.getElementById('warning-count').textContent=`Total Violations: ${state.proctoring.violations}`;document.getElementById('warning-overlay').classList.remove('hidden');}
+function dismissWarning(){document.getElementById('warning-overlay').classList.add('hidden');try{document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}catch(e){}}
 
 /* ============================================================
    ADMIN
    ============================================================ */
-function openAdminModal() { openModal('admin-login-modal'); }
-
-function checkAdminLogin() {
-  const pass = document.getElementById('admin-password-input').value;
-  if (pass === 'admin123') {
-    closeModal('admin-login-modal');
-    document.getElementById('admin-password-input').value = '';
-    showPage('page-admin');
-    renderAdminQuestions();
-    renderAdminStats();
-    showAdminExport();
-  } else {
-    toast('Incorrect admin password', 'error');
-  }
-}
-
-function adminNav(section, el) {
+function openAdminModal(){openModal('admin-login-modal');}
+function checkAdminLogin(){const p=document.getElementById('admin-password-input').value;if(p==='admin123'){closeModal('admin-login-modal');document.getElementById('admin-password-input').value='';showPage('page-admin');renderAdminQuestions();renderAdminStats();showAdminExport();}else toast('Wrong admin password','error');}
+function adminNav(sec,el){
   document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.admin-nav-item').forEach(n=>n.classList.remove('active'));
-  const sec = document.getElementById('admin-sec-'+section);
-  if(sec) sec.classList.add('active');
-  if(el && typeof el === 'object') el.classList.add('active');
-  else document.querySelectorAll('.admin-nav-item').forEach(n=>{
-    if(n.textContent.toLowerCase().includes(section.toLowerCase().substring(0,4))) n.classList.add('active');
-  });
-
-  if(section==='questions') renderAdminQuestions();
-  if(section==='export') showAdminExport();
-  if(section==='stats') renderAdminStats();
+  const s=document.getElementById('admin-sec-'+sec);if(s)s.classList.add('active');
+  if(el&&typeof el==='object')el.classList.add('active');
+  if(sec==='questions')renderAdminQuestions();
+  if(sec==='export')showAdminExport();
+  if(sec==='stats')renderAdminStats();
 }
-
-function renderAdminQuestions() {
-  const questions = loadQuestions();
-  const search = (document.getElementById('q-search')?.value||'').toLowerCase();
-  const subject = document.getElementById('q-filter-subject')?.value||'';
-
-  const filtered = questions.filter(q =>
-    (!subject || q.subject===subject) &&
-    (!search || q.question.toLowerCase().includes(search) || q.chapter.toLowerCase().includes(search))
-  );
-
-  const container = document.getElementById('admin-question-list');
-  if (!container) return;
-
-  if (filtered.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--gray-400);">No questions found.</div>';
-    return;
-  }
-
-  container.innerHTML = filtered.map(q => `
-    <div class="question-list-item">
-      <div class="qli-id">#${q.id}</div>
-      <div class="qli-body">
-        <div class="qli-text">${q.question}</div>
-        <div class="qli-meta">
-          <span class="badge badge-primary">${q.subject}</span>
-          <span class="badge badge-gray">${q.chapter}</span>
-          <span class="badge badge-${q.difficulty==='Easy'?'success':q.difficulty==='Medium'?'warning':'danger'}">${q.difficulty}</span>
-        </div>
-      </div>
-      <div class="qli-actions">
-        <button class="btn btn-outline btn-sm" onclick="editQuestion(${q.id})">✏️ Edit</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteQuestion(${q.id})">🗑️</button>
-      </div>
-    </div>
-  `).join('');
+function renderAdminQuestions(){
+  const qs=loadQuestions();const srch=(document.getElementById('q-search')?.value||'').toLowerCase();const subj=document.getElementById('q-filter-subject')?.value||'';
+  const f=qs.filter(q=>(!subj||q.subject===subj)&&(!srch||q.question.toLowerCase().includes(srch)||q.chapter.toLowerCase().includes(srch)));
+  const c=document.getElementById('admin-question-list');if(!c)return;
+  if(!f.length){c.innerHTML='<div style="text-align:center;padding:2rem;color:var(--gray-400);">No questions found.</div>';return;}
+  c.innerHTML=f.map(q=>`<div class="question-list-item"><div class="qli-id">#${q.id}</div><div class="qli-body"><div class="qli-text">${q.question}</div><div class="qli-meta"><span class="badge badge-primary">${q.subject}</span><span class="badge badge-gray">${q.chapter}</span><span class="badge badge-${q.difficulty==='Easy'?'success':q.difficulty==='Medium'?'warning':'danger'}">${q.difficulty}</span></div></div><div class="qli-actions"><button class="btn btn-outline btn-sm" onclick="editQuestion(${q.id})">✏️</button><button class="btn btn-danger btn-sm" onclick="deleteQuestion(${q.id})">🗑️</button></div></div>`).join('');
 }
-
-function editQuestion(id) {
-  const questions = loadQuestions();
-  const q = questions.find(q=>q.id===id);
-  if (!q) return;
-  state.adminEditId = id;
-
-  const setVal = (eid,val) => { const el=document.getElementById(eid); if(el) el.value=val; };
-  setVal('af-subject',q.subject);
-  setVal('af-chapter',q.chapter);
-  setVal('af-difficulty',q.difficulty);
-  setVal('af-correct',q.correctAnswer);
-  setVal('af-question',q.question);
-  setVal('af-a',q.options[0]||'');
-  setVal('af-b',q.options[1]||'');
-  setVal('af-c',q.options[2]||'');
-  setVal('af-d',q.options[3]||'');
-  setVal('af-edit-id',id);
-
-  adminNav('add', null);
-  toast('Question loaded for editing', 'info');
-}
-
-function adminAddQuestion() {
-  const getVal = id => document.getElementById(id)?.value?.trim()||'';
-  const editId = parseInt(document.getElementById('af-edit-id')?.value||0);
-
-  const qData = {
-    subject: getVal('af-subject'),
-    chapter: getVal('af-chapter'),
-    difficulty: getVal('af-difficulty'),
-    question: getVal('af-question'),
-    options: [getVal('af-a'),getVal('af-b'),getVal('af-c'),getVal('af-d')],
-    correctAnswer: parseInt(getVal('af-correct')),
-  };
-
-  if (!qData.question || qData.options.some(o=>!o)) {
-    toast('Please fill all fields', 'error'); return;
-  }
-
-  const questions = loadQuestions();
-  if (editId) {
-    const idx = questions.findIndex(q=>q.id===editId);
-    if (idx!==-1) { questions[idx]={...questions[idx],...qData}; }
-    toast('Question updated!', 'success');
-    document.getElementById('af-edit-id').value='';
-  } else {
-    const maxId = Math.max(...questions.map(q=>q.id),0);
-    questions.push({id:maxId+1,...qData});
-    toast('Question added!', 'success');
-  }
-
-  saveQuestions(questions);
-  ['af-question','af-a','af-b','af-c','af-d','af-chapter'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.value='';
-  });
-  renderAdminQuestions();
-}
-
-function deleteQuestion(id) {
-  if (!confirm(`Delete question #${id}?`)) return;
-  const questions = loadQuestions().filter(q=>q.id!==id);
-  saveQuestions(questions);
-  renderAdminQuestions();
-  toast('Question deleted', 'success');
-}
-
-function importQuestions() {
-  try {
-    const raw = document.getElementById('import-json').value.trim();
-    const imported = JSON.parse(raw);
-    if (!Array.isArray(imported)) throw new Error('Must be an array');
-
-    const questions = loadQuestions();
-    const maxId = Math.max(...questions.map(q=>q.id),0);
-    let count = 0;
-
-    imported.forEach((q,i) => {
-      if (!q.question || !q.options || !Array.isArray(q.options)) return;
-      questions.push({
-        id: maxId+i+1,
-        subject: q.subject||'Physics',
-        chapter: q.chapter||'General',
-        difficulty: q.difficulty||'Medium',
-        question: q.question,
-        options: q.options.slice(0,4),
-        correctAnswer: parseInt(q.correctAnswer)||0,
-      });
-      count++;
-    });
-
-    saveQuestions(questions);
-    toast(`${count} questions imported successfully!`, 'success');
-    document.getElementById('import-json').value = '';
-    renderAdminQuestions();
-  } catch(e) {
-    toast('Invalid JSON: '+e.message, 'error');
-  }
-}
-
-function showAdminExport() {
-  const questions = loadQuestions();
-  const preview = document.getElementById('export-preview');
-  if (preview) preview.textContent = JSON.stringify(questions.slice(0,3), null, 2) + '\n... ('+questions.length+' total)';
-}
-
-function exportQuestions() {
-  const questions = loadQuestions();
-  const json = JSON.stringify(questions, null, 2);
-  const blob = new Blob([json], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url; a.download='questions.json'; a.click();
-  URL.revokeObjectURL(url);
-  toast('questions.json downloaded!', 'success');
-}
-
-function copyQuestionsJSON() {
-  const questions = loadQuestions();
-  navigator.clipboard.writeText(JSON.stringify(questions, null, 2)).then(()=>{
-    toast('Copied to clipboard!', 'success');
-  }).catch(()=>{
-    toast('Could not copy to clipboard', 'error');
-  });
-}
-
-function renderAdminStats() {
-  const questions = loadQuestions();
-  const subjects = {};
-  const difficulties = {Easy:0,Medium:0,Hard:0};
-  questions.forEach(q=>{
-    subjects[q.subject]=(subjects[q.subject]||0)+1;
-    difficulties[q.difficulty]=(difficulties[q.difficulty]||0)+1;
-  });
-
-  const container = document.getElementById('admin-stats-grid');
-  if (!container) return;
-  container.innerHTML = `
-    ${Object.entries(subjects).map(([s,c])=>`
-      <div class="stat-card">
-        <div class="stat-card-value">${c}</div>
-        <div class="stat-card-label">${s} Questions</div>
-      </div>
-    `).join('')}
-    <div class="stat-card">
-      <div class="stat-card-value">${questions.length}</div>
-      <div class="stat-card-label">Total Questions</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-value text-success">${difficulties.Easy}</div>
-      <div class="stat-card-label">Easy Questions</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-value" style="color:var(--accent);">${difficulties.Medium}</div>
-      <div class="stat-card-label">Medium Questions</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-value text-danger">${difficulties.Hard}</div>
-      <div class="stat-card-label">Hard Questions</div>
-    </div>
-  `;
-}
+function editQuestion(id){const q=loadQuestions().find(q=>q.id===id);if(!q)return;const sv=(eid,v)=>{const el=document.getElementById(eid);if(el)el.value=v;};sv('af-subject',q.subject);sv('af-chapter',q.chapter);sv('af-difficulty',q.difficulty);sv('af-correct',q.correctAnswer);sv('af-question',q.question);sv('af-a',q.options[0]||'');sv('af-b',q.options[1]||'');sv('af-c',q.options[2]||'');sv('af-d',q.options[3]||'');sv('af-edit-id',id);adminNav('add',null);toast('Loaded for editing','info');}
+function adminAddQuestion(){const gv=id=>document.getElementById(id)?.value?.trim()||'';const eid=parseInt(document.getElementById('af-edit-id')?.value||0);const qd={subject:gv('af-subject'),chapter:gv('af-chapter'),difficulty:gv('af-difficulty'),question:gv('af-question'),options:[gv('af-a'),gv('af-b'),gv('af-c'),gv('af-d')],correctAnswer:parseInt(gv('af-correct'))};if(!qd.question||qd.options.some(o=>!o)){toast('Fill all fields','error');return;}const qs=loadQuestions();if(eid){const i=qs.findIndex(q=>q.id===eid);if(i!==-1)qs[i]={...qs[i],...qd};toast('Updated!','success');document.getElementById('af-edit-id').value='';}else{qs.push({id:Math.max(...qs.map(q=>q.id),0)+1,...qd});toast('Added!','success');}saveQuestions(qs);['af-question','af-a','af-b','af-c','af-d','af-chapter'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});renderAdminQuestions();}
+function deleteQuestion(id){if(!confirm(`Delete #${id}?`))return;saveQuestions(loadQuestions().filter(q=>q.id!==id));renderAdminQuestions();toast('Deleted','success');}
+function importQuestions(){try{const imp=JSON.parse(document.getElementById('import-json').value.trim());if(!Array.isArray(imp))throw new Error('Must be array');const qs=loadQuestions();let maxId=Math.max(...qs.map(q=>q.id),0),cnt=0;imp.forEach((q,i)=>{if(!q.question||!Array.isArray(q.options))return;qs.push({id:++maxId,subject:q.subject||'Physics',chapter:q.chapter||'General',difficulty:q.difficulty||'Medium',question:q.question,options:q.options.slice(0,4),correctAnswer:parseInt(q.correctAnswer)||0});cnt++;});saveQuestions(qs);toast(`${cnt} imported!`,'success');document.getElementById('import-json').value='';renderAdminQuestions();}catch(e){toast('Invalid JSON: '+e.message,'error');}}
+function showAdminExport(){const qs=loadQuestions();const pr=document.getElementById('export-preview');if(pr)pr.textContent=JSON.stringify(qs.slice(0,2),null,2)+'\n... ('+qs.length+' total)';}
+function exportQuestions(){const j=JSON.stringify(loadQuestions(),null,2);const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([j],{type:'application/json'}));a.download='srmjeee_2026_questions.json';a.click();toast('Downloaded!','success');}
+function copyQuestionsJSON(){navigator.clipboard.writeText(JSON.stringify(loadQuestions(),null,2)).then(()=>toast('Copied!','success')).catch(()=>toast('Copy failed','error'));}
+function renderAdminStats(){const qs=loadQuestions();const sub={},dif={Easy:0,Medium:0,Hard:0};qs.forEach(q=>{sub[q.subject]=(sub[q.subject]||0)+1;dif[q.difficulty]=(dif[q.difficulty]||0)+1;});const c=document.getElementById('admin-stats-grid');if(!c)return;c.innerHTML=`${Object.entries(sub).map(([s,n])=>`<div class="stat-card"><div class="stat-card-value">${n}</div><div class="stat-card-label">${s}</div></div>`).join('')}<div class="stat-card"><div class="stat-card-value">${qs.length}</div><div class="stat-card-label">Total Questions</div></div><div class="stat-card"><div class="stat-card-value" style="color:var(--success);">${dif.Easy}</div><div class="stat-card-label">Easy</div></div><div class="stat-card"><div class="stat-card-value" style="color:var(--accent);">${dif.Medium}</div><div class="stat-card-label">Medium</div></div><div class="stat-card"><div class="stat-card-value" style="color:var(--danger);">${dif.Hard}</div><div class="stat-card-label">Hard</div></div>`;}
+function saveQuestion(){adminAddQuestion();}
 
 /* ============================================================
-   INITIALIZATION
+   BOOT
    ============================================================ */
-window.addEventListener('DOMContentLoaded', () => {
-  const prefs = loadUserPrefs();
-  if (prefs.darkMode) {
-    state.darkMode = true;
-    document.body.classList.add('dark');
-    document.getElementById('dark-toggle').textContent = '☀️';
-  }
-
-  // Loading sequence
-  const messages = ['Initializing examination system...','Loading question database...','Setting up proctoring module...','Calibrating interface...','Ready!'];
-  let mi = 0;
-  const lt = document.getElementById('loading-text');
-  const msgInterval = setInterval(()=>{
-    mi++;
-    if(mi<messages.length && lt) lt.textContent=messages[mi];
-  }, 360);
-
-  setTimeout(()=>{
-    clearInterval(msgInterval);
-    document.getElementById('loading-screen').classList.add('hidden');
-    showPage('page-login');
-  }, 1900);
-
-  // Keyboard shortcuts (exam)
-  document.addEventListener('keydown', e => {
-    if (state.currentPage !== 'page-exam') return;
-    if (e.key==='ArrowRight' || e.key==='Enter') saveAndNext();
-    if (e.key==='ArrowLeft') prevQuestion();
-    if (e.key==='m' || e.key==='M') markForReview();
-    if (e.key>='1' && e.key<='4') selectOption(parseInt(e.key)-1);
+window.addEventListener('DOMContentLoaded',()=>{
+  const p=loadUserPrefs();if(p.darkMode){state.darkMode=true;document.body.classList.add('dark');document.getElementById('dark-toggle').textContent='☀️';}
+  const msgs=['Initializing 2026 examination system...','Loading 210+ question database...','Setting up RPOM proctoring...','Calibrating exam interface...','System ready!'];
+  let mi=0;const lt=document.getElementById('loading-text');
+  const iv=setInterval(()=>{mi++;if(mi<msgs.length&&lt)lt.textContent=msgs[mi];},360);
+  setTimeout(()=>{clearInterval(iv);document.getElementById('loading-screen').classList.add('hidden');showPage('page-login');},1900);
+  document.addEventListener('keydown',e=>{
+    if(state.currentPage!=='page-exam')return;
+    if(e.key==='ArrowRight')saveAndNext();
+    if(e.key==='ArrowLeft')prevQuestion();
+    if(e.key==='m'||e.key==='M')markForReview();
+    if(e.key>='1'&&e.key<='4')selectOption(parseInt(e.key)-1);
   });
 });
+
 </script>
 </body>
 </html>
