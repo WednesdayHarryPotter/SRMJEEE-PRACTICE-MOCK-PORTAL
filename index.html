@@ -1391,7 +1391,87 @@ input, select, textarea { font-family: var(--font); }
 }
 .warning-icon { font-size: 3rem; margin-bottom: 1rem; }
 .warning-title { font-size: 1.25rem; font-weight: 700; color: var(--danger); margin-bottom: .5rem; }
-.warning-text { font-size: .9rem; color: var(--gray-600); line-height: 1.6; margin-bottom: 1.5rem; }
+.warning-text { font-size: .9rem; color: var(--gray-600); line-height: 1.6; margin-bottom: 1rem; }
+/* Advanced proctoring detection panel */
+.proctor-detection-panel {
+  position: fixed;
+  bottom: 120px;
+  left: 10px;
+  width: 150px;
+  background: rgba(15,19,32,.92);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius-md);
+  padding: .5rem .6rem;
+  z-index: 501;
+  display: none;
+}
+.proctor-detection-panel.visible { display: block; }
+.pdp-title {
+  font-size: .58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.4);
+  margin-bottom: .4rem;
+}
+.pdp-item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .62rem;
+  color: rgba(255,255,255,.7);
+  margin-bottom: .25rem;
+}
+.pdp-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pdp-dot.ok { background: #22c55e; }
+.pdp-dot.warn { background: #f59e0b; animation: proctorPulse .8s ease infinite; }
+.pdp-dot.alert { background: #ef4444; animation: proctorPulse .4s ease infinite; }
+.pdp-dot.off { background: #475569; }
+/* Proctor alert toast (non-blocking) */
+.proctor-alert-toast {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(185,28,28,.95);
+  color: white;
+  padding: .6rem 1.4rem;
+  border-radius: var(--radius-md);
+  font-size: .82rem;
+  font-weight: 600;
+  z-index: 6999;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  max-width: 500px;
+  animation: slideIn .3s ease;
+  border-left: 4px solid #fca5a5;
+}
+.proctor-alert-toast.warning-level {
+  background: rgba(133,77,14,.95);
+  border-left-color: #fde68a;
+}
+.proctor-alert-toast.info-level {
+  background: rgba(30,64,175,.92);
+  border-left-color: #93c5fd;
+}
+/* VM detection banner */
+.vm-banner {
+  display: none;
+  background: #7c3aed;
+  color: white;
+  padding: .4rem 1rem;
+  font-size: .75rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: .02em;
+}
+.vm-banner.visible { display: block; }ine-height: 1.6; margin-bottom: 1.5rem; }
 .warning-count {
   background: var(--danger-bg);
   color: var(--danger);
@@ -1609,12 +1689,17 @@ body.dark .proctor-bar { background: #0a0f1a; }
 
 <!-- Warning Overlay (Tab Switch etc.) -->
 <div class="warning-overlay hidden" id="warning-overlay">
-  <div class="warning-box">
-    <div class="warning-icon">⚠️</div>
+  <div class="warning-box" style="max-width:480px;">
+    <div class="warning-icon" id="warning-icon">⚠️</div>
     <div class="warning-title" id="warning-title">Violation Detected!</div>
-    <div class="warning-text" id="warning-text">You have switched tabs or left the exam window. This activity has been recorded.</div>
-    <div class="warning-count" id="warning-count">Violations: 1</div>
-    <button class="btn btn-primary" onclick="dismissWarning()">I Understand – Return to Exam</button>
+    <div class="warning-text" id="warning-text">You have switched tabs or left the exam window.</div>
+    <div style="background:var(--danger-bg);border:1px solid #fca5a5;border-radius:var(--radius-md);padding:.75rem 1rem;font-size:.82rem;color:var(--danger);margin-bottom:1rem;">
+      <strong id="warning-count">Violations: 1</strong>
+      <span id="warning-action-note" style="margin-left:.5rem;opacity:.8;"></span>
+    </div>
+    <div id="warning-extra" style="font-size:.78rem;color:var(--gray-500);margin-bottom:1.25rem;display:none;background:var(--gray-50);border-radius:var(--radius-sm);padding:.6rem .85rem;text-align:left;"></div>
+    <button class="btn btn-primary" style="width:100%;" onclick="dismissWarning()">I Understand – Return to Exam</button>
+    <div id="auto-dismiss-bar" style="height:4px;background:var(--gray-200);border-radius:999px;margin-top:1rem;overflow:hidden;display:none;"><div id="auto-dismiss-fill" style="height:100%;background:var(--primary);border-radius:999px;transition:width 0.1s linear;width:100%;"></div></div>
   </div>
 </div>
 
@@ -1677,6 +1762,17 @@ body.dark .proctor-bar { background: #0a0f1a; }
 <div class="proctor-video-wrap hidden" id="proctor-video-wrap">
   <video id="proctor-video" autoplay muted playsinline></video>
   <div class="proctor-video-label">📷 LIVE MONITORING</div>
+</div>
+
+<!-- AI Detection Status Panel -->
+<div class="proctor-detection-panel" id="detection-panel">
+  <div class="pdp-title">AI Detection</div>
+  <div class="pdp-item"><div class="pdp-dot off" id="dp-face"></div><span id="dp-face-label">Face: Inactive</span></div>
+  <div class="pdp-item"><div class="pdp-dot off" id="dp-phone"></div><span id="dp-phone-label">Phone: —</span></div>
+  <div class="pdp-item"><div class="pdp-dot off" id="dp-book"></div><span id="dp-book-label">Object: —</span></div>
+  <div class="pdp-item"><div class="pdp-dot off" id="dp-gaze"></div><span id="dp-gaze-label">Gaze: —</span></div>
+  <div class="pdp-item"><div class="pdp-dot off" id="dp-user"></div><span id="dp-user-label">User: —</span></div>
+  <div class="pdp-item"><div class="pdp-dot off" id="dp-vm"></div><span id="dp-vm-label">VM: Checking</span></div>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -2017,6 +2113,8 @@ body.dark .proctor-bar { background: #0a0f1a; }
      PAGE: EXAM
 ════════════════════════════════════════════ -->
 <div class="page" id="page-exam">
+  <!-- VM Detection Banner -->
+  <div class="vm-banner" id="vm-banner">⚠️ Virtual Machine / Remote Desktop Detected — This violates SRMJEEE 2026 RPOM guidelines. Your session is being flagged.</div>
   <div class="exam-topbar">
     <div class="exam-topbar-left">
       <div class="logo-badge" style="background:var(--accent);color:var(--primary-dark);font-size:.72rem;padding:.2rem .5rem;border-radius:4px;font-weight:800;">SRMIST</div>
@@ -2929,8 +3027,733 @@ function showViolationWarning(title,text){document.getElementById('warning-title
 function dismissWarning(){document.getElementById('warning-overlay').classList.add('hidden');try{document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}catch(e){}}
 
 /* ============================================================
-   ADMIN
+   ADVANCED PROCTORING ENGINE — SRMJEEE 2026 RPOM
+   Detections: tab switch, fullscreen exit, face away, phone,
+   book/object, multi-face, user switch, VM/remote desktop
    ============================================================ */
+
+/* ---------- Core state ---------- */
+const proctor = {
+  stream: null,
+  faceApiLoaded: false,
+  detectionInterval: null,
+  gazeInterval: null,
+  vmCheckDone: false,
+  awayFrames: 0,           // consecutive frames without face
+  multiFrames: 0,          // consecutive frames with >1 face
+  phoneFrames: 0,
+  bookFrames: 0,
+  gazeAwayFrames: 0,
+  lastFaceTime: Date.now(),
+  canvasEl: null,
+  ctxEl: null,
+  suppressUntil: 0,        // timestamp — suppress rapid repeat warnings
+  alertQueue: [],
+  alertShowing: false,
+  // Detection thresholds (frames at ~1fps)
+  AWAY_THRESHOLD: 4,
+  MULTI_THRESHOLD: 3,
+  PHONE_THRESHOLD: 3,
+  BOOK_THRESHOLD: 4,
+  GAZE_THRESHOLD: 5,
+};
+
+/* ---------- Setup ---------- */
+function setupProctoringListeners() {
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  window.addEventListener('blur', onWindowBlur);
+  document.addEventListener('keydown', onSuspiciousKey);
+  window.addEventListener('beforeunload', onBeforeUnload);
+  // Periodic heartbeat checks
+  setInterval(heartbeatCheck, 8000);
+}
+
+/* ---------- Standard event handlers ---------- */
+function onVisibilityChange() {
+  if (state.currentPage !== 'page-exam' || !document.hidden) return;
+  state.proctoring.tabSwitches++;
+  state.proctoring.violations++;
+  logEvent('⚠️ Tab switch / screen away');
+  showViolationWarning(
+    '🚫 Tab Switch Detected',
+    'You navigated away from the examination window. This is recorded as a serious proctoring violation under SRMJEEE 2026 RPOM guidelines.',
+    '🖥️',
+    'tab',
+    'Each tab switch is logged and reported to the invigilator.'
+  );
+}
+
+function onFullscreenChange() {
+  if (state.currentPage !== 'page-exam' || document.fullscreenElement) return;
+  state.proctoring.fsExits++;
+  state.proctoring.violations++;
+  logEvent('⚠️ Fullscreen exited');
+  showViolationWarning(
+    '🔲 Fullscreen Mode Exited',
+    'SRMJEEE 2026 examinations must be taken in fullscreen mode. Exiting fullscreen is a violation. Please return to fullscreen immediately.',
+    '🔲',
+    'fullscreen',
+    'The exam will auto-return to fullscreen when you dismiss this.'
+  );
+}
+
+function onWindowBlur() {
+  if (state.currentPage !== 'page-exam') return;
+  logEvent('⚠️ Window lost focus');
+  // Don't show blocking modal for just a blur — show non-blocking toast
+  showProctorToast('⚠️ Window focus lost — keep the exam in focus', 'warning-level', 3000);
+}
+
+function onSuspiciousKey(e) {
+  if (state.currentPage !== 'page-exam') return;
+  // Block PrintScreen, Alt+Tab attempt clues, Win key
+  if (e.key === 'PrintScreen') {
+    e.preventDefault();
+    logEvent('⚠️ Screenshot attempt blocked');
+    showProctorToast('🚫 Screenshot/screen recording is not allowed during examination', 'warning-level', 4000);
+    state.proctoring.violations++;
+  }
+  if (e.altKey && e.key === 'Tab') {
+    logEvent('⚠️ Alt+Tab attempt');
+  }
+}
+
+function onBeforeUnload() {
+  if (state.currentPage === 'page-exam') {
+    logEvent('⚠️ Browser close/refresh attempt');
+    saveExamState();
+  }
+}
+
+/* ---------- Heartbeat check ---------- */
+function heartbeatCheck() {
+  if (state.currentPage !== 'page-exam') return;
+  // Check if face has been absent for extended period
+  const absent = (Date.now() - proctor.lastFaceTime) / 1000;
+  if (proctor.faceApiLoaded && absent > 20) {
+    logEvent('⚠️ No face detected for ' + Math.round(absent) + 's');
+  }
+  // Update violation counter in UI
+  const vc = document.getElementById('violation-count');
+  if (vc) vc.textContent = `Violations: ${state.proctoring.violations}`;
+}
+
+/* ---------- Camera + AI detection ---------- */
+async function requestProctoring() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { width:320, height:240, facingMode:'user' }, audio: true });
+    proctor.stream = stream;
+    const video = document.getElementById('proctor-video');
+    if (video) video.srcObject = stream;
+    state.proctoring.camActive = true;
+    state.proctoring.micActive = true;
+    document.getElementById('proctor-video-wrap').classList.remove('hidden');
+    document.getElementById('detection-panel').classList.add('visible');
+    updateProctorStatus();
+    toast('RPOM active — Camera & Mic on', 'success');
+    // Start detection engine after short delay (video needs to load)
+    setTimeout(() => {
+      initDetectionCanvas();
+      runVMDetection();
+      startFaceDetectionLoop();
+      startGazeTracking();
+      startMicMonitoring(stream);
+    }, 1500);
+  } catch(e) {
+    state.proctoring.camActive = false;
+    state.proctoring.micActive = false;
+    updateProctorStatus();
+    toast('Camera/mic unavailable — limited proctoring active', 'warning');
+    // Even without camera, run VM detection and other checks
+    runVMDetection();
+  }
+}
+
+function stopProctoring() {
+  if (proctor.stream) { proctor.stream.getTracks().forEach(t => t.stop()); proctor.stream = null; }
+  if (proctor.detectionInterval) { clearInterval(proctor.detectionInterval); proctor.detectionInterval = null; }
+  if (proctor.gazeInterval) { clearInterval(proctor.gazeInterval); proctor.gazeInterval = null; }
+  const video = document.getElementById('proctor-video');
+  if (video) video.srcObject = null;
+  document.getElementById('proctor-video-wrap').classList.add('hidden');
+  document.getElementById('detection-panel').classList.remove('visible');
+}
+
+/* ---------- Canvas for video analysis ---------- */
+function initDetectionCanvas() {
+  proctor.canvasEl = document.createElement('canvas');
+  proctor.canvasEl.width = 160; proctor.canvasEl.height = 120;
+  proctor.ctxEl = proctor.canvasEl.getContext('2d', { willReadFrequently: true });
+}
+
+/* ---------- Face detection loop (using pixel heuristics) ---------- */
+function startFaceDetectionLoop() {
+  updateDetectionDot('dp-face', 'warn', 'Face: Scanning...');
+  proctor.detectionInterval = setInterval(runFrameAnalysis, 1200); // ~0.8fps
+}
+
+function runFrameAnalysis() {
+  if (state.currentPage !== 'page-exam') return;
+  const video = document.getElementById('proctor-video');
+  if (!video || !proctor.ctxEl || video.readyState < 2) return;
+
+  try {
+    proctor.ctxEl.drawImage(video, 0, 0, 160, 120);
+    const frame = proctor.ctxEl.getImageData(0, 0, 160, 120);
+    analyzeFrame(frame);
+  } catch(e) { /* canvas tainted — skip */ }
+}
+
+function analyzeFrame(imageData) {
+  const data = imageData.data;
+  const w = 160, h = 120;
+
+  // --- Skin tone detection (face presence heuristic) ---
+  let skinPixels = 0;
+  let brightRegions = 0;
+  let darkPixels = 0;
+  let totalLuminance = 0;
+  const skinZones = []; // track where skin pixels cluster
+
+  for (let i = 0; i < data.length; i += 16) { // sample every 4th pixel
+    const r = data[i], g = data[i+1], b = data[i+2];
+    const lum = 0.299*r + 0.587*g + 0.114*b;
+    totalLuminance += lum;
+
+    // Skin detection: Rudimentary RGB heuristic
+    if (r > 95 && g > 40 && b > 20 &&
+        r > g && r > b &&
+        (r - Math.min(g,b)) > 15 &&
+        Math.abs(r - g) > 15 &&
+        r < 250) {
+      skinPixels++;
+      const px = ((i/4) % w);
+      const py = Math.floor((i/4) / w);
+      skinZones.push({px, py});
+    }
+    if (lum > 200) brightRegions++;
+    if (lum < 30) darkPixels++;
+  }
+
+  const totalSamples = data.length / 16;
+  const skinRatio = skinPixels / totalSamples;
+  const avgLum = totalLuminance / totalSamples;
+  const darkRatio = darkPixels / totalSamples;
+
+  // --- FACE PRESENCE check ---
+  const facePresent = skinRatio > 0.04 && skinRatio < 0.7 && avgLum > 25;
+
+  if (facePresent) {
+    proctor.awayFrames = 0;
+    proctor.lastFaceTime = Date.now();
+    updateDetectionDot('dp-face', 'ok', 'Face: Detected ✓');
+
+    // --- MULTI-FACE detection (high skin ratio across wide spread) ---
+    const spread = getSkinSpread(skinZones, w);
+    if (skinRatio > 0.18 && spread > 0.7) {
+      proctor.multiFrames++;
+      if (proctor.multiFrames >= proctor.MULTI_THRESHOLD) {
+        proctor.multiFrames = 0;
+        triggerDetectionWarning('multi-face');
+      } else {
+        updateDetectionDot('dp-user', 'warn', 'User: Multiple?');
+      }
+    } else if (spread > 0.55 && skinRatio > 0.12) {
+      // Possible second person
+      updateDetectionDot('dp-user', 'warn', 'User: Verify');
+      proctor.multiFrames = Math.max(0, proctor.multiFrames - 0.5);
+    } else {
+      proctor.multiFrames = Math.max(0, proctor.multiFrames - 1);
+      updateDetectionDot('dp-user', 'ok', 'User: Single ✓');
+    }
+
+    // --- PHONE detection (bright rectangular object) ---
+    const phoneScore = detectRectangularBrightObject(data, w, h);
+    if (phoneScore > 0.65) {
+      proctor.phoneFrames++;
+      updateDetectionDot('dp-phone', 'warn', 'Phone: Possible');
+      if (proctor.phoneFrames >= proctor.PHONE_THRESHOLD) {
+        proctor.phoneFrames = 0;
+        triggerDetectionWarning('phone');
+      }
+    } else {
+      proctor.phoneFrames = Math.max(0, proctor.phoneFrames - 1);
+      updateDetectionDot('dp-phone', 'ok', 'Phone: Clear ✓');
+    }
+
+    // --- BOOK / PAPER detection (large flat light object) ---
+    const bookScore = detectFlatLightObject(data, w, h, avgLum);
+    if (bookScore > 0.6) {
+      proctor.bookFrames++;
+      updateDetectionDot('dp-book', 'warn', 'Object: Detected');
+      if (proctor.bookFrames >= proctor.BOOK_THRESHOLD) {
+        proctor.bookFrames = 0;
+        triggerDetectionWarning('book');
+      }
+    } else {
+      proctor.bookFrames = Math.max(0, proctor.bookFrames - 1);
+      updateDetectionDot('dp-book', 'ok', 'Object: Clear ✓');
+    }
+
+  } else {
+    proctor.awayFrames++;
+    updateDetectionDot('dp-user', 'off', 'User: —');
+    updateDetectionDot('dp-phone', 'off', 'Phone: —');
+    updateDetectionDot('dp-book', 'off', 'Object: —');
+
+    if (proctor.awayFrames === 2) {
+      updateDetectionDot('dp-face', 'warn', 'Face: Looking away');
+    }
+    if (proctor.awayFrames >= proctor.AWAY_THRESHOLD) {
+      const awaySeconds = Math.round(proctor.awayFrames * 1.2);
+      updateDetectionDot('dp-face', 'alert', 'Face: AWAY ⚠️');
+      if (proctor.awayFrames === proctor.AWAY_THRESHOLD) {
+        triggerDetectionWarning('away', awaySeconds);
+      } else if (proctor.awayFrames % 8 === 0) {
+        // Repeat warning every ~10 seconds if still away
+        logEvent(`⚠️ Face absent: ${awaySeconds}s`);
+        showProctorToast(`⚠️ Please return to camera — ${awaySeconds}s away`, 'warning-level', 3000);
+      }
+    }
+  }
+
+  // --- VERY DARK frame (screen covered or light off) ---
+  if (darkRatio > 0.75) {
+    updateDetectionDot('dp-face', 'alert', 'Face: Obscured!');
+    logEvent('⚠️ Camera covered or very dark');
+    if (proctor.awayFrames % 6 === 0) {
+      showProctorToast('⚠️ Camera appears covered or lighting is insufficient', 'warning-level', 3000);
+    }
+  }
+}
+
+/* ---------- Spread heuristic for multi-face ---------- */
+function getSkinSpread(zones, width) {
+  if (!zones.length) return 0;
+  const xs = zones.map(z => z.px);
+  return (Math.max(...xs) - Math.min(...xs)) / width;
+}
+
+/* ---------- Phone detection (bright rectangle heuristic) ---------- */
+function detectRectangularBrightObject(data, w, h) {
+  // Look for a bright rectangular region (phone screen) in lower half of frame
+  let brightCount = 0;
+  const startRow = Math.floor(h * 0.4);
+  for (let y = startRow; y < h; y++) {
+    for (let x = Math.floor(w*0.2); x < Math.floor(w*0.8); x++) {
+      const i = (y*w + x) * 4;
+      const r=data[i], g=data[i+1], b=data[i+2];
+      const lum = 0.299*r + 0.587*g + 0.114*b;
+      // Phone screens are typically very bright and uniformly lit
+      if (lum > 180 && Math.abs(r-g) < 40 && Math.abs(g-b) < 40) brightCount++;
+    }
+  }
+  const area = (h - startRow) * w * 0.6;
+  return brightCount / area;
+}
+
+/* ---------- Book/paper detection (large flat light regions) ---------- */
+function detectFlatLightObject(data, w, h, avgLum) {
+  if (avgLum < 50) return 0; // too dark to detect
+  let whitishPixels = 0;
+  // Focus on edges/corners where papers typically appear
+  for (let y = 0; y < h; y += 3) {
+    for (let x = 0; x < w; x += 3) {
+      const i = (y*w + x) * 4;
+      const r=data[i], g=data[i+1], b=data[i+2];
+      // Paper is bright and white/off-white
+      if (r > 160 && g > 150 && b > 130 && Math.abs(r-g) < 30 && r > 150) {
+        whitishPixels++;
+      }
+    }
+  }
+  const total = (w/3) * (h/3);
+  return whitishPixels / total;
+}
+
+/* ---------- Gaze tracking (head pose via face centroid movement) ---------- */
+function startGazeTracking() {
+  let lastCentroidX = null;
+  let prevSkinRatio = null;
+
+  updateDetectionDot('dp-gaze', 'ok', 'Gaze: Active ✓');
+
+  proctor.gazeInterval = setInterval(() => {
+    if (state.currentPage !== 'page-exam') return;
+    const video = document.getElementById('proctor-video');
+    if (!video || !proctor.ctxEl || video.readyState < 2) return;
+
+    try {
+      proctor.ctxEl.drawImage(video, 0, 0, 160, 120);
+      const frame = proctor.ctxEl.getImageData(0, 0, 160, 120);
+      const data = frame.data;
+      const w = 160;
+
+      let skinCentroidX = 0, skinCount = 0;
+      for (let i = 0; i < data.length; i += 12) {
+        const r=data[i], g=data[i+1], b=data[i+2];
+        if (r>95&&g>40&&b>20&&r>g&&r>b&&(r-Math.min(g,b))>15&&Math.abs(r-g)>15&&r<250) {
+          skinCentroidX += (i/4) % w;
+          skinCount++;
+        }
+      }
+
+      if (skinCount < 20) {
+        proctor.gazeAwayFrames++;
+        if (proctor.gazeAwayFrames >= proctor.GAZE_THRESHOLD) {
+          updateDetectionDot('dp-gaze', 'alert', 'Gaze: Away ⚠️');
+          if (proctor.gazeAwayFrames === proctor.GAZE_THRESHOLD) {
+            triggerDetectionWarning('gaze-away');
+          }
+        } else {
+          updateDetectionDot('dp-gaze', 'warn', 'Gaze: Checking');
+        }
+        return;
+      }
+
+      proctor.gazeAwayFrames = Math.max(0, proctor.gazeAwayFrames - 1);
+      const centX = skinCentroidX / skinCount;
+
+      if (lastCentroidX !== null) {
+        const deviation = Math.abs(centX - w/2) / (w/2); // 0=center, 1=edge
+        if (deviation > 0.6) {
+          updateDetectionDot('dp-gaze', 'warn', 'Gaze: Side');
+          proctor.gazeAwayFrames++;
+        } else {
+          updateDetectionDot('dp-gaze', 'ok', 'Gaze: Screen ✓');
+          proctor.gazeAwayFrames = Math.max(0, proctor.gazeAwayFrames - 1);
+        }
+      }
+      lastCentroidX = centX;
+    } catch(e) { /* skip */ }
+  }, 2000);
+}
+
+/* ---------- Microphone monitoring ---------- */
+function startMicMonitoring(stream) {
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const analyser = audioCtx.createAnalyser();
+    const src = audioCtx.createMediaStreamSource(stream);
+    src.connect(analyser);
+    analyser.fftSize = 256;
+    const buf = new Uint8Array(analyser.frequencyBinCount);
+
+    let highNoiseCount = 0;
+    setInterval(() => {
+      if (state.currentPage !== 'page-exam') return;
+      analyser.getByteFrequencyData(buf);
+      const avg = buf.reduce((a,b)=>a+b,0) / buf.length;
+      if (avg > 60) { // high ambient noise
+        highNoiseCount++;
+        if (highNoiseCount === 4) {
+          logEvent('⚠️ High ambient noise detected');
+          showProctorToast('⚠️ High noise level detected in your environment. Please ensure silence.', 'info-level', 4000);
+        }
+      } else {
+        highNoiseCount = Math.max(0, highNoiseCount - 1);
+      }
+    }, 3000);
+  } catch(e) { /* audio not available */ }
+}
+
+/* ---------- VM / Remote Desktop detection ---------- */
+function runVMDetection() {
+  const results = [];
+
+  // 1. Timing-based detection (VMs have different timing characteristics)
+  const t1 = performance.now();
+  let x = 0;
+  for(let i=0;i<100000;i++) x+=Math.sqrt(i);
+  const elapsed = performance.now() - t1;
+
+  // 2. Screen resolution anomalies
+  const sw = screen.width, sh = screen.height;
+  const dpr = window.devicePixelRatio || 1;
+
+  // 3. Hardware concurrency (VMs often have 1-2 cores)
+  const cores = navigator.hardwareConcurrency || 0;
+
+  // 4. Touch support (VMs usually have none, but so do desktops — just flag if combined)
+  const hasTouch = 'ontouchstart' in window;
+
+  // 5. WebGL renderer string (VMs often use software renderers)
+  let glRenderer = '';
+  try {
+    const c = document.createElement('canvas');
+    const gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+    if (gl) {
+      const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+      if (dbg) glRenderer = gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL).toLowerCase();
+    }
+  } catch(e) {}
+
+  // 6. Screen size common VM defaults
+  const vmScreens = [[800,600],[1024,768],[1280,800],[1366,768]];
+  const isVMScreen = vmScreens.some(([w,h]) => w===sw && h===sh);
+
+  // Score VM likelihood
+  let vmScore = 0;
+  const flags = [];
+
+  if (glRenderer.includes('llvmpipe') || glRenderer.includes('softpipe') ||
+      glRenderer.includes('swiftshader') || glRenderer.includes('mesa') ||
+      glRenderer.includes('virgl') || glRenderer.includes('vmware') ||
+      glRenderer.includes('virtualbox') || glRenderer.includes('parallels')) {
+    vmScore += 4; flags.push('SW renderer: '+glRenderer.substring(0,20));
+  }
+  if (cores <= 2 && cores > 0) { vmScore += 1; flags.push('Low CPU cores: '+cores); }
+  if (isVMScreen) { vmScore += 1; flags.push('VM screen res: '+sw+'×'+sh); }
+  if (elapsed > 300) { vmScore += 1; flags.push('Slow JS timing'); }
+  if (dpr === 1 && sw > 1900) { vmScore += 1; flags.push('No HiDPI on large screen'); }
+
+  // 7. Common remote desktop / screen share indicators
+  const ua = navigator.userAgent.toLowerCase();
+  if (ua.includes('citrix') || ua.includes('vmware') || ua.includes('remote')) {
+    vmScore += 3; flags.push('Suspicious UA');
+  }
+
+  proctor.vmCheckDone = true;
+  const isVM = vmScore >= 3;
+
+  updateDetectionDot('dp-vm', isVM ? 'alert' : 'ok',
+    isVM ? 'VM: DETECTED ⚠️' : 'VM: Clear ✓');
+
+  if (isVM) {
+    const banner = document.getElementById('vm-banner');
+    if (banner) banner.classList.add('visible');
+    logEvent('⚠️ VM/Remote Desktop detected (score:'+vmScore+')');
+    state.proctoring.violations += 2;
+
+    setTimeout(() => {
+      showViolationWarning(
+        '💻 Virtual Machine / Remote Desktop Detected',
+        'Our system has detected that you may be using a Virtual Machine, Remote Desktop, or screen-sharing software. This is strictly prohibited under SRMJEEE 2026 RPOM guidelines.',
+        '💻',
+        'vm',
+        'Detected signals: ' + flags.slice(0,3).join(', ')
+      );
+    }, 3000);
+  } else {
+    logEvent('✓ VM check passed (score:'+vmScore+')');
+  }
+}
+
+/* ---------- Trigger detection warning ---------- */
+function triggerDetectionWarning(type, extra) {
+  if (Date.now() < proctor.suppressUntil) return; // suppress rapid repeats
+  proctor.suppressUntil = Date.now() + 15000; // 15s cooldown per type
+
+  const configs = {
+    'away': {
+      icon: '👤',
+      title: '🚫 Face Not Detected — Looking Away',
+      text: `Your face has not been detected in the camera for approximately ${extra || 5} seconds. Please ensure your face is clearly visible at all times.`,
+      extra: 'Keep your face centered in the camera frame. Looking away is a proctoring violation.',
+      note: 'Repeated violations may result in exam cancellation.',
+      blocking: true
+    },
+    'phone': {
+      icon: '📱',
+      title: '📱 Mobile Phone / Device Detected',
+      text: 'A mobile phone or electronic device has been detected in the camera frame. Use of any electronic device during the examination is strictly prohibited.',
+      extra: 'Please remove any mobile phones, tablets, or other devices from your desk and camera view.',
+      note: 'This is a critical violation under SRMJEEE RPOM guidelines.',
+      blocking: true
+    },
+    'book': {
+      icon: '📖',
+      title: '📚 Study Material / Object Detected',
+      text: 'A book, paper, notebook, or study material has been detected near your workstation. No reference material is permitted during the examination.',
+      extra: 'Please clear your desk completely. Only your computer/device and required ID proof are permitted.',
+      note: 'Using reference material is a disqualifying offense.',
+      blocking: true
+    },
+    'gaze-away': {
+      icon: '👁️',
+      title: '👁️ Gaze Deviation Detected',
+      text: 'Our system detected that you have been looking away from the screen repeatedly. Please maintain your focus on the examination screen at all times.',
+      extra: 'Repeated gaze deviations suggest use of reference materials or assistance.',
+      note: 'This activity is being recorded and flagged.',
+      blocking: false
+    },
+    'multi-face': {
+      icon: '👥',
+      title: '👥 Multiple Persons Detected',
+      text: 'More than one person has been detected in your camera frame. No other person is permitted to be present in the examination room.',
+      extra: 'Please ensure you are alone in the room. Any assistance from another person will result in immediate disqualification.',
+      note: 'This is a critical proctoring violation.',
+      blocking: true
+    },
+    'user-switch': {
+      icon: '🔄',
+      title: '🔄 Candidate Identity Change Detected',
+      text: 'The person visible in the camera appears to have changed. The examination must be taken by the registered candidate only.',
+      extra: 'If this is an error, please ensure your face is clearly visible and well-lit.',
+      note: 'Identity fraud is a criminal offense under examination regulations.',
+      blocking: true
+    },
+    'vm': {
+      icon: '💻',
+      title: '💻 Virtual Machine / Remote Access Detected',
+      text: 'Our system has flagged potential use of a Virtual Machine, Remote Desktop Protocol (RDP), screen mirroring, or virtualization software.',
+      extra: 'Using VM/RDP/screen sharing during RPOM examination is strictly prohibited. Please use a physical device.',
+      note: 'Your session has been flagged for manual review.',
+      blocking: true
+    }
+  };
+
+  const cfg = configs[type];
+  if (!cfg) return;
+
+  state.proctoring.violations++;
+  logEvent(`⚠️ ${type.toUpperCase()} violation #${state.proctoring.violations}`);
+
+  if (cfg.blocking) {
+    showViolationWarning(cfg.title, cfg.text, cfg.icon, type, cfg.extra + '\n' + cfg.note);
+  } else {
+    showProctorToast(`${cfg.icon} ${cfg.title} — ${cfg.extra}`, 'warning-level', 6000);
+  }
+
+  // Check if exam should be terminated (>5 critical violations)
+  if (state.proctoring.violations >= 6) {
+    setTimeout(() => {
+      if (confirm('⚠️ CRITICAL: Too many proctoring violations detected.\n\nYour exam has been flagged for review.\n\nClick OK to submit your current answers, or Cancel to continue (with continued monitoring).')) {
+        submitExam();
+      }
+    }, 500);
+  }
+}
+
+/* ---------- Logging ---------- */
+function logEvent(msg) {
+  const ts = new Date().toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  state.proctoring.log.push({ts, msg});
+  const le = document.getElementById('activity-log');
+  if (le) {
+    le.innerHTML = state.proctoring.log.slice(-8).map(e =>
+      `<div class="activity-log-entry"><span class="ts">[${e.ts}]</span> ${e.msg}</div>`
+    ).join('');
+    le.scrollTop = le.scrollHeight;
+  }
+  const vc = document.getElementById('violation-count');
+  if (vc) vc.textContent = `Violations: ${state.proctoring.violations}`;
+}
+
+/* ---------- Update detection panel dots ---------- */
+function updateDetectionDot(id, status, label) {
+  const dot = document.getElementById(id);
+  const lbl = document.getElementById(id+'-label');
+  if (dot) dot.className = `pdp-dot ${status}`;
+  if (lbl) lbl.textContent = label;
+}
+
+/* ---------- Proctor status bar update ---------- */
+function updateProctorStatus() {
+  const cd = document.getElementById('cam-dot'), md = document.getElementById('mic-dot');
+  if (cd) cd.className = `proctor-dot${state.proctoring.camActive ? '' : ' off'}`;
+  if (md) md.className = `proctor-dot${state.proctoring.micActive ? '' : ' off'}`;
+  const ps = document.getElementById('proctor-status');
+  if (ps) ps.innerHTML = `
+    <div style="display:flex;align-items:center;gap:.4rem;">
+      <div class="proctor-dot${state.proctoring.camActive?'':' off'}" style="width:6px;height:6px;"></div>
+      <span style="color:rgba(255,255,255,.6)">Camera</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.4rem;">
+      <div class="proctor-dot${state.proctoring.micActive?'':' off'}" style="width:6px;height:6px;"></div>
+      <span style="color:rgba(255,255,255,.6)">Mic</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:rgba(255,255,255,.45);">
+      <span>AI Detection: ON</span>
+    </div>`;
+}
+
+/* ---------- Blocking violation warning modal ---------- */
+function showViolationWarning(title, text, icon, type, extraNote) {
+  const ov = document.getElementById('warning-overlay');
+  const ti = document.getElementById('warning-title');
+  const tx = document.getElementById('warning-text');
+  const ic = document.getElementById('warning-icon');
+  const wc = document.getElementById('warning-count');
+  const wa = document.getElementById('warning-action-note');
+  const we = document.getElementById('warning-extra');
+
+  if (ti) ti.textContent = title;
+  if (tx) tx.textContent = text;
+  if (ic) ic.textContent = icon || '⚠️';
+  if (wc) wc.textContent = `Total Violations: ${state.proctoring.violations}`;
+
+  // Color the warning count based on severity
+  const criticalTypes = ['phone','multi-face','user-switch','vm','book'];
+  const isCritical = criticalTypes.includes(type);
+  if (wc) wc.style.background = isCritical ? '#fee2e2' : '#fef3c7';
+  if (wc) wc.style.color = isCritical ? '#b91c1c' : '#92400e';
+  if (wc) wc.style.border = isCritical ? '1px solid #fca5a5' : '1px solid #fde68a';
+
+  if (wa) wa.textContent = state.proctoring.violations >= 4 ? '⚠️ FINAL WARNING — next violation may terminate exam' : '';
+
+  if (we && extraNote) {
+    we.textContent = extraNote;
+    we.style.display = 'block';
+    we.style.borderLeft = isCritical ? '3px solid #ef4444' : '3px solid #f59e0b';
+  } else if (we) {
+    we.style.display = 'none';
+  }
+
+  if (ov) ov.classList.remove('hidden');
+
+  // Auto-dismiss bar for non-critical after 10s
+  if (!isCritical) {
+    startAutoDismiss(10000);
+  }
+}
+
+/* ---------- Non-blocking toast warning ---------- */
+function showProctorToast(msg, level, duration) {
+  const existing = document.querySelector('.proctor-alert-toast');
+  if (existing) existing.remove();
+
+  const el = document.createElement('div');
+  el.className = `proctor-alert-toast ${level || ''}`;
+  el.innerHTML = `<span>${msg}</span>`;
+  document.body.appendChild(el);
+  setTimeout(() => { if (el.parentNode) el.remove(); }, duration || 4000);
+}
+
+/* ---------- Auto-dismiss countdown ---------- */
+let autoDismissTimer = null;
+function startAutoDismiss(ms) {
+  const bar = document.getElementById('auto-dismiss-bar');
+  const fill = document.getElementById('auto-dismiss-fill');
+  if (!bar || !fill) return;
+  bar.style.display = 'block';
+  fill.style.width = '100%';
+
+  if (autoDismissTimer) clearTimeout(autoDismissTimer);
+  const steps = ms / 100;
+  let step = 0;
+  const iv = setInterval(() => {
+    step++;
+    fill.style.width = (100 - (step/steps)*100) + '%';
+    if (step >= steps) {
+      clearInterval(iv);
+      const ov = document.getElementById('warning-overlay');
+      if (ov && !ov.classList.contains('hidden')) dismissWarning();
+    }
+  }, 100);
+}
+
+/* ---------- Dismiss ---------- */
+function dismissWarning() {
+  const ov = document.getElementById('warning-overlay');
+  if (ov) ov.classList.add('hidden');
+  const bar = document.getElementById('auto-dismiss-bar');
+  if (bar) bar.style.display = 'none';
+  try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); } catch(e) {}
+}
+
+
 function openAdminModal(){openModal('admin-login-modal');}
 function checkAdminLogin(){const p=document.getElementById('admin-password-input').value;if(p==='admin123'){closeModal('admin-login-modal');document.getElementById('admin-password-input').value='';showPage('page-admin');renderAdminQuestions();renderAdminStats();showAdminExport();}else toast('Wrong admin password','error');}
 function adminNav(sec,el){
